@@ -1,0 +1,6 @@
+{
+  "appId": "com.runningroyal.app",
+  "appName": "runningroyal",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}
