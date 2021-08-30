@@ -12,8 +12,8 @@ import {BrowserRouter, Route, Link, Switch} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './store.js';
-// import ConnectedGroupRunReadyUp from './src/group-run-ready-up.jsx';
-// import ConnectedGroupRunActive from './src/group-run-active.jsx';
+// import ConnectedGroupRunReadyUp from './components/group-run-ready-up.jsx';
+// import ConnectedGroupRunActive from './components/group-run-active.jsx';
 import ConnectedHome from './components/home';
 import ConnectedDashboard from './components/dashboard';
 
