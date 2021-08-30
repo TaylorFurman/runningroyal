@@ -12,8 +12,9 @@ import {BrowserRouter, Route, Link, Switch} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './store.js';
-// import ConnectedGroupRunReadyUp from './components/group-run-ready-up.jsx';
-// import ConnectedGroupRunActive from './components/group-run-active.jsx';
+import ConnectedGroupRunLobby from './components/group-run-lobby';
+import ConnectedGroupRunReadyUp from './components/group-run-ready-up.jsx';
+import ConnectedGroupRunActive from './components/group-run-active.jsx';
 import ConnectedHome from './components/home';
 import ConnectedDashboard from './components/dashboard';
 
@@ -65,10 +66,11 @@ function App() {
 
             </div>
             <Switch>
-            <Route exact path="/" component={ConnectedHome}/>
-            <Route exact path="/dashboard" component={ConnectedDashboard}/>
-              {/* <Route exact path="/shop" component={}/> */}
-              {/* <Route component={NoMatch}/> */}
+              <Route exact path="/" component={ConnectedHome}/>
+              <Route exact path="/dashboard" component={ConnectedDashboard}/>
+              <Route exact path="/run-ready" component={ConnectedGroupRunReadyUp}/>
+              <Route exact path="/run-lobby" component={ConnectedGroupRunLobby}/>
+              <Route exact path="/run-active" component={ConnectedGroupRunActive}/>
             </Switch>
           </BrowserRouter>
         </div>
