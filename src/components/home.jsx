@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Geolocation } from '@capacitor/geolocation';
+
 
 import GpsCoordinates from './Geolocation.jsx'
 
