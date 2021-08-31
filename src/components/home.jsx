@@ -2,12 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Geolocation } from '@capacitor/geolocation';
 
-const PrintCurrentPosition = async() =>{
-    const coordinates = await Geolocation.getCurrentPosition();
-    console.log('Current latitude: ', coordinates.coords.latitude)
-    console.log('Current longitude: ', coordinates.coords.longitude)
-}
-
+import GpsCoordinates from './Geolocation.jsx'
 
 
 class Home extends (React.Component) {
@@ -15,7 +10,7 @@ class Home extends (React.Component) {
     render() {
         return ( 
             <div >
-                <PrintCurrentPosition/>
+                <GpsCoordinates/>
             </div>
         );
     }

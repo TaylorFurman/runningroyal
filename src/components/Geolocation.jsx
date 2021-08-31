@@ -1,24 +1,26 @@
 import React from 'react';
 
-import Geolocation from '@capacitor/geolocation'
+import { Geolocation } from '@capacitor/geolocation'
 
+const PrintCurrentPosition = async(event) =>{
+    const coordinates = await Geolocation.getCurrentPosition();
+    console.log('Current longitude: ', coordinates.coords.longitude)
+    console.log('Current latitude: ', coordinates.coords.latitude)
+}
 
-class Geolocation extends (React.Component){
+class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
     }
     render(){
         return(
             <div>
-                
+                <button onClick={(e) => PrintCurrentPosition(e)}>Click to get GPS Coordinates</button>
             </div>
         )
     }
 }
 
-const PrintCurrentPosition = async() =>{
-    const coordinates = await Geolocation.getCurrentPosition();
-    console.log('Current Position: ', coordinates)
-}
 
-PrintCurrentPosition();
+
+export default GpsCoordinates
