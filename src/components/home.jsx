@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+
+import GpsCoordinates from './Geolocation.jsx'
+
+
 class Home extends (React.Component) {
 
     render() {
         return ( 
             <div >
-
+                <GpsCoordinates/>
             </div>
         );
     }
