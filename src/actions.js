@@ -5,3 +5,10 @@
 //         data: data
 //     }
 // }
+
+export function getGeoLocation(data){
+    return{
+        type: "GET_LOCATION",
+        data: data
+    }
+}

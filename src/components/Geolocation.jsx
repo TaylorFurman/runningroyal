@@ -1,39 +1,30 @@
 import React from 'react';
 
 import { Geolocation } from '@capacitor/geolocation'
+import { connect } from 'react-redux'
 
-// const PrintCurrentPosition = async(event) =>{
-//     const coordinates = await Geolocation.getCurrentPosition();
-//     console.log(coordinates);
-//     console.log(coordinates.coords);
-//     console.log(coordinates.timestamp);
-//     //console.log('Current longitude: ', coordinates.coords.longitude)
-//     let longitude =() => {this.setState({longitude: coordinates.coords.longitude})}
-//     console.log(longitude);
-//     //console.log('Current latitude: ', coordinates.coords.latitude)
-// }
+import {getGeoLocation} from '../actions.js'
 
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
-        this.state = 
-                {
-                longitude: '',
-                latitude: '',
-                altitude: '',
-                timestamp: '',
-                }
+        this.state = {id:0, longitude: '', latitude: '', altitude: '', timestamp: '',}
     }
     
     PrintCurrentPosition = async(event) =>{
-        const coordinates =  await Geolocation.getCurrentPosition();
+        const coordinates =  await Geolocation.getCurrentPosition()
+        
        // let longitude = coordinates.coords.longitude;
         //let latitude = coordinates.coords.latitude;
        // console.log(longitude);
        // console.log(latitude);
+       const interval = setInterval(() => {
         this.state.longitude = coordinates.coords.longitude;
-        console.log(this.state.longitude );
         this.state.latitude = coordinates.coords.latitude;
+        console.log(this.state.latitude);
+        console.log(this.state.longitude);  
+    }, 3000);
+        
     }
     render(){
         return(
@@ -50,7 +41,20 @@ class GpsCoordinates extends (React.Component){
         )
     }
 }
+function mapStateToProps (state) {
+	return {};
+}
+
+function mapDispatchToProps (dispatch) {
+	return {
+        getGeoLocation: function (data) {
+      dispatch(getGeoLocation(data))
+    }
+  }
+}
 
 
 
-export default GpsCoordinates
+var ConnectedGpsCoordinates = connect(mapStateToProps, mapDispatchToProps)(GpsCoordinates);
+
+export default ConnectedGpsCoordinates;
