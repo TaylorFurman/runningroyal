@@ -26,14 +26,18 @@ class GpsCoordinates extends (React.Component){
     }
     
     PrintCurrentPosition = async(event) =>{
-        const coordinates =  await Geolocation.getCurrentPosition();
+        const coordinates =  await Geolocation.getCurrentPosition()
+        
        // let longitude = coordinates.coords.longitude;
         //let latitude = coordinates.coords.latitude;
        // console.log(longitude);
        // console.log(latitude);
+       const interval = setInterval(() => {
         this.state.longitude = coordinates.coords.longitude;
         console.log(this.state.longitude );
         this.state.latitude = coordinates.coords.latitude;
+    }, 1000);
+        
     }
     render(){
         return(

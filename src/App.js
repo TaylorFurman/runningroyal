@@ -1,4 +1,5 @@
 import './App.css';
+import React, {Component} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -45,38 +46,41 @@ const theme = createTheme({
 // }
 
 function App() {
-  return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="App">
-          <BrowserRouter>
-            <AppBar position="relative">
-                <Toolbar>
-                  <Typography style={{marginRight:'60%', marginLeft:'5%', color:'#fff'}} variant="h5" color="inherit" noWrap>
-                    <Box>Running Royal</Box>
-                  </Typography>
-                   <Box style={{width:'20%'}}>
-                    <Link style={{textDecoration:'none', fontSize:'12pt', color:'#fff'}} to="/">Home</Link>
-                    <Link style={{textDecoration:'none', marginLeft:'8%', fontSize:'12pt', color:'#fff'}} to="/dashboard">Dashboard</Link>
-                   </Box>
-                </Toolbar>
-            </AppBar>
-            <div>
 
-            </div>
-            <Switch>
-              <Route exact path="/" component={ConnectedHome}/>
-              <Route exact path="/dashboard" component={ConnectedDashboard}/>
-              <Route exact path="/run-ready" component={ConnectedGroupRunReadyUp}/>
-              <Route exact path="/run-lobby" component={ConnectedGroupRunLobby}/>
-              <Route exact path="/run-active" component={ConnectedGroupRunActive}/>
-            </Switch>
-          </BrowserRouter>
-        </div>
-      </ThemeProvider>
-    </Provider>  
-  );
-}
+    return (
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="App">
+            <BrowserRouter>
+              <AppBar position="relative">
+                  <Toolbar>
+                    <Typography style={{marginRight:'60%', marginLeft:'5%', color:'#fff'}} variant="h5" color="inherit" noWrap>
+                      <Box>Running Royal</Box>
+                    </Typography>
+                     <Box style={{width:'20%'}}>
+                      <Link style={{textDecoration:'none', fontSize:'12pt', color:'#fff'}} to="/">Home</Link>
+                      <Link style={{textDecoration:'none', marginLeft:'8%', fontSize:'12pt', color:'#fff'}} to="/dashboard">Dashboard</Link>
+                     </Box>
+                  </Toolbar>
+              </AppBar>
+              <div>
+  
+              </div>
+              <Switch>
+                <Route exact path="/" component={ConnectedHome}/>
+                <Route exact path="/dashboard" component={ConnectedDashboard}/>
+                <Route exact path="/run-ready" component={ConnectedGroupRunReadyUp}/>
+                <Route exact path="/run-lobby" component={ConnectedGroupRunLobby}/>
+                <Route exact path="/run-active" component={ConnectedGroupRunActive}/>
+              </Switch>
+            </BrowserRouter>
+          </div>
+        </ThemeProvider>
+      </Provider>  
+    );
+  }
+  
+
 
 export default App;
