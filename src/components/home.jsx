@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-import GpsCoordinates from './Geolocation.jsx'
+import ConnectedGpsCoordinates from './Geolocation.jsx'
 
 
 class Home extends (React.Component) {
@@ -10,7 +10,7 @@ class Home extends (React.Component) {
     render() {
         return ( 
             <div >
-                <GpsCoordinates/>
+                <ConnectedGpsCoordinates/>
             </div>
         );
     }
