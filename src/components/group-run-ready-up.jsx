@@ -6,6 +6,52 @@ class GroupRunReadyUp extends (React.Component) {
     render() {
         return ( 
             <div >
+                <table className="runReadyTable">
+                    <tr>
+                        <th>Runner ID:</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>                            
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>                            
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>                            
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                    </table>
+
+                    <button className="runRoyalButton">Run Royal!!</button>
+                    <button className="leaveLobbyButton">Leave Lobby</button>
 
             </div>
         );
