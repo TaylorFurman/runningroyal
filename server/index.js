@@ -5,6 +5,13 @@ const express = require('express');
 const app = express();
 const http = require('http');
 
+//Connect to database
+const pgp = require('pg-promise');
+const axios = require('axios');
+const {dirname}
+
+
+
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
