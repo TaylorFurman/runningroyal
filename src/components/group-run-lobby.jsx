@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 class GroupRunActive extends (React.Component) {
 
@@ -15,22 +17,22 @@ class GroupRunActive extends (React.Component) {
                     <tr>
                         <td>1</td>
                         <td></td>
-                        <td><a href="http://www.google.com">Join</a></td>
+                        <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td></td>
-                        <td><a href="http://www.google.com">Join</a></td>
+                        <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td></td>
-                        <td><a href="http://www.google.com">Join</a></td>
+                        <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td></td>
-                        <td><a href="http://www.google.com">Join</a></td>
+                        <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     
                     </table>
