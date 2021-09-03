@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 class GroupRunReadyUp extends (React.Component) {
 
@@ -50,8 +52,8 @@ class GroupRunReadyUp extends (React.Component) {
                     
                     </table>
 
-                    <button className="runRoyalButton">Run Royal!!</button>
-                    <button className="leaveLobbyButton">Leave Lobby</button>
+                    <Button component={Link} to="/run-active" >Run Royal!</Button>
+                    <Button component={Link} to="/" >Leave Lobby</Button>
 
             </div>
         );
