@@ -1,3 +1,4 @@
+require('dotenv').config()
 const hostname = '127.0.0.1';
 const port = 3700;
 
@@ -11,16 +12,17 @@ const pgp = require('pg-promise')();
 const axios = require('axios');
 const {dirname} = require('path');
 
-//var DATABASE_ID = 'yayzkssa';
-//var DATABASE_PASSWORD = 'Uw9I3snTPe8dTY307iJO_1MTGmZwm_nA';
-//var DATABASE_HOST = 'chunee.db.elephantsql.com';
-//var DATABASE_USER = 'yayzkssa';
+
+var DATABASE_ID = process.env.DATABASE_ID;
+var DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
+var DATABASE_HOST = process.env.DATABASE_HOST;
+var DATABASE_USER = process.env.DATABASE_USER;
 
  const dbsettings = process.env.DATABASE_URL || pgp({
-   database: 'yayzkssa',
-   password: 'Uw9I3snTPe8dTY307iJO_1MTGmZwm_nA',
-   host: 'chunee.db.elephantsql.com',
-   user: 'yayzkssa'
+   database: DATABASE_ID,
+   password: DATABASE_PASSWORD,
+   host: DATABASE_HOST,
+   user: DATABASE_USER
  })
  const db = (dbsettings);
 
@@ -32,7 +34,12 @@ const io = new Server(server);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
-});
+    .then(async res =>{
+      var run = res.data;
+    
+      await db.any(`INSERT INTO run_history VALUES(DEFAULT)`)
+    })
+    });
 
 io.on('connection', (socket) => {
     console.log('a user connected');
