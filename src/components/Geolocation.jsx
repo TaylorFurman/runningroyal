@@ -12,31 +12,35 @@ class GpsCoordinates extends (React.Component){
     }
     
     PrintCurrentPosition = async(event) =>{
+        console.log(event);
+        //need to put "coordinates" in a loop to get new data (currently prints the same data)
         const coordinates =  await Geolocation.getCurrentPosition()
-        
-       // let longitude = coordinates.coords.longitude;
-        //let latitude = coordinates.coords.latitude;
-       // console.log(longitude);
-       // console.log(latitude);
-       const interval = setInterval(() => {
+        const interval = setInterval(() => {
         this.state.longitude = coordinates.coords.longitude;
         this.state.latitude = coordinates.coords.latitude;
+        this.state.timestamp = coordinates.timestamp;
         console.log(this.state.latitude);
         console.log(this.state.longitude);  
+        console.log(this.state.timestamp); 
     }, 3000);
-        
     }
+   updateLongitude(event){
+       this.setState({longitude: this.state.longitude})
+   }
+
     render(){
         return(
             <div>
-                <button onClick={(e) => this.PrintCurrentPosition(e)}>Click to get GPS Coordinates</button>
-                <br/>
+                <button type="submit" onClick={(e) => this.PrintCurrentPosition(e)}>Click to get GPS Coordinates</button>
+                <ul>
+                    <li><p>Longitude: </p></li>
+                    <li><p></p></li>
+                    <li><p>Latitude: {this.state.latitdue}</p></li>
+                    <li><p></p></li>
+                    <li><p >Timestamp: </p></li>
+                    <li><p></p></li>
+                </ul>
                 
-                <p>Longitude: </p>
-                <br/>
-                <p>Latitude: </p>
-                <br/>
-                <p>Timestamp: </p>
             </div>
         )
     }
