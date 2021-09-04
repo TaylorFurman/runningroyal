@@ -26,20 +26,19 @@ var DATABASE_USER = process.env.DATABASE_USER;
  })
  const db = (dbsettings);
 
-
-
 //socket io
 const { Server } = require("socket.io");
 const io = new Server(server);
 
 app.get('/', (req, res) => {
+    var run = [0,1,2,3,4,5];
     res.sendFile(__dirname + '/index.html');
-    .then(async res =>{
-      var run = res.data;
     
-      await db.any(`INSERT INTO run_history VALUES(DEFAULT)`)
-    })
-    });
+    //db.any(`INSERT INTO run_history VALUES(DEFAULT, ${run[0]})`)
+  
+  });
+  
+    
 
 io.on('connection', (socket) => {
     console.log('a user connected');
