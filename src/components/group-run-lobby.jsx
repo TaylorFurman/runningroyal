@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
 class GroupRunActive extends (React.Component) {
+    
 
     render() {
         return ( 
@@ -16,22 +17,22 @@ class GroupRunActive extends (React.Component) {
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td></td>
+                        <td>0/10</td>
                         <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td></td>
+                        <td>0/10</td>
                         <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td></td>
+                        <td>0/10</td>
                         <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td></td>
+                        <td>0/10</td>
                         <td><Button component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     
