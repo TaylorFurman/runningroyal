@@ -2,10 +2,9 @@ import deepcopy from 'deepcopy';
 
 var initialState = {
     runnerLocation:  
-        {id: 0,
+        {
         longitude: '',
         latitude: '',
-        altitude: '',
         timestamp: '',
         }
 };
@@ -22,7 +21,8 @@ export function runRoyalReducer (state, action) {
     // }
 
     if (action.type === "GET_LOCATION"){
-        new_state.runnerLocation.push(action.data);
+        console.log(action);
+        new_state.runnerLocation.map(action.data);
     }
 
     return new_state;

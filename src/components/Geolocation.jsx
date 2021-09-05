@@ -13,28 +13,25 @@ class GpsCoordinates extends (React.Component){
     
     PrintCurrentPosition = async(event) =>{
         console.log(event);
-        //need to put "coordinates" in a loop to get new data (currently prints the same data)
-
+        this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
             let coordinates =  await Geolocation.getCurrentPosition()
-       
             //Displays position immediatly
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
                 this.state.timestamp = coordinates.timestamp;
                 this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.timestamp})
-                
-            
+
             //Updates position every 3 seconds
             const interval = setInterval(async() => {
-            let coordinates =  await Geolocation.getCurrentPosition()
-            this.state.longitude = coordinates.coords.longitude;
-            this.state.latitude = coordinates.coords.latitude;    
-            this.state.timestamp = coordinates.timestamp;        
-            this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})   
+                let coordinates =  await Geolocation.getCurrentPosition()
+                this.state.longitude = coordinates.coords.longitude;
+                this.state.latitude = coordinates.coords.latitude;    
+                this.state.timestamp = coordinates.timestamp;        
+                this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})   
         }, 3000);
 
     }
-
+ 
     render(){
         return(
             <div>
@@ -52,8 +49,11 @@ class GpsCoordinates extends (React.Component){
     }
 }
 function mapStateToProps (state) {
-	return {};
+	return {
+        
+    }
 }
+
 
 function mapDispatchToProps (dispatch) {
 	return {

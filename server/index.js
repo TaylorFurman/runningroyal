@@ -18,24 +18,32 @@ var DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 var DATABASE_HOST = process.env.DATABASE_HOST;
 var DATABASE_USER = process.env.DATABASE_USER;
 
- const dbsettings = process.env.DATABASE_URL || pgp({
+ const dbsettings = process.env.DATABASE_URL || ({
    database: DATABASE_ID,
    password: DATABASE_PASSWORD,
    host: DATABASE_HOST,
    user: DATABASE_USER
  })
- const db = (dbsettings);
+ const db = pgp(dbsettings);
 
 //socket io
 const { Server } = require("socket.io");
 const io = new Server(server);
 
 app.get('/', (req, res) => {
-    var run = [0,1,2,3,4,5];
-    res.sendFile(__dirname + '/index.html');
-    
-    //db.any(`INSERT INTO run_history VALUES(DEFAULT, ${run[0]})`)
-  
+  db.any('SELECT * FROM run_history')
+    .then(run_history_data =>{
+      const run_history = JSON.stringify(run_history_data)
+      let fs = require("fs");
+      fs.writeFile("./src//data/run_history.json", run_history, function(error){
+        if (error){
+          console.log("error");
+        }else{
+          console.log("success")
+        }
+      })
+      res.sendFile(__dirname + '/index.html');
+    })
   });
   
     
