@@ -8,13 +8,28 @@ import {getGeoLocation} from '../actions.js'
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
-        this.state = {id:0, longitude: '', latitude: '', altitude: '', timestamp: '',}
+        this.state = {runnerId:'', longitude: '', latitude: '', altitude: '', timestamp: '',}
     }
     
     PrintCurrentPosition = async(event) =>{
         console.log(event);
         //need to put "coordinates" in a loop to get new data (currently prints the same data)
+
             let coordinates =  await Geolocation.getCurrentPosition()
+       
+            //Displays position immediatly
+            this.state.longitude = coordinates.coords.longitude;
+                this.setState({longitude: this.state.longitude})
+
+                this.state.latitude = coordinates.coords.latitude;
+                this.setState({latitude: this.state.latitude})
+                console.log("longitude" + this.state.longitude); 
+
+                this.state.timestamp = coordinates.timestamp;
+                this.setState({timestamp: this.state.timestamp})
+                console.log("timestamp" + this.state.timestamp);
+            
+            //Updates position every 3 seconds
             const interval = setInterval(() => {
             this.state.longitude = coordinates.coords.longitude;
                 this.setState({longitude: this.state.longitude})
@@ -30,25 +45,20 @@ class GpsCoordinates extends (React.Component){
              
             console.log(interval); 
         }, 3000);
-    }
 
-   updateLongitude(event){
-       this.setState({longitude: this.state.longitude})
-       console.log(event)
-   }
+    }
 
     render(){
         return(
             <div>
                 <button type="submit" onClick={(e) => this.PrintCurrentPosition(e)}>Click to get GPS Coordinates</button>
-                <ul>
-                    <li><p>Longitude:{this.state.longitude} </p></li>
-                    <li><p></p></li>
-                    <li><p>Latitude: {this.state.latitude}</p></li>
-                    <li><p></p></li>
-                    <li><p >Timestamp: {this.state.timestamp} </p></li>
-                    <li><p></p></li>
-                </ul>
+                
+                    <p>Longitude:{this.state.longitude} </p>
+                    <p></p>
+                    <p>Latitude: {this.state.latitude}</p>
+                    <p></p>
+                    <p >Timestamp: {this.state.timestamp} </p>
+                    <p></p>
                 
             </div>
         )
