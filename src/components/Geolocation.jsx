@@ -18,32 +18,23 @@ class GpsCoordinates extends (React.Component){
             let coordinates =  await Geolocation.getCurrentPosition()
        
             //Displays position immediatly
-            this.state.longitude = coordinates.coords.longitude;
-                this.setState({longitude: this.state.longitude})
-
+                this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
-                this.setState({latitude: this.state.latitude})
-                console.log("longitude" + this.state.longitude); 
-
                 this.state.timestamp = coordinates.timestamp;
-                this.setState({timestamp: this.state.timestamp})
-                console.log("timestamp" + this.state.timestamp);
+                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.timestamp})
+                
             
             //Updates position every 3 seconds
-            const interval = setInterval(() => {
+            const interval = setInterval(async() => {
+            let coordinates =  await Geolocation.getCurrentPosition()
             this.state.longitude = coordinates.coords.longitude;
-                this.setState({longitude: this.state.longitude})
-                    console.log("latitude" + this.state.latitude);
-
-            this.state.latitude = coordinates.coords.latitude;
-                this.setState({latitude: this.state.latitude})
-                 console.log("longitude" + this.state.longitude);  
-
-            this.state.timestamp = coordinates.timestamp;
-                this.setState({timestamp: this.state.timestamp})
-                    console.log("timestamp" + this.state.timestamp);
-             
-            console.log(interval); 
+            this.state.latitude = coordinates.coords.latitude;    
+            this.state.timestamp = coordinates.timestamp;        
+            
+            this.setState({latitude: this.state.latitude})
+            this.setState({longitude: this.state.longitude})
+            this.setState({timestamp: this.state.timestamp})  
+            
         }, 3000);
 
     }
@@ -72,6 +63,7 @@ function mapDispatchToProps (dispatch) {
 	return {
         getGeoLocation: function (data) {
       dispatch(getGeoLocation(data))
+      console.log(data);
     }
   }
 }
