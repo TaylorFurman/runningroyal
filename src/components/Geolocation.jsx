@@ -30,11 +30,7 @@ class GpsCoordinates extends (React.Component){
             this.state.longitude = coordinates.coords.longitude;
             this.state.latitude = coordinates.coords.latitude;    
             this.state.timestamp = coordinates.timestamp;        
-            
-            this.setState({latitude: this.state.latitude})
-            this.setState({longitude: this.state.longitude})
-            this.setState({timestamp: this.state.timestamp})  
-            
+            this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})   
         }, 3000);
 
     }
