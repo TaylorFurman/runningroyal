@@ -8,35 +8,45 @@ import {getGeoLocation} from '../actions.js'
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
-        this.state = {id:0, longitude: '', latitude: '', altitude: '', timestamp: '',}
+        this.state = {runnerId:'', longitude: '', latitude: '', altitude: '', timestamp: '',}
     }
     
     PrintCurrentPosition = async(event) =>{
-        const coordinates =  await Geolocation.getCurrentPosition()
-        
-       // let longitude = coordinates.coords.longitude;
-        //let latitude = coordinates.coords.latitude;
-       // console.log(longitude);
-       // console.log(latitude);
-       const interval = setInterval(() => {
-        this.state.longitude = coordinates.coords.longitude;
-        this.state.latitude = coordinates.coords.latitude;
-        console.log(this.state.latitude);
-        console.log(this.state.longitude);  
-    }, 3000);
-        
+        console.log(event);
+        //need to put "coordinates" in a loop to get new data (currently prints the same data)
+
+            let coordinates =  await Geolocation.getCurrentPosition()
+       
+            //Displays position immediatly
+                this.state.longitude = coordinates.coords.longitude;
+                this.state.latitude = coordinates.coords.latitude;
+                this.state.timestamp = coordinates.timestamp;
+                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.timestamp})
+                
+            
+            //Updates position every 3 seconds
+            const interval = setInterval(async() => {
+            let coordinates =  await Geolocation.getCurrentPosition()
+            this.state.longitude = coordinates.coords.longitude;
+            this.state.latitude = coordinates.coords.latitude;    
+            this.state.timestamp = coordinates.timestamp;        
+            this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})   
+        }, 3000);
+
     }
+
     render(){
         return(
             <div>
-                <button onClick={(e) => this.PrintCurrentPosition(e)}>Click to get GPS Coordinates</button>
-                <br/>
+                <button type="submit" onClick={(e) => this.PrintCurrentPosition(e)}>Click to get GPS Coordinates</button>
                 
-                <p>Longitude: </p>
-                <br/>
-                <p>Latitude: </p>
-                <br/>
-                <p>Timestamp: </p>
+                    <p>Longitude:{this.state.longitude} </p>
+                    <p></p>
+                    <p>Latitude: {this.state.latitude}</p>
+                    <p></p>
+                    <p >Timestamp: {this.state.timestamp} </p>
+                    <p></p>
+                
             </div>
         )
     }
@@ -49,6 +59,7 @@ function mapDispatchToProps (dispatch) {
 	return {
         getGeoLocation: function (data) {
       dispatch(getGeoLocation(data))
+      console.log(data);
     }
   }
 }
