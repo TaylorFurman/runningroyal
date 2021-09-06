@@ -11,27 +11,40 @@ class GpsCoordinates extends (React.Component){
         this.state = {runnerId:'', longitude: '', latitude: '', altitude: '', timestamp: '',}
     }
     
+    
     PrintCurrentPosition = async(event) =>{
         console.log(event);
-        this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
+        //this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
             let coordinates =  await Geolocation.getCurrentPosition()
-            //Displays position immediatly
+            //Displays position immediatly & stores the data as constants that are not updated later
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
-                this.state.timestamp = coordinates.timestamp;
+                //records epoch time in seconds
+                this.state.timestamp = coordinates.timestamp - coordinates.timestamp;
                 this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.timestamp})
+                console.log(this.state.timestamp + "original")
 
-            //Updates position every 3 seconds
+            //Updates position every 3 seconds & does not effect the original call above
             const interval = setInterval(async() => {
+                let timeZero = this.state.timestamp
+
                 let coordinates =  await Geolocation.getCurrentPosition()
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;    
-                this.state.timestamp = coordinates.timestamp;        
+                this.state.timestamp = timeZero+1 ;        
                 this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})   
-        }, 3000);
+                console.log(this.state.timestamp + "new")
+        }, 1000);
 
     }
- 
+
+    componentDidMount(){
+        this.PrintCurrentPosition()
+    }
+            
+
+    
+
     render(){
         return(
             <div>
@@ -40,9 +53,25 @@ class GpsCoordinates extends (React.Component){
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
-                    <p></p>
-                    <p >Timestamp: {this.state.timestamp} </p>
-                    <p></p>
+                    
+                    <table className="runActiveTable1">
+                        <tr>
+                            <td></td>
+                            <td>Distance</td>
+                            <td>2.3 miles</td>
+                        </tr>
+                        <tr>
+                            <td>Player ID</td>
+                            <td>Average Pace</td>
+                            <td>7:30</td>
+                        </tr>
+                        <tr>
+                            <td>(Rank)</td>
+                            <td>Time (sec)</td>
+                            <td>{this.state.timestamp}</td>
+                        </tr>
+                        
+                </table>
                 
             </div>
         )
