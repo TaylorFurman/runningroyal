@@ -12,3 +12,5 @@ export function getGeoLocation(data){
         data: data
     }
 }
+
+//normally make API here to push from front end to back end
