@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
+import ConnectedGpsCoordinates from './Geolocation.jsx'
 
 class GroupRunActive extends (React.Component) {
 
@@ -10,7 +11,7 @@ class GroupRunActive extends (React.Component) {
         return ( 
             <div >
                 <Button component={Link} to="/" >Stop Run</Button>
-
+                <ConnectedGpsCoordinates/>
             {/* For every user in the group, create table */}
                 <table className="runActiveTable1">
                         <tr>

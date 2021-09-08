@@ -37,7 +37,7 @@ class GroupRunActive extends (React.Component) {
                     </tr>
                     
                     </table>
-
+                    <Button component={Link} to="/" >Return Home</Button>
             </div>
         );
     }

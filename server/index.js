@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
     .then(run_history_data =>{
       const run_history = JSON.stringify(run_history_data)
       let fs = require("fs");
-      fs.writeFile("./src//data/run_history.json", run_history, function(error){
+      fs.writeFile("./src/api/run_history.json", run_history, function(error){
         if (error){
           console.log("error");
         }else{
@@ -45,6 +45,11 @@ app.get('/', (req, res) => {
       res.sendFile(__dirname + '/index.html');
     })
   });
+
+  app.get('./src/api/run_history.json',(req,res)=>{
+    console.log(res.data)
+    
+  })
   
     
 

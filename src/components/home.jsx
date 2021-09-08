@@ -4,16 +4,16 @@ import {Link} from 'react-router-dom';
 
 import { Button } from '@material-ui/core';
 
-import ConnectedGpsCoordinates from './Geolocation.jsx'
+
 
 
 class Home extends (React.Component) {
 
     render() {
         return ( 
-            <div >
-                Welcome Back!
-                <ConnectedGpsCoordinates/>
+            <div>
+                <h1>Welcome Back!</h1>
+                
                 <Button component={Link} to="/run-lobby" >Run Royal!</Button>
             </div>
         );
