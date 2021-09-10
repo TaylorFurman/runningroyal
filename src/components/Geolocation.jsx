@@ -55,7 +55,7 @@ class GpsCoordinates extends (React.Component){
     render(){
         return(
             <div>    
-                 <Button component={Link} to="/" >Stop Run</Button>
+                 <Button variant='contained' color='primary' component={Link} to="/" >Stop Run</Button>
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
@@ -67,7 +67,7 @@ class GpsCoordinates extends (React.Component){
                             <td>2.3 miles</td>
                         </tr>
                         <tr>
-                            <td>Player ID</td>
+                            <td>Player ID 1</td>
                             <td>Average Pace</td>
                             <td>7:30</td>
                         </tr>

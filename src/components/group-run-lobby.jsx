@@ -18,26 +18,26 @@ class GroupRunActive extends (React.Component) {
                     <tr>
                         <td>1</td>
                         <td>0/10</td>
-                        <td><Button component={Link} to="/run-ready">Join</Button></td>
+                        <td><Button variant="contained" component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>0/10</td>
-                        <td><Button component={Link} to="/run-ready">Join</Button></td>
+                        <td><Button variant="contained" component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>0/10</td>
-                        <td><Button component={Link} to="/run-ready">Join</Button></td>
+                        <td><Button variant="contained" component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>0/10</td>
-                        <td><Button component={Link} to="/run-ready">Join</Button></td>
+                        <td><Button variant="contained" component={Link} to="/run-ready">Join</Button></td>
                     </tr>
                     
                     </table>
-                    <Button component={Link} to="/" >Return Home</Button>
+                    <Button variant="contained" color="primary" component={Link} to="/" >Return Home</Button>
             </div>
         );
     }
