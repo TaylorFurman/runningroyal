@@ -1,6 +1,6 @@
 import React from 'react';
 
-import axios from "axios"
+//import axios from "axios"
 
 import { Geolocation } from '@capacitor/geolocation'
 import { connect } from 'react-redux'
@@ -39,23 +39,23 @@ class GpsCoordinates extends (React.Component){
 
     }
 
+    handleSubmit(event){
+        
+        this.setState({timestamp: this.state.timestamp})
+        alert("Ending run");
+        setTimeout(function() {   
+        }, 3000);
+        
+    }
+
     componentDidMount(){
         this.PrintCurrentPosition()
-    }
-    
-    componentWillUnmount(){
-        axios.get('./runningroyal/src/data/run_history.json')
-        .then(res => {
-            res = res.json();
-            console.log(res);
-            console.log(res.data);
-        })       
     }
             
     render(){
         return(
             <div>    
-                 <Button variant='contained' color='primary' component={Link} to="/" >Stop Run</Button>
+                 <Button onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to="/" >Stop Run</Button>
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
