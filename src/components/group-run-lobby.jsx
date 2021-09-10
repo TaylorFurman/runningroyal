@@ -2,23 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { saveToLocalStorage } from './util';
-import { loadFromLocalStorage } from './util';
-
+import { addToRunnerJoinedCount } from '../actions.js';
 
 
 class GroupRunActive extends (React.Component) {
-
-    countRunners(event){
-        let count;
-        if(loadFromLocalStorage()!== undefined){
-            count = loadFromLocalStorage();
-        } else{
-            count = 0;
-        }
-        
-        count++;
-        saveToLocalStorage(count);
+   
+    addRunnerToCount(event){
+        this.props.addToRunnerJoinedCount({});
     }    
 
     render() {
@@ -32,47 +22,15 @@ class GroupRunActive extends (React.Component) {
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>0/10</td>
+                        <td>{this.props.runnersJoinedCount}/10</td>
                         <td><Button 
                                 component={Link} 
                                 to="/run-ready" 
-                                onClick={(e) => this.countRunners(e)}>
+                                onClick={(e) => this.addRunnerToCount(e)}>
                             Join</Button>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>0/10</td>
-                        <td><Button 
-                                component={Link} 
-                                to="/run-ready" 
-                                onClick={(e) => this.countRunners(e)}>
-                            Join</Button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>0/10</td>
-                        <td><Button 
-                                component={Link} 
-                                to="/run-ready" 
-                                onClick={(e) => this.countRunners(e)}>
-                            Join</Button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>0/10</td>
-                        <td><Button 
-                                component={Link} 
-                                to="/run-ready" 
-                                onClick={(e) => this.countRunners(e)}>
-                            Join</Button>
-                        </td>
-                    </tr>
-                    
-                    </table>
-
+                    </tr> 
+                </table>
             </div>
         );
     }
@@ -81,11 +39,17 @@ class GroupRunActive extends (React.Component) {
 
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
-    return {}; 
+    return {
+        runnersJoinedCount: state.runnersJoinedCount,
+    }; 
 }
 //writes data to store
 function mapDispatchToProps (dispatch) {
-    return {}
+    return {
+        addToRunnerJoinedCount: function (data) {
+            dispatch(addToRunnerJoinedCount(data))
+        }
+    }
 }
 
 var ConnectedGroupRunActive = connect(mapStateToProps, mapDispatchToProps)(GroupRunActive);

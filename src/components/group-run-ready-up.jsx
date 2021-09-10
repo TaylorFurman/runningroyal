@@ -2,20 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import { loadFromLocalStorage } from './util';
 
 class GroupRunReadyUp extends (React.Component) {
 
-    getRunnerCount(){
-        var runnerCount = 0;
-        if(loadFromLocalStorage()!== undefined){
-            runnerCount = loadFromLocalStorage();
-        } 
-        return runnerCount;
-    }
-
     componentDidMount(){
-        let runnerCountForTable = this.getRunnerCount();
+        let runnerCountForTable = this.props.runnersJoinedCount;
         for (let i = 0; i < runnerCountForTable; i++) {
             document.querySelector(".runReadyTable").insertAdjacentHTML(
                 "beforeend",
@@ -41,31 +32,11 @@ class GroupRunReadyUp extends (React.Component) {
                         <th>Runner ID:</th>
                         <th></th>
                     </tr>
+                  
+                </table>
 
-                    {/* <tr>
-                        <td>1</td>
-                        <td>
-                            <form>
-                                <input type="checkbox"></input>
-                                <label for="Ready Up">Ready Up</label>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>                            
-                            <form>
-                                <input type="checkbox"></input>
-                                <label for="Ready Up">Ready Up</label>
-                            </form>
-                        </td>
-                    </tr> */}
-                    
-                    
-                    </table>
-
-                    <Button component={Link} to="/run-active" >Run Royal!</Button>
-                    <Button component={Link} to="/" >Leave Lobby</Button>
+                <Button component={Link} to="/run-active" >Run Royal!</Button>
+                <Button component={Link} to="/" >Leave Lobby</Button>
 
             </div>
         );
@@ -75,7 +46,9 @@ class GroupRunReadyUp extends (React.Component) {
 
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
-    return {}; 
+    return {
+        runnersJoinedCount: state.runnersJoinedCount,
+    }; 
 }
 //writes data to store
 function mapDispatchToProps (dispatch) {

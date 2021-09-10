@@ -7,7 +7,8 @@ var initialState = {
         latitude: '',
         altitude: '',
         timestamp: '',
-        }
+        },
+    runnersJoinedCount: 0,
 };
 
 export function runRoyalReducer (state, action) {
@@ -15,14 +16,12 @@ export function runRoyalReducer (state, action) {
         return initialState;
     }
     let new_state = deepcopy(state);  
-   
-    //leaving this as an example, need to change for run royal
-    // if (action.type === 'TOGGLE_CHECKED_SHOP') {
-    //     new_state.shopping_list[action.data.index].isChecked = !state.shopping_list[action.data.index].isChecked;
-    // }
 
     if (action.type === "GET_LOCATION"){
         new_state.runnerLocation.push(action.data);
+    }
+    if (action.type === "Add_TO_COUNT"){
+        new_state.runnersJoinedCount++;
     }
 
     return new_state;
