@@ -10,7 +10,7 @@ class GroupRunActive extends (React.Component) {
     render() {
         return ( 
             <div >
-                <Button component={Link} to="/" >Stop Run</Button>
+               
                 <ConnectedGpsCoordinates/>
             {/* For every user in the group, create table */}
                 <table className="runActiveTable1">

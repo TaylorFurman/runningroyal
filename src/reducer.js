@@ -22,7 +22,7 @@ export function runRoyalReducer (state, action) {
 
     if (action.type === "GET_LOCATION"){
         console.log(action);
-        new_state.runnerLocation.map(action.data);
+        new_state.runnerLocation.push(action.data);
     }
 
     return new_state;

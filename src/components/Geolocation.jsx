@@ -7,14 +7,17 @@ import { connect } from 'react-redux'
 
 import {getGeoLocation} from '../actions.js'
 
+import {Link} from 'react-router-dom';
+import { Button } from '@material-ui/core';
+
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
         this.state = {runnerId:'', longitude: '', latitude: '', altitude: '', timestamp: '',}
     }
     
-    
-    PrintCurrentPosition = async(event) =>{
+    //**pass as utility later**
+    PrintCurrentPosition = async() =>{
         //this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
             let coordinates =  await Geolocation.getCurrentPosition()
             //Displays position immediatly & stores the data as constants that are not updated later
@@ -43,19 +46,16 @@ class GpsCoordinates extends (React.Component){
     componentWillUnmount(){
         axios.get('./runningroyal/src/data/run_history.json')
         .then(res => {
+            res = res.json();
             console.log(res);
             console.log(res.data);
-            
-        })
-
-        
+        })       
     }
             
     render(){
         return(
-            <div>
-                
-                
+            <div>    
+                 <Button component={Link} to="/" >Stop Run</Button>
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
@@ -83,18 +83,17 @@ class GpsCoordinates extends (React.Component){
         )
     }
 }
+
 function mapStateToProps (state) {
-	return {
-        
-    }
+	return {};
 }
 
 
 function mapDispatchToProps (dispatch) {
 	return {
         getGeoLocation: function (data) {
-      dispatch(getGeoLocation(data))
-      console.log(data);
+        dispatch(getGeoLocation(data))
+        console.log(data);
     }
   }
 }
