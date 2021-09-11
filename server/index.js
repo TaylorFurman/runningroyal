@@ -44,12 +44,12 @@ app.get('/', (req, res) => {
       })
       res.sendFile(__dirname + '/index.html');
     })
-  });
+});
 
-  app.get('./src/api/run_history.json',(req,res)=>{
-    console.log(res.data)
+app.get('./src/api/run_history.json',(req,res)=>{
+   console.log(res.data)
     
-  })
+})
   
     
 
