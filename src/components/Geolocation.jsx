@@ -47,9 +47,10 @@ class GpsCoordinates extends (React.Component){
             headers: {
                 "Content-Type":"application/json"
             },
-            body: JSON.stringify({timestamp:20})
+            body: JSON.stringify({timestamp: this.state.timestamp})
         }).then((res)=>{
-        console.log(res);
+        // console.log(res.body);
+        // console.log('hello')
         }).catch((error)=>{
             console.log(error);
         })
@@ -67,7 +68,7 @@ class GpsCoordinates extends (React.Component){
     render(){
         return(
             <div>    
-                 <Button onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary'>Stop Run</Button>
+                 <Button onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to ='/'>Stop Run</Button>
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>

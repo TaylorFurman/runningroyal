@@ -59,10 +59,13 @@ app.get('./src/api/run_history.json',(req,res)=>{
     
 })
 
-app.post('/run_data',(req,res)=>{
-  console.log(req.body);
+app.post('/run_data', async (req,res)=>{
+  console.log(req.body.timestamp);
   res.send({stuff: true});
-})
+    await db.any(`INSERT INTO run_history VALUES(DEFAULT, 2, 3, '2021-09-11', 4, 5, '${req.body.timestamp}')`)
+
+  }
+)
   
     
 
