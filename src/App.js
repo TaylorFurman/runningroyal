@@ -1,18 +1,17 @@
 import './App.css';
-import React, {Component} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
+
 import { ThemeProvider } from '@material-ui/core';
 import { CssBaseline } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import { createTheme } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 
-import {BrowserRouter, Route, Link, Switch} from 'react-router-dom';
+
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './store.js';
+import NavBar from './components/NavBar.jsx'
 import ConnectedGroupRunLobby from './components/group-run-lobby';
 import ConnectedGroupRunReadyUp from './components/group-run-ready-up.jsx';
 import ConnectedGroupRunActive from './components/group-run-active.jsx';
@@ -53,26 +52,16 @@ function App() {
           <CssBaseline />
           <div className="App">
             <BrowserRouter>
-              <AppBar position="relative">
-                  <Toolbar>
-                    <Typography style={{marginRight:'60%', marginLeft:'5%', color:'#fff'}} variant="h5" color="inherit" noWrap>
-                      <Box>Running Royal</Box>
-                    </Typography>
-                     <Box style={{width:'20%'}}>
-                      <Link style={{textDecoration:'none', fontSize:'12pt', color:'#fff'}} to="/">Home</Link>
-                      <Link style={{textDecoration:'none', marginLeft:'8%', fontSize:'12pt', color:'#fff'}} to="/dashboard">Dashboard</Link>
-                     </Box>
-                  </Toolbar>
-              </AppBar>
+              
               <div>
   
               </div>
               <Switch>
-                <Route exact path="/" component={ConnectedHome}/>
-                <Route exact path="/dashboard" component={ConnectedDashboard}/>
-                <Route exact path="/run-ready" component={ConnectedGroupRunReadyUp}/>
-                <Route exact path="/run-lobby" component={ConnectedGroupRunLobby}/>
-                <Route exact path="/run-active" component={ConnectedGroupRunActive}/>
+                <Route exact path="/"><NavBar/><ConnectedHome/> </Route>
+                <Route exact path="/dashboard"><NavBar/><ConnectedDashboard/></Route>
+                <Route exact path="/run-ready"><NavBar/><ConnectedGroupRunReadyUp/></Route>
+                <Route exact path="/run-lobby"><NavBar/><ConnectedGroupRunLobby/></Route>
+                <Route exact path="/run-active"><ConnectedGroupRunActive/></Route>
               </Switch>
             </BrowserRouter>
           </div>

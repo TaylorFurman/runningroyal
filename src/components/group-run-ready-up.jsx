@@ -36,8 +36,47 @@ class GroupRunReadyUp extends (React.Component) {
                   
                 </table>
 
-                <Button component={Link} to="/run-active" >Run Royal!</Button>
-                <Button component={Link} to="/" >Leave Lobby</Button>
+                <Button variant="contained" color="primary" component={Link} to="/run-active" >Run Royal!</Button>
+                <Button variant="contained" component={Link} to="/" >Leave Lobby</Button>
+
+                    {/* <tr>
+                        <td>1</td>
+                        <td>
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>                            
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>                            
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>                            
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                    </table> */}
 
             </div>
         );
