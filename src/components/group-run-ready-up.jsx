@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 
 class GroupRunReadyUp extends (React.Component) {
 
+
     componentDidMount(){
         let runnerCountForTable = this.props.runnersJoinedCount;
         for (let i = 0; i < runnerCountForTable; i++) {
