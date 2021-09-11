@@ -41,10 +41,22 @@ class GpsCoordinates extends (React.Component){
 
     handleSubmit(event){
         
-        this.setState({timestamp: this.state.timestamp})
-        alert("Ending run");
-        setTimeout(function() {   
-        }, 3000);
+        //this.setState({timestamp: this.state.timestamp})
+        fetch('http://localhost:3700/run_data', {
+            method: 'POST',
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({timestamp:20})
+        }).then((res)=>{
+        console.log(res);
+        }).catch((error)=>{
+            console.log(error);
+        })
+
+        // alert("Ending run");
+        // setTimeout(function() {   
+        // }, 3000);
         
     }
 
@@ -55,7 +67,7 @@ class GpsCoordinates extends (React.Component){
     render(){
         return(
             <div>    
-                 <Button onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to="/" >Stop Run</Button>
+                 <Button onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary'>Stop Run</Button>
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
