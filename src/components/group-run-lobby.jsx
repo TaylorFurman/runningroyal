@@ -23,7 +23,11 @@ class GroupRunActive extends (React.Component) {
                     <tr>
                         <td>1</td>
                         <td>{this.props.runnersJoinedCount}/10</td>
+<<<<<<< HEAD
                         <td><Button 
+=======
+                        <td><Button
+>>>>>>> master
                                 variant="contained"
                                 component={Link} 
                                 to="/run-ready" 
@@ -32,7 +36,11 @@ class GroupRunActive extends (React.Component) {
                         </td>
                     </tr> 
                 </table>
+<<<<<<< HEAD
                 <Button variant="contained" color="primary" component={Link} to="/" >Return Home</Button>
+=======
+                    <Button variant="contained" color="primary" component={Link} to="/" >Return Home</Button>
+>>>>>>> master
             </div>
         );
     }

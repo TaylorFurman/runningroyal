@@ -1,5 +1,5 @@
 require('dotenv').config()
-const hostname = '127.0.0.1';
+// const hostname = '127.0.0.1';
 const port = 3700;
 
 const express = require('express');
@@ -11,6 +11,7 @@ const server = http.createServer(app);
 const pgp = require('pg-promise')();
 const axios = require('axios');
 const {dirname} = require('path');
+const cors = require('cors');
 
 
 var DATABASE_ID = process.env.DATABASE_ID;
@@ -30,6 +31,13 @@ var DATABASE_USER = process.env.DATABASE_USER;
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+//DONT FORGET () after cors EVER AGAIN 
+app.use(cors());
+
+app.use(express.urlencoded({extended:false}))
+
+app.use(express.json())
+
 app.get('/', (req, res) => {
   db.any('SELECT * FROM run_history')
     .then(run_history_data =>{
@@ -44,12 +52,20 @@ app.get('/', (req, res) => {
       })
       res.sendFile(__dirname + '/index.html');
     })
-  });
+});
 
-  app.get('./src/api/run_history.json',(req,res)=>{
-    console.log(res.data)
+app.get('./src/api/run_history.json',(req,res)=>{
+   console.log(res.send)
     
-  })
+})
+
+app.post('/run_data', async (req,res)=>{
+  console.log(req.body.timestamp);
+  res.send({stuff: true});
+    await db.any(`INSERT INTO run_history VALUES(DEFAULT, 2, 3, '2021-09-11', 4, 5, '${req.body.timestamp}')`)
+
+  }
+)
   
     
 
@@ -72,6 +88,6 @@ io.on('connection', (socket) => {
     });
   });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(port, () => {
+    console.log(`Server running at ${port}`);
 });

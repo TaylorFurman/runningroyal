@@ -32,7 +32,6 @@ export function runRoyalReducer (state, action) {
         return initialState;
     }
     let new_state = deepcopy(state);  
-    
     if (action.type === "GET_LOCATION"){
         console.log(action);
         new_state.runnerLocation(action.data);
