@@ -13,7 +13,7 @@ import { Button } from '@material-ui/core';
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
-        this.state = {runnerId:'', longitude: '', latitude: '', altitude: '', timestamp: '',}
+        this.state = {runnerId:'1', place:'1', longitude: '', latitude: '', altitude: '', timestamp: '',}
     }
     
     //**pass as utility later**
@@ -42,9 +42,10 @@ class GpsCoordinates extends (React.Component){
     handleSubmit(event){
         
         this.setState({timestamp: this.state.timestamp})
-        alert("Ending run");
-        setTimeout(function() {   
-        }, 3000);
+        console.log(this.state.timestamp);
+        // alert("Ending run");
+        // setTimeout(function() {   
+        // }, 3000);
         
     }
 
@@ -67,12 +68,12 @@ class GpsCoordinates extends (React.Component){
                             <td>2.3 miles</td>
                         </tr>
                         <tr>
-                            <td>Player ID 1</td>
+                            <td>{this.state.runnerId}</td>
                             <td>Average Pace</td>
                             <td>7:30</td>
                         </tr>
                         <tr>
-                            <td>(Rank)</td>
+                            <td>{this.state.place + "st place"}</td>
                             <td>Time (sec)</td>
                             <td>{this.state.timestamp}</td>
                         </tr>
