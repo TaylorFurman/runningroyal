@@ -9,33 +9,33 @@ import ConnectedGpsCoordinates from './Geolocation.jsx'
 
 class GroupRunActive extends (React.Component) {
 
-    componentDidMount(){
-        let runnerCountForTable = this.props.runnersJoinedCount;
-        let classNameCount;
-        for (let i = 0; i < runnerCountForTable; i++) {
-            classNameCount = i+1;
-            document.querySelector(`".runActiveTable"+i`).insertAdjacentHTML(
-                "beforeend",
-                `<table className="runActiveTable"+classNameCount>
-                    <tr>
-                        <td>hard coded</td>
-                        <td>Distance</td>
-                        <td>2.3 miles</td>
-                    </tr>
-                    <tr>
-                        <td>Player ID</td>
-                        <td>Average Pace</td>
-                        <td>7:30</td>
-                    </tr>
-                    <tr>
-                        <td>(Rank)</td>
-                        <td>Time</td>
-                        <td>8:55</td>
-                    </tr>
-                </table>`
-            );
-        }
-    }
+    // componentDidMount(){
+    //     let runnerCountForTable = this.props.runnersJoinedCount;
+    //     let classNameCount;
+    //     for (let i = 0; i < runnerCountForTable; i++) {
+    //         classNameCount = i+1;
+    //         document.querySelector(`".runActiveTable"+i`).insertAdjacentHTML(
+    //             "beforeend",
+    //             `<table className="runActiveTable"+classNameCount>
+    //                 <tr>
+    //                     <td>hard coded</td>
+    //                     <td>Distance</td>
+    //                     <td>2.3 miles</td>
+    //                 </tr>
+    //                 <tr>
+    //                     <td>Player ID</td>
+    //                     <td>Average Pace</td>
+    //                     <td>7:30</td>
+    //                 </tr>
+    //                 <tr>
+    //                     <td>(Rank)</td>
+    //                     <td>Time</td>
+    //                     <td>8:55</td>
+    //                 </tr>
+    //             </table>`
+    //         );
+    //     }
+    // }
 
     render() {
         return ( 
