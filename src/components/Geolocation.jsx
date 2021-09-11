@@ -60,9 +60,9 @@ class GpsCoordinates extends (React.Component){
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
                     
-                    <table className="runActiveTable1">
+                    <table className="runActiveTable27">
                         <tr>
-                            <td></td>
+                            <td>geo Table</td>
                             <td>Distance</td>
                             <td>2.3 miles</td>
                         </tr>

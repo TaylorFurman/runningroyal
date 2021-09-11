@@ -8,7 +8,24 @@ var initialState = {
         timestamp: '',
         },
     runnersJoinedCount: 0,
+    runnersJoined:[
+        {
+            ID: 1,
+            averagePace: '8:55',
+            distance: '2.3',
+            time: '2:55',
+
+        }, 
+        {
+            ID: 2,
+            averagePace: '7:55',
+            distance: '2.3',
+            time: '2:58',
+
+        },
+    ]
 };
+//need to array with user data here, map over to count instead of having number variable
 
 export function runRoyalReducer (state, action) {
     if (state === undefined) {
