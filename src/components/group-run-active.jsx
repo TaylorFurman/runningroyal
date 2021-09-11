@@ -11,11 +11,11 @@ class GroupRunActive extends (React.Component) {
         let classNameCount;
         for (let i = 0; i < runnerCountForTable; i++) {
             classNameCount = i+1;
-            document.querySelector(`".runActiveTable"+i`).insertAdjacentHTML(
+            document.querySelector(".runActiveTable"+runnerCountForTable).insertAdjacentHTML(
                 "beforeend",
                 `<table className="runActiveTable"+classNameCount>
                     <tr>
-                        <td>hard coded</td>
+                        <td>dynamic</td>
                         <td>Distance</td>
                         <td>2.3 miles</td>
                     </tr>
