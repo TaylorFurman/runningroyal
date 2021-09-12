@@ -1,6 +1,7 @@
 import React from 'react';
 
 //import axios from "axios"
+import moment from 'moment'
 
 import { Geolocation } from '@capacitor/geolocation'
 import { connect } from 'react-redux'
@@ -13,14 +14,17 @@ import { Button } from '@material-ui/core';
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
-        this.state = {runId:'', 
+        this.state = {
+            runId:'', 
         runnerId: '',
         run_date:'', 
         longitude: '', 
         latitude: '',  
         time_in_seconds: '',
+        time_in_minutes: '',
         distance: '',
         finishing_rank:'',
+        average_pace:''
         }
     }
     
@@ -31,21 +35,32 @@ class GpsCoordinates extends (React.Component){
             //Displays position immediatly & stores the data as constants that are not updated later
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
+                console.log(coordinates);
 
                 const long0 = this.state.longitude;
                 const lat0 = this.state.latitude;
 
-                //records epoch time in seconds
+                //records epoch time in seconds and converts to minutes
                 this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
-                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.time_in_seconds})
+                this.state.time_in_minutes = (this.state.time_in_seconds/60)
+
+                //fetches current date based on epoch time
+                
+                let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
+                console.log(sqlDate);
+                this.state.run_date = sqlDate
+                
+                
+                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.time_in_seconds, run_date: this.state.run_date})
 
             //Updates position every 3 seconds & does not effect the original call above
             setInterval(async() => {
-                let timeZero = this.state.time_in_seconds
+                let timeZeroSeconds = this.state.time_in_seconds
+                let timeZeroMinutes = this.state.time_in_minutes
                 let coordinates =  await Geolocation.getCurrentPosition()
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;  
-                const longNew = this.state.longitude;
+                let longNew = this.state.longitude++;
                 const latNew = this.state.latitude;  
                 
                 //haversine formula calculation for distance (also set as utility later)
@@ -58,15 +73,25 @@ class GpsCoordinates extends (React.Component){
                 const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
                 const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-                const d = R * c; //distance in metres
-                this.state.distance = d;
-                let d_in_km = (d/1000);
+                const distance = (0.001*(R * c)); //distance in kilometres
+                this.state.distance = distance.toFixed(2);
+                
+                this.state.time_in_seconds = timeZeroSeconds+1 ;
+                this.state.time_in_minutes = this.state.time_in_seconds/60;
+                console.log(this.state.time_in_minutes)
+                let runningTime = this.state.time_in_seconds; 
+                
+                //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
+                let average_pace = (this.state.distance/this.state.time_in_minutes)
 
-                console.log(d);
-                console.log(d_in_km);
+                this.state.average_pace = average_pace.toFixed(2);
+                //console.log(this.state.average_pace)
 
-                this.state.time_in_seconds = timeZero+1 ;        
-                this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.time_in_seconds, distance: this.state.distance})       
+                this.setState({latitude: this.state.latitude, 
+                    longitude: this.state.longitude, 
+                    timestamp: this.state.time_in_seconds, 
+                    distance: this.state.distance, 
+                    average_pace: this.state.average_pace})       
         }, 1000);
         
     }
@@ -107,21 +132,26 @@ class GpsCoordinates extends (React.Component){
                     <p>Latitude: {this.state.latitude}</p>
                     
                     <table className="runActiveTable1">
+                        <tbody>
+                            
                         <tr>
                             <td>Position</td>
                             <td>Runner ID</td>
                             <td>Distance Ran</td>
-                            <td>Average Pace(min/km)</td>
                             <td>Time (sec)</td>
+                            <td>Average Pace(km/min)</td>
+                            
                         </tr>
                         <tr>
                             <td>-Filler Text-</td>
                             <td>-Filler Text-</td>
                             <td>{this.state.distance}</td>
-                            <td>7:30</td>
                             <td>{this.state.time_in_seconds}</td>
+                            <td>{this.state.average_pace}</td>
+                            
                         </tr>
                         
+                        </tbody>
                         
                 </table>
                 
