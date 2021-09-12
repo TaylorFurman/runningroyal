@@ -14,13 +14,13 @@ class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
         this.state = {runId:'', 
-        runnerId: 5,
+        runnerId: '',
         run_date:'', 
         longitude: '', 
-        latitude: '', 
-        altitude: '', 
-        timestamp: '',
+        latitude: '',  
+        time_in_seconds: '',
         distance: '',
+        finishing_rank:'',
         }
     }
     
@@ -35,15 +35,13 @@ class GpsCoordinates extends (React.Component){
                 const long0 = this.state.longitude;
                 const lat0 = this.state.latitude;
 
-                
-
                 //records epoch time in seconds
-                this.state.timestamp = coordinates.timestamp - coordinates.timestamp;
-                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.timestamp})
+                this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
+                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.time_in_seconds})
 
             //Updates position every 3 seconds & does not effect the original call above
             setInterval(async() => {
-                let timeZero = this.state.timestamp
+                let timeZero = this.state.time_in_seconds
                 let coordinates =  await Geolocation.getCurrentPosition()
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;  
@@ -62,11 +60,13 @@ class GpsCoordinates extends (React.Component){
 
                 const d = R * c; //distance in metres
                 this.state.distance = d;
+                let d_in_km = (d/1000);
 
                 console.log(d);
+                console.log(d_in_km);
 
-                this.state.timestamp = timeZero+1 ;        
-                this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp, distance: this.state.distance})       
+                this.state.time_in_seconds = timeZero+1 ;        
+                this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.time_in_seconds, distance: this.state.distance})       
         }, 1000);
         
     }
@@ -79,7 +79,7 @@ class GpsCoordinates extends (React.Component){
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({runnerId: this.state.runnerId,
-                timestamp: this.state.timestamp})
+                timestamp: this.state.time_in_seconds})
         })
         .then((res)=>{
          console.log(res.runnerId);
@@ -108,20 +108,20 @@ class GpsCoordinates extends (React.Component){
                     
                     <table className="runActiveTable1">
                         <tr>
-                            <td></td>
-                            <td>Distance</td>
-                            <td>2.3 miles</td>
-                        </tr>
-                        <tr>
-                            <td>Player ID 1</td>
-                            <td>Average Pace</td>
-                            <td>7:30</td>
-                        </tr>
-                        <tr>
-                            <td>(Rank)</td>
+                            <td>Position</td>
+                            <td>Runner ID</td>
+                            <td>Distance Ran</td>
+                            <td>Average Pace(min/km)</td>
                             <td>Time (sec)</td>
-                            <td>{this.state.timestamp}</td>
                         </tr>
+                        <tr>
+                            <td>-Filler Text-</td>
+                            <td>-Filler Text-</td>
+                            <td>{this.state.distance}</td>
+                            <td>7:30</td>
+                            <td>{this.state.time_in_seconds}</td>
+                        </tr>
+                        
                         
                 </table>
                 
