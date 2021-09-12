@@ -20,6 +20,7 @@ class GpsCoordinates extends (React.Component){
         latitude: '', 
         altitude: '', 
         timestamp: '',
+        distance: '',
         }
     }
     
@@ -49,7 +50,7 @@ class GpsCoordinates extends (React.Component){
                 const longNew = this.state.longitude;
                 const latNew = this.state.latitude;  
                 
-                //haversine formula calculation for distance
+                //haversine formula calculation for distance (also set as utility later)
                 const R = 6371e3
                 const φ1 = lat0 * Math.PI/180; // φ, λ in radians
                 const φ2 = latNew * Math.PI/180;
@@ -60,12 +61,12 @@ class GpsCoordinates extends (React.Component){
                 const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
                 const d = R * c; //distance in metres
+                this.state.distance = d;
 
                 console.log(d);
 
-
                 this.state.timestamp = timeZero+1 ;        
-                this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})       
+                this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp, distance: this.state.distance})       
         }, 1000);
         
     }
