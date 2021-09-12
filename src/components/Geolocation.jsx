@@ -45,11 +45,29 @@ class GpsCoordinates extends (React.Component){
                 let timeZero = this.state.timestamp
                 let coordinates =  await Geolocation.getCurrentPosition()
                 this.state.longitude = coordinates.coords.longitude;
-                this.state.latitude = coordinates.coords.latitude;    
+                this.state.latitude = coordinates.coords.latitude;  
+                const longNew = this.state.longitude;
+                const latNew = this.state.latitude;  
+                
+                //haversine formula calculation for distance
+                const R = 6371e3
+                const φ1 = lat0 * Math.PI/180; // φ, λ in radians
+                const φ2 = latNew * Math.PI/180;
+                const Δφ = (latNew-lat0) * Math.PI/180;
+                const Δλ = (longNew-long0) * Math.PI/180;
+                
+                const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+                const d = R * c; //distance in metres
+
+                console.log(d);
+
+
                 this.state.timestamp = timeZero+1 ;        
                 this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})       
         }, 1000);
-
+        
     }
 
     handleSubmit(event){
