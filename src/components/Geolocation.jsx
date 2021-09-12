@@ -16,16 +16,17 @@ class GpsCoordinates extends (React.Component){
         super (props);
         //below is in order of the database
         this.state = {
-            runId:'', 
-        runnerId: '',
-        run_date:'', 
-        distance: '',
-        position:'',
-        time_in_seconds: '',
-        time_in_minutes: '',
-        average_pace:'',
-        latitude: '', 
-        longitude: '',  
+            runId:0, 
+        runnerId: 0,
+        run_date: "", 
+        distance: 0,
+        position: 0,
+        time_in_seconds: 0,
+        time_in_minutes: 0,
+        average_pace:0,
+        latitude: 0, 
+        longitude: 0,
+        polyline: 0,  
         }
     }
 
@@ -51,11 +52,17 @@ class GpsCoordinates extends (React.Component){
                 //fetches current date based on epoch time
                 
                 let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
-                console.log(sqlDate);
+                
                 this.state.run_date = sqlDate
                 
+                console.log(this.state.run_date)
                 
-                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.time_in_seconds, run_date: this.state.run_date})
+                this.setState({
+                    longitude: this.state.longitude, 
+                    latitude: this.state.latitude, 
+                    timestamp: this.state.time_in_seconds, 
+                    run_date: this.state.run_date
+                })
 
             //Updates position every 3 seconds & does not effect the original call above
             setInterval(async() => {
@@ -79,25 +86,29 @@ class GpsCoordinates extends (React.Component){
                 const distance = (0.001*(R * c)); //distance in kilometres
                 this.state.distance = distance.toFixed(2);
                 
+
+                //setting the time for pace calculations and total running time(sec)
                 this.state.time_in_seconds = timeZeroSeconds+1 ;
                 this.state.time_in_minutes = this.state.time_in_seconds/60;
-                console.log(this.state.time_in_minutes)
-                let runningTime = this.state.time_in_seconds; 
                 
                 //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
                 let average_pace = (this.state.distance/this.state.time_in_minutes)
 
                 this.state.average_pace = average_pace.toFixed(2);
-                //console.log(this.state.average_pace)
+                
 
-                this.setState({latitude: this.state.latitude, 
+                this.setState({
+                    latitude: this.state.latitude, 
                     longitude: this.state.longitude, 
                     time_in_seconds: this.state.time_in_seconds, 
+                    time_in_minutes: this.state.time_in_minutes,
                     distance: this.state.distance, 
                     average_pace: this.state.average_pace})       
         }, 1000);
         
     }
+
+
 
     handleSubmit(event){
         
@@ -106,20 +117,25 @@ class GpsCoordinates extends (React.Component){
             headers: {
                 "Content-Type":"application/json"
             },
-            body: JSON.stringify({runnerId: this.state.runnerId,
-                time_in_seconds: this.state.time_in_seconds})
+            body: JSON.stringify({
+                runId: this.state.runId,
+                runnerId: this.state.runnerId,
+                run_date: this.state.run_date,
+                distance: this.state.distance,
+                time_in_seconds: this.state.time_in_seconds,
+                time_in_minutes: this.state.time_in_minutes,
+                average_pace: this.state.average_pace,
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                polyline: this.state.polyline
+            })
         })
         .then((res)=>{
-         console.log(res.runnerId);
-        // console.log('hello')
+         console.log();
+
         }).catch((error)=>{
             console.log(error);
-        })
-
-        // alert("Ending run");
-        // setTimeout(function() {   
-        // }, 3000);
-        
+        })  
     }
 
     componentDidMount(){
@@ -146,8 +162,8 @@ class GpsCoordinates extends (React.Component){
                             
                         </tr>
                         <tr>
-                            <td>{this.state.position}--Filler</td>
-                            <td>{this.state.runnerId}--Filler</td>
+                            <td>{this.state.position}</td>
+                            <td>{this.state.runnerId}</td>
                             <td>{this.state.distance}</td>
                             <td>{this.state.time_in_seconds}</td>
                             <td>{this.state.average_pace}</td>
