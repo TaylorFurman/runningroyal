@@ -13,7 +13,14 @@ import { Button } from '@material-ui/core';
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
-        this.state = {runnerId:'', longitude: '', latitude: '', altitude: '', timestamp: '',}
+        this.state = {runId:'', 
+        runnerId: 5,
+        run_date:'', 
+        longitude: '', 
+        latitude: '', 
+        altitude: '', 
+        timestamp: '',
+        }
     }
     
     //**pass as utility later**
@@ -23,6 +30,12 @@ class GpsCoordinates extends (React.Component){
             //Displays position immediatly & stores the data as constants that are not updated later
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
+
+                const long0 = this.state.longitude;
+                const lat0 = this.state.latitude;
+
+                
+
                 //records epoch time in seconds
                 this.state.timestamp = coordinates.timestamp - coordinates.timestamp;
                 this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.timestamp})
@@ -41,15 +54,16 @@ class GpsCoordinates extends (React.Component){
 
     handleSubmit(event){
         
-        //this.setState({timestamp: this.state.timestamp})
         fetch('http://localhost:3700/run_data', {
             method: 'POST',
             headers: {
                 "Content-Type":"application/json"
             },
-            body: JSON.stringify({timestamp: this.state.timestamp})
-        }).then((res)=>{
-        // console.log(res.body);
+            body: JSON.stringify({runnerId: this.state.runnerId,
+                timestamp: this.state.timestamp})
+        })
+        .then((res)=>{
+         console.log(res.runnerId);
         // console.log('hello')
         }).catch((error)=>{
             console.log(error);
