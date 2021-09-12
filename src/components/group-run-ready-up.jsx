@@ -36,7 +36,7 @@ class GroupRunReadyUp extends (React.Component) {
                  
                 </table>
 
-                <Button variant="contained" color="primary" component={Link} to="/run-active" >Run Royal!</Button>
+                <Button variant="contained" color="primary" component={Link} to="/run-active" >Run Royale!</Button>
                 <Button variant="contained" component={Link} to="/" >Leave Lobby</Button>
 
             </div>

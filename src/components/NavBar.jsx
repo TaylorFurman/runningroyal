@@ -15,7 +15,7 @@ class NavBar extends (React.Component) {
                <AppBar position="relative">
                   <Toolbar>
                     <Typography style={{marginRight:'60%', marginLeft:'5%', color:'#fff'}} variant="h5" color="inherit" noWrap>
-                      <Box>Running Royal</Box>
+                      <Box>Run Royale</Box>
                     </Typography>
                      <Box style={{width:'20%'}}>
                       <Link style={{textDecoration:'none', fontSize:'12pt', color:'#fff'}} to="/">Home</Link>

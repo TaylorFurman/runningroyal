@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
-import { Button } from '@material-ui/core';
+
 // import { loadFromLocalStorage } from './util';
 
 import ConnectedGpsCoordinates from './Geolocation.jsx'
