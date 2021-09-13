@@ -60,9 +60,29 @@ app.get('./src/api/run_history.json',(req,res)=>{
 })
 
 app.post('/run_data', async (req,res)=>{
-  console.log(req.body.timestamp);
+  console.log(req.body.runId);
+  console.log(req.body.runnerId);
+  console.log(req.body.run_date);
+  console.log(req.body.time_in_seconds);
+  console.log(req.body.time_in_minutes);
+  console.log(req.body.average_pace);
+  console.log(req.body.latitude);
+  console.log(req.body.longitude);
+  console.log(req.body.polyline);
+  
   res.send({stuff: true});
-    await db.any(`INSERT INTO run_history VALUES(DEFAULT, 2, 3, '2021-09-11', 4, 5, '${req.body.timestamp}')`)
+    await db.any(`INSERT INTO run_history VALUES(
+      DEFAULT, 
+      '${req.body.runId}',
+      '${req.body.runnerId}',
+      '${req.body.run_date}', 
+      '${req.body.distance}', 
+      '${req.body.time_in_seconds}',
+      '${req.body.time_in_minutes}', 
+      '${req.body.average_pace}', 
+      '${req.body.latitude}',
+      '${req.body.longitude}',
+      '${req.body.polyline}')`)
 
   }
 )
