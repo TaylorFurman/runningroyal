@@ -14,7 +14,7 @@ class Home extends (React.Component) {
             <div>
                 <h1>Welcome Back!</h1>
                 
-                <Button variant="contained" color="primary" component={Link} to="/run-lobby" >Run Royal!</Button>
+                <Button variant="contained" color="primary" component={Link} to="/run-lobby" >Run Royale!</Button>
             </div>
         );
     }

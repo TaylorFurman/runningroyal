@@ -1,6 +1,7 @@
 import React from 'react';
 
 //import axios from "axios"
+import moment from 'moment'
 
 import { Geolocation } from '@capacitor/geolocation'
 import { connect } from 'react-redux'
@@ -13,52 +14,128 @@ import { Button } from '@material-ui/core';
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
-        this.state = {runnerId:'', longitude: '', latitude: '', altitude: '', timestamp: '',}
+        //below is in order of the database
+        this.state = {
+            runId:0, 
+        runnerId: 0,
+        run_date: "", 
+        distance: 0,
+        position: 0,
+        time_in_seconds: 0,
+        time_in_minutes: 0,
+        average_pace:0,
+        latitude: 0, 
+        longitude: 0,
+        polyline: 0,  
+        }
     }
+
     
     //**pass as utility later**
     PrintCurrentPosition = async() =>{
         //this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
             let coordinates =  await Geolocation.getCurrentPosition()
+
+            let coordinateArray = [];
             //Displays position immediatly & stores the data as constants that are not updated later
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
-                //records epoch time in seconds
-                this.state.timestamp = coordinates.timestamp - coordinates.timestamp;
-                this.setState({longitude: this.state.longitude, latitude: this.state.latitude, timestamp: this.state.timestamp})
+                console.log(coordinates);
+
+                let long0 = this.state.longitude;
+                let lat0 = this.state.latitude;
+
+                //records epoch time in seconds and converts to minutes
+                this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
+                this.state.time_in_minutes = (this.state.time_in_seconds/60)
+
+                //fetches current date based on epoch time
+                
+                let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
+                
+                this.state.run_date = sqlDate
+                
+                console.log(this.state.run_date)
+                
+                this.setState({
+                    longitude: this.state.longitude, 
+                    latitude: this.state.latitude, 
+                    timestamp: this.state.time_in_seconds, 
+                    run_date: this.state.run_date
+                })
 
             //Updates position every 3 seconds & does not effect the original call above
             setInterval(async() => {
-                let timeZero = this.state.timestamp
+                let timeZeroSeconds = this.state.time_in_seconds
                 let coordinates =  await Geolocation.getCurrentPosition()
                 this.state.longitude = coordinates.coords.longitude;
-                this.state.latitude = coordinates.coords.latitude;    
-                this.state.timestamp = timeZero+1 ;        
-                this.setState({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp})       
-        }, 1000);
+                this.state.latitude = coordinates.coords.latitude;  
+                let longNew = this.state.longitude;
+                const latNew = this.state.latitude;  
+                
+                //haversine formula calculation for distance (also set as utility later)
+                const R = 6371e3
+                const φ1 = lat0 * Math.PI/180; // φ, λ in radians
+                const φ2 = latNew * Math.PI/180;
+                const Δφ = (latNew-lat0) * Math.PI/180;
+                const Δλ = (longNew-long0) * Math.PI/180;
+                
+                const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
+                const distance = (0.001*(R * c)); //distance in kilometres
+                this.state.distance = distance.toFixed(2);
+                
+
+                //setting the time for pace calculations and total running time(sec)
+                this.state.time_in_seconds = timeZeroSeconds+1 ;
+                this.state.time_in_minutes = this.state.time_in_seconds/60;
+                
+                //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
+                let average_pace = (this.state.distance/this.state.time_in_minutes)
+
+                this.state.average_pace = average_pace.toFixed(2);
+                
+
+                this.setState({
+                    latitude: this.state.latitude, 
+                    longitude: this.state.longitude, 
+                    time_in_seconds: this.state.time_in_seconds, 
+                    time_in_minutes: this.state.time_in_minutes,
+                    distance: this.state.distance, 
+                    average_pace: this.state.average_pace})       
+        }, 1000);
+        
     }
+
+
 
     handleSubmit(event){
         
-        //this.setState({timestamp: this.state.timestamp})
         fetch('http://localhost:3700/run_data', {
             method: 'POST',
             headers: {
                 "Content-Type":"application/json"
             },
-            body: JSON.stringify({timestamp: this.state.timestamp})
-        }).then((res)=>{
-        // console.log(res.body);
-        // console.log('hello')
+            body: JSON.stringify({
+                runId: this.state.runId,
+                runnerId: this.state.runnerId,
+                run_date: this.state.run_date,
+                distance: this.state.distance,
+                time_in_seconds: this.state.time_in_seconds,
+                time_in_minutes: this.state.time_in_minutes,
+                average_pace: this.state.average_pace,
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                polyline: this.state.polyline
+            })
+        })
+        .then((res)=>{
+         console.log();
+
         }).catch((error)=>{
             console.log(error);
-        })
-
-        // alert("Ending run");
-        // setTimeout(function() {   
-        // }, 3000);
-        
+        })  
     }
 
     componentDidMount(){
@@ -74,21 +151,26 @@ class GpsCoordinates extends (React.Component){
                     <p>Latitude: {this.state.latitude}</p>
                     
                     <table className="runActiveTable1">
+                        <tbody>
+                            
                         <tr>
-                            <td></td>
-                            <td>Distance</td>
-                            <td>2.3 miles</td>
-                        </tr>
-                        <tr>
-                            <td>Player ID 1</td>
-                            <td>Average Pace</td>
-                            <td>7:30</td>
-                        </tr>
-                        <tr>
-                            <td>(Rank)</td>
+                            <td>Position</td>
+                            <td>Runner ID</td>
+                            <td>Distance Ran</td>
                             <td>Time (sec)</td>
-                            <td>{this.state.timestamp}</td>
+                            <td>Average Pace(km/min)</td>
+                            
                         </tr>
+                        <tr>
+                            <td>{this.state.position}</td>
+                            <td>{this.state.runnerId}</td>
+                            <td>{this.state.distance}</td>
+                            <td>{this.state.time_in_seconds}</td>
+                            <td>{this.state.average_pace}</td>
+                            
+                        </tr>
+                        
+                        </tbody>
                         
                 </table>
                 
