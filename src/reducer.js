@@ -11,14 +11,14 @@ var initialState = {
     runnersJoined:[
         {
             ID: 1,
-            averagePace: '8:55',
+            pace: '8:55',
             distance: '2.3',
             time: '2:55',
 
         }, 
         {
             ID: 2,
-            averagePace: '7:55',
+            pace: '7:55',
             distance: '2.3',
             time: '2:58',
 
