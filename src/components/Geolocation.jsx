@@ -23,7 +23,7 @@ class GpsCoordinates extends (React.Component){
         distance: 0,
         position: 0,
         time_in_seconds: 0,
-        time_in_minutes: 0,
+        time_in_minutes: "",
         average_pace: 0,
         latitude: 0, 
         longitude: 0,
@@ -87,7 +87,8 @@ class GpsCoordinates extends (React.Component){
 
                 //setting the time for pace calculations and total running time(sec)
                 this.state.time_in_seconds = timeZeroSeconds+1 ;
-                this.state.time_in_minutes = Number(this.state.time_in_seconds/60);
+                this.state.time_in_minutes = Number((this.state.time_in_seconds/60).toFixed(2));
+                
                 
                 //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
                 let average_pace = (this.state.distance/this.state.time_in_minutes)
@@ -119,6 +120,7 @@ class GpsCoordinates extends (React.Component){
                 runnerId: this.state.runnerId,
                 run_date: this.state.run_date,
                 distance: this.state.distance,
+                position: this.state.position,
                 time_in_seconds: this.state.time_in_seconds,
                 time_in_minutes: this.state.time_in_minutes,
                 average_pace: this.state.average_pace,
