@@ -63,6 +63,7 @@ app.post('/run_data', async (req,res)=>{
   console.log(req.body.runId);
   console.log(req.body.runnerId);
   console.log(req.body.run_date);
+  console.log(req.body.distance);
   console.log(req.body.time_in_seconds);
   console.log(req.body.time_in_minutes);
   console.log(req.body.average_pace);
