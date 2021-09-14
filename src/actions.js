@@ -7,7 +7,21 @@ export function getGeoLocation(data){
 
 export function addToRunnerJoinedCount(data){
     return{
-        type: "Add_TO_COUNT",
+        type: "ADD_TO_COUNT",
+        data: data
+    }
+}
+
+export function incrementUserID(data){
+    return{
+        type: "ADD_USER_ID",
+        data: data
+    }
+}
+
+export function addRunner(data){
+    return{
+        type: "ADD_RUNNER",
         data: data
     }
 }
