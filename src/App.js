@@ -17,6 +17,7 @@ import ConnectedGroupRunReadyUp from './components/group-run-ready-up.jsx';
 import ConnectedGroupRunActive from './components/group-run-active.jsx';
 import ConnectedHome from './components/home';
 import ConnectedDashboard from './components/dashboard';
+import About from './components/about';
 
 
 const theme = createTheme({
@@ -62,6 +63,7 @@ function App() {
                 <Route exact path="/run-ready"><NavBar/><ConnectedGroupRunReadyUp/></Route>
                 <Route exact path="/run-lobby"><NavBar/><ConnectedGroupRunLobby/></Route>
                 <Route exact path="/run-active"><ConnectedGroupRunActive/></Route>
+                <Route exact path="/about"><NavBar/><About/></Route>
               </Switch>
             </BrowserRouter>
           </div>

@@ -8,24 +8,9 @@ var initialState = {
         timestamp: '',
         },
     runnersJoinedCount: 0,
-    runnersJoined:[
-        {
-            ID: 1,
-            pace: '8:55',
-            distance: '2.3',
-            time: '2:55',
-
-        }, 
-        {
-            ID: 2,
-            pace: '7:55',
-            distance: '2.3',
-            time: '2:58',
-
-        },
-    ]
+    currentUserID: 0,
+    runnersJoined:[],
 };
-//need to array with user data here, map over to count instead of having number variable
 
 export function runRoyalReducer (state, action) {
     if (state === undefined) {
@@ -37,8 +22,14 @@ export function runRoyalReducer (state, action) {
         new_state.runnerLocation(action.data);
         console.log(new_state + "1");
     }
-    if (action.type === "Add_TO_COUNT"){
+    if (action.type === "ADD_TO_COUNT"){
         new_state.runnersJoinedCount++;
+    }
+    if (action.type === "ADD_USER_ID"){
+        new_state.currentUserID++;
+    }
+    if (action.type === "ADD_RUNNER"){
+        new_state.runnersJoined.push({ID: action.data.ID, pace: '1', distance: '1', time: '1',});
     }
 
     return new_state;

@@ -11,6 +11,12 @@ class Table extends Component {
                     <tr>
                         <td>Runner ID</td>
                         <td>{this.props.runnerID}</td>
+                        {/* <td>
+                            <form>
+                                <input type="checkbox"></input>
+                                <label for="Ready Up">Ready Up</label>
+                            </form>
+                        </td> */}
                     </tr>
                     <tr>
                         <td>Time</td>
