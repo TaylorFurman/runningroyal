@@ -20,6 +20,7 @@ class NavBar extends (React.Component) {
                      <Box style={{width:'20%'}}>
                       <Link style={{textDecoration:'none', fontSize:'12pt', color:'#fff'}} to="/">Home</Link>
                       <Link style={{textDecoration:'none', marginLeft:'8%', fontSize:'12pt', color:'#fff'}} to="/dashboard">Dashboard</Link>
+                      <Link style={{textDecoration:'none', marginLeft:'8%', fontSize:'12pt', color:'#fff'}} to="/about">About</Link>
                      </Box>
                   </Toolbar>
               </AppBar>
