@@ -38,6 +38,7 @@ class GpsCoordinates extends (React.Component){
             let coordinates =  await Geolocation.getCurrentPosition()
 
             let coordinateArray = [];
+            
             //Displays position immediatly & stores the data as constants that are not updated later
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
@@ -49,6 +50,11 @@ class GpsCoordinates extends (React.Component){
                 this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
                 this.state.time_in_minutes = (this.state.time_in_seconds/60)
 
+                coordinateArray.push({
+                    time_in_seconds: this.state.time_in_seconds,
+                    longitude: long0, 
+                    latitude: lat0})
+                console.log(coordinateArray);
                 //fetches current date based on epoch time
                 
                 let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
@@ -69,7 +75,17 @@ class GpsCoordinates extends (React.Component){
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;  
                 let longNew = this.state.longitude;
-                let latNew = this.state.latitude;  
+                let latNew = this.state.latitude; 
+
+                //setting the time for pace calculations and total running time(sec)
+                this.state.time_in_seconds = timeZeroSeconds+1 ;
+                this.state.time_in_minutes = Number((this.state.time_in_seconds/60).toFixed(2));
+                
+                coordinateArray.push({
+                    time_in_seconds: this.state.time_in_seconds,
+                    longitude: long0, 
+                    latitude: lat0})
+                console.log(coordinateArray);
                 
                 //haversine formula calculation for distance (also set as utility later)
                 const R = 6371e3
@@ -85,9 +101,7 @@ class GpsCoordinates extends (React.Component){
                 this.state.distance = distance.toFixed(2);
                 this.state.distance = Number(this.state.distance);
 
-                //setting the time for pace calculations and total running time(sec)
-                this.state.time_in_seconds = timeZeroSeconds+1 ;
-                this.state.time_in_minutes = Number((this.state.time_in_seconds/60).toFixed(2));
+                
                 
                 
                 //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
