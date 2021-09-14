@@ -1,40 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-// import { loadFromLocalStorage } from './util';
-
 import ConnectedGpsCoordinates from './Geolocation.jsx'
-
+// import Table from './Table.jsx';
 
 class GroupRunActive extends (React.Component) {
-
-    // componentDidMount(){
-    //     let runnerCountForTable = this.props.runnersJoinedCount;
-    //     let classNameCount;
-    //     for (let i = 0; i < runnerCountForTable; i++) {
-    //         classNameCount = i+1;
-    //         document.querySelector(`".runActiveTable"+i`).insertAdjacentHTML(
-    //             "beforeend",
-    //             `<table className="runActiveTable"+classNameCount>
-    //                 <tr>
-    //                     <td>hard coded</td>
-    //                     <td>Distance</td>
-    //                     <td>2.3 miles</td>
-    //                 </tr>
-    //                 <tr>
-    //                     <td>Player ID</td>
-    //                     <td>Average Pace</td>
-    //                     <td>7:30</td>
-    //                 </tr>
-    //                 <tr>
-    //                     <td>(Rank)</td>
-    //                     <td>Time</td>
-    //                     <td>8:55</td>
-    //                 </tr>
-    //             </table>`
-    //         );
-    //     }
-    // }
+    constructor(props){
+        super (props);
+        this.state = {bottomTableClassName:'',}
+    }
 
     render() {
         return ( 
@@ -42,23 +15,37 @@ class GroupRunActive extends (React.Component) {
                
                 <ConnectedGpsCoordinates/>
             {/* For every user in the group, create table */}
-                <table className="runActiveTable0">
-                    <tr>
-                        <td>hard coded</td>
-                        <td>Distance</td>
-                        <td>2.3 miles</td>
-                    </tr>
-                    <tr>
-                        <td>Player ID</td>
-                        <td>Average Pace</td>
-                        <td>7:30</td>
-                    </tr>
-                    <tr>
-                        <td>(Rank)</td>
-                        <td>Time</td>
-                        <td>8:55</td>
-                    </tr>                 
-                </table>
+            {/* {
+                 this.props.runnersJoined.map(runner => {
+                    return(
+                //     <table className="runActiveTable0">
+                //         <tr>
+                //             <td>{runner.ID}</td>
+                //             <td>Distance</td>
+                //             <td>{runner.distance}</td>
+                //         </tr>
+                //         <tr>
+                //             <td>Player ID</td>
+                //             <td>Average Pace</td>
+                //             <td>{runner.averagePace}</td>
+                //         </tr>
+                //         <tr>
+                //             <td>(Rank)</td>
+                //             <td>Time</td>
+                //             <td>{runner.time}</td>
+                //         </tr>                 
+                //     </table>
+
+                    <Table 
+                        runnerID={runner.ID} 
+                        runTime={runner.time} 
+                        runDistance={runner.distance}
+                        runPace={runner.pace}/>
+                    );
+                })            
+
+            } */}
+                
             </div>
         );
     }
@@ -69,6 +56,7 @@ class GroupRunActive extends (React.Component) {
 function mapStateToProps(state) {
     return {
         runnersJoinedCount: state.runnersJoinedCount,
+        runnersJoined: state.runnersJoined,
     }; 
 }
 //writes data to store

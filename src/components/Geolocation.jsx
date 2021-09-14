@@ -10,6 +10,7 @@ import {getGeoLocation} from '../actions.js'
 
 import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import Table from './Table.jsx';
 
 class GpsCoordinates extends (React.Component){
     constructor(props){
@@ -149,8 +150,18 @@ class GpsCoordinates extends (React.Component){
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
+
+                    {this.props.runnersJoined.map(runner => {
+                        return(
+                            <Table 
+                                runnerID={runner.ID} 
+                                runTime={runner.time} 
+                                runDistance={runner.distance}
+                                runPace={runner.pace}/>
+                        );
+                    })}
                     
-                    <table className="runActiveTable1">
+                    {/* <table className="runActiveTable1">
                         <tbody>
                             
                         <tr>
@@ -172,7 +183,7 @@ class GpsCoordinates extends (React.Component){
                         
                         </tbody>
                         
-                </table>
+                </table> */}
                 
             </div>
         )
@@ -180,16 +191,19 @@ class GpsCoordinates extends (React.Component){
 }
 
 function mapStateToProps (state) {
-	return {};
+	return {
+        runnersJoinedCount: state.runnersJoinedCount,
+        runnersJoined: state.runnersJoined,
+    };
 }
 
 
 function mapDispatchToProps (dispatch) {
 	return {
         getGeoLocation: function (data) {
-        dispatch(getGeoLocation(data))
-        console.log(data);
-    }
+            dispatch(getGeoLocation(data))
+            console.log(data);
+        }
   }
 }
 
