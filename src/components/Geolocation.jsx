@@ -155,9 +155,9 @@ class GpsCoordinates extends (React.Component){
                         return(
                             <Table 
                                 runnerID={runner.ID} 
-                                runTime={runner.time} 
-                                runDistance={runner.distance}
-                                runPace={runner.pace}/>
+                                runTime={this.state.time_in_minutes}
+                                runDistance={this.state.distance}
+                                runPace={this.state.average_pace}/>
                         );
                     })}
                     

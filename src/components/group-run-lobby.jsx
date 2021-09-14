@@ -66,7 +66,7 @@ function mapDispatchToProps (dispatch) {
             dispatch(addToRunnerJoinedCount(data))
         },
         incrementUserID: function (data) {
-            dispatch(addToRunnerJoinedCount(data))
+            dispatch(incrementUserID(data))
         },
         addRunner: function (data) {
             dispatch(addRunner(data))
