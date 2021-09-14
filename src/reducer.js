@@ -8,7 +8,7 @@ var initialState = {
         timestamp: '',
         },
     runnersJoinedCount: 0,
-    currentUserID: 0,
+    currentUserID: 1,
     runnersJoined:[],
 };
 
@@ -29,7 +29,7 @@ export function runRoyalReducer (state, action) {
         new_state.currentUserID++;
     }
     if (action.type === "ADD_RUNNER"){
-        new_state.runnersJoined.push({ID: action.data.ID, pace: '1', distance: '1', time: '1',});
+        new_state.runnersJoined.push({ID: action.data.ID});
     }
 
     return new_state;
