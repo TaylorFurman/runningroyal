@@ -23,8 +23,8 @@ class GpsCoordinates extends (React.Component){
         distance: 0,
         position: 0,
         time_in_seconds: 0,
-        time_in_minutes: 0,
-        average_pace:0,
+        time_in_minutes: "",
+        average_pace: 0,
         latitude: 0, 
         longitude: 0,
         polyline: 0,  
@@ -38,11 +38,11 @@ class GpsCoordinates extends (React.Component){
             let coordinates =  await Geolocation.getCurrentPosition()
 
             let coordinateArray = [];
+            
             //Displays position immediatly & stores the data as constants that are not updated later
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;
-                console.log(coordinates);
-
+                
                 let long0 = this.state.longitude;
                 let lat0 = this.state.latitude;
 
@@ -50,14 +50,17 @@ class GpsCoordinates extends (React.Component){
                 this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
                 this.state.time_in_minutes = (this.state.time_in_seconds/60)
 
+                coordinateArray.push({
+                    time_in_seconds: this.state.time_in_seconds,
+                    longitude: long0, 
+                    latitude: lat0})
+                console.log(coordinateArray);
                 //fetches current date based on epoch time
                 
                 let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
-                
                 this.state.run_date = sqlDate
-                
-                console.log(this.state.run_date)
-                
+    
+                //sets the state
                 this.setState({
                     longitude: this.state.longitude, 
                     latitude: this.state.latitude, 
@@ -72,7 +75,17 @@ class GpsCoordinates extends (React.Component){
                 this.state.longitude = coordinates.coords.longitude;
                 this.state.latitude = coordinates.coords.latitude;  
                 let longNew = this.state.longitude;
-                const latNew = this.state.latitude;  
+                let latNew = this.state.latitude; 
+
+                //setting the time for pace calculations and total running time(sec)
+                this.state.time_in_seconds = timeZeroSeconds+1 ;
+                this.state.time_in_minutes = Number((this.state.time_in_seconds/60).toFixed(2));
+                
+                coordinateArray.push({
+                    time_in_seconds: this.state.time_in_seconds,
+                    longitude: long0, 
+                    latitude: lat0})
+                console.log(coordinateArray);
                 
                 //haversine formula calculation for distance (also set as utility later)
                 const R = 6371e3
@@ -86,17 +99,15 @@ class GpsCoordinates extends (React.Component){
 
                 const distance = (0.001*(R * c)); //distance in kilometres
                 this.state.distance = distance.toFixed(2);
-                
+                this.state.distance = Number(this.state.distance);
 
-                //setting the time for pace calculations and total running time(sec)
-                this.state.time_in_seconds = timeZeroSeconds+1 ;
-                this.state.time_in_minutes = this.state.time_in_seconds/60;
+                
+                
                 
                 //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
                 let average_pace = (this.state.distance/this.state.time_in_minutes)
-
                 this.state.average_pace = average_pace.toFixed(2);
-                
+                this.state.average_pace = Number(this.state.average_pace)
 
                 this.setState({
                     latitude: this.state.latitude, 
@@ -123,6 +134,7 @@ class GpsCoordinates extends (React.Component){
                 runnerId: this.state.runnerId,
                 run_date: this.state.run_date,
                 distance: this.state.distance,
+                position: this.state.position,
                 time_in_seconds: this.state.time_in_seconds,
                 time_in_minutes: this.state.time_in_minutes,
                 average_pace: this.state.average_pace,

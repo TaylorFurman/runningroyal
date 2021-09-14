@@ -63,12 +63,15 @@ app.post('/run_data', async (req,res)=>{
   console.log(req.body.runId);
   console.log(req.body.runnerId);
   console.log(req.body.run_date);
+  console.log(req.body.position);
+  console.log(req.body.distance);
   console.log(req.body.time_in_seconds);
   console.log(req.body.time_in_minutes);
   console.log(req.body.average_pace);
   console.log(req.body.latitude);
   console.log(req.body.longitude);
   console.log(req.body.polyline);
+ // , 
   
   res.send({stuff: true});
     await db.any(`INSERT INTO run_history VALUES(
@@ -77,8 +80,9 @@ app.post('/run_data', async (req,res)=>{
       '${req.body.runnerId}',
       '${req.body.run_date}', 
       '${req.body.distance}', 
+      '${req.body.position}',
       '${req.body.time_in_seconds}',
-      '${req.body.time_in_minutes}', 
+      '${req.body.time_in_minutes}',
       '${req.body.average_pace}', 
       '${req.body.latitude}',
       '${req.body.longitude}',
