@@ -10,7 +10,7 @@ class Table extends Component {
                 <table>
                     <tr>
                         <td>Runner ID</td>
-                        <td>Time (sec)</td>
+                        <td>Time (min)</td>
                         <td>Distance (km)</td>
                         <td>Pace (km/min)</td>
                         {/* <td>

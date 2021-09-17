@@ -97,18 +97,18 @@ class GpsCoordinates extends (React.Component){
 
             let startLocation = ({latitude: lat0, longitude: long0})
             let newLocation = ({latitude: latNew, longitude: longNew})
+            
 
             let distanceData = getDistance(startLocation, newLocation)
 
+
             distanceDataArray.push({distance: distanceData});
+
 
             startLocation=({latitude:latNew, longitude: longNew})
 
 
-
             console.log(distanceDataArray)
-
-            
 
 
             //Trying to use leaflet to get distance below
