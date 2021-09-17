@@ -94,7 +94,7 @@ class GpsCoordinates extends (React.Component){
 
 
                 //Trying to use leaflet to get distance below
-                markerFrom = L.circleMarker([])
+                //markerFrom = L.circleMarker([])
                 
                 //haversine formula calculation for distance (also set as utility later)
                 const R = 6371e3
