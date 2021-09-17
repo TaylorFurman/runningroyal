@@ -117,31 +117,6 @@ class GpsCoordinates extends (React.Component){
                 })
             }
 
-
-
-            
-
-
-            // //Trying to use leaflet to get distance below
-            // //markerFrom = L.circleMarker([])
-            
-            // //haversine formula calculation for distance (also set as utility later)
-            // const R = 6371e3
-            // const φ1 = lat0 * Math.PI/180; // φ, λ in radians
-            // const φ2 = latNew * Math.PI/180;
-            // const Δφ = (latNew-lat0) * Math.PI/180;
-            // const Δλ = (longNew-long0) * Math.PI/180;
-            
-            // const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
-            // const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-            // const distance = (0.001*(R * c)); //distance in kilometres
-
-            
-            // this.state.distance = distance.toFixed(2);
-            // this.state.distance = Number(this.state.distance);
-
-            
             //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
             let average_pace = (this.state.distance/this.state.time_in_minutes)
             this.state.average_pace = average_pace.toFixed(2);
@@ -161,8 +136,6 @@ class GpsCoordinates extends (React.Component){
         
         
     }
-
-
 
     handleSubmit(event){
         
@@ -213,31 +186,7 @@ class GpsCoordinates extends (React.Component){
                                 runDistance={this.state.distance}
                                 runPace={this.state.average_pace}/>
                         );
-                    })}
-                    
-                    {/* <table className="runActiveTable1">
-                        <tbody>
-                            
-                        <tr>
-                            <td>Position</td>
-                            <td>Runner ID</td>
-                            <td>Distance Ran</td>
-                            <td>Time (sec)</td>
-                            <td>Average Pace(km/min)</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>{this.state.position}</td>
-                            <td>{this.state.runnerId}</td>
-                            <td>{this.state.distance}</td>
-                            <td>{this.state.time_in_seconds}</td>
-                            <td>{this.state.average_pace}</td>
-                            
-                        </tr>
-                        
-                        </tbody>
-                        
-                </table> */}
+                    })}     
                 
             </div>
         )
