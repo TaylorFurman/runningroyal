@@ -10,7 +10,9 @@ class Table extends Component {
                 <table>
                     <tr>
                         <td>Runner ID</td>
-                        <td>{this.props.runnerID}</td>
+                        <td>Time (sec)</td>
+                        <td>Distance (km)</td>
+                        <td>Pace (km/min)</td>
                         {/* <td>
                             <form>
                                 <input type="checkbox"></input>
@@ -19,17 +21,12 @@ class Table extends Component {
                         </td> */}
                     </tr>
                     <tr>
-                        <td>Time</td>
+                        <td>{this.props.runnerID}</td>
                         <td>{this.props.runTime}</td>
-                    </tr>
-                    <tr>
-                        <td>Distance</td>
                         <td>{this.props.runDistance}</td>
-                    </tr>
-                    <tr>
-                        <td>Pace</td>
                         <td>{this.props.runPace}</td>
                     </tr>
+
                 </table>
             </div>
         );
