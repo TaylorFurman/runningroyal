@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'leaflet';
+
 
 //import axios from "axios"
 import moment from 'moment'
@@ -13,6 +13,7 @@ import {getGeoLocation} from '../actions.js'
 import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Table from './Table.jsx';
+import { getDistance } from 'geolib';
 
 class GpsCoordinates extends (React.Component){
     constructor(props){
@@ -36,10 +37,12 @@ class GpsCoordinates extends (React.Component){
     
     //**pass as utility later**
     PrintCurrentPosition = async() =>{
+        
         //this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
             let coordinates =  await Geolocation.getCurrentPosition()
 
             let coordinateArray = [];
+            let distanceDataArray = [];
             
             //Displays position immediatly & stores the data as constants that are not updated later
                 this.state.longitude = coordinates.coords.longitude;
@@ -72,64 +75,67 @@ class GpsCoordinates extends (React.Component){
                     timestamp: this.state.time_in_seconds, 
                     run_date: this.state.run_date
                 })
+        
 
-            //Updates position every 3 seconds & does not effect the original call above
-            setInterval(async() => {
-                let timeZeroSeconds = this.state.time_in_seconds
-                let coordinates =  await Geolocation.getCurrentPosition()
-                this.state.longitude = coordinates.coords.longitude;
-                this.state.latitude = coordinates.coords.latitude;  
-                let longNew = this.state.longitude;
-                let latNew = this.state.latitude; 
+        //Updates position every 3 seconds & does not effect the original call above
+        setInterval(async() => {
+            let timeZeroSeconds = this.state.time_in_seconds
+            
 
-                //setting the time for pace calculations and total running time(sec)
-                this.state.time_in_seconds = timeZeroSeconds+1 ;
-                this.state.time_in_minutes = Number((this.state.time_in_seconds/60).toFixed(2));
-                
-                coordinateArray.push({
-                    time_in_seconds: this.state.time_in_seconds,
-                    longitude: longNew, 
-                    latitude: latNew})
-                console.log(coordinateArray);
+            let coordinates =  await Geolocation.getCurrentPosition()
+            
+            this.state.longitude = coordinates.coords.longitude;
+            this.state.latitude = coordinates.coords.latitude;  
+            let longNew = this.state.longitude;
+            let latNew = this.state.latitude; 
 
+            //setting the time for pace calculations and total running time(sec)
+            this.state.time_in_seconds = timeZeroSeconds+1 ;
+            this.state.time_in_minutes = Number((this.state.time_in_seconds/60).toFixed(2));
+            
+            coordinateArray.push({
+                time_in_seconds: this.state.time_in_seconds,
+                longitude: longNew, 
+                latitude: latNew})
+            //console.log(coordinateArray);
 
-                //Trying to use leaflet to get distance below
-                //markerFrom = L.circleMarker([])
-                
-                //haversine formula calculation for distance (also set as utility later)
-                const R = 6371e3
-                const φ1 = lat0 * Math.PI/180; // φ, λ in radians
-                const φ2 = latNew * Math.PI/180;
-                const Δφ = (latNew-lat0) * Math.PI/180;
-                const Δλ = (longNew-long0) * Math.PI/180;
-                
-                const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            let startLocation = ({latitude: lat0, longitude: long0})
+            let newLocation = ({latitude: latNew, longitude: longNew})
+            let distanceData = getDistance(startLocation, newLocation)
 
-                const distance = (0.001*(R * c)); //distance in kilometres
-                this.state.distance = distance.toFixed(2);
-                this.state.distance = Number(this.state.distance);
+            distanceDataArray.push(distanceData);
 
-                
-                
-                
-                //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
-                let average_pace = (this.state.distance/this.state.time_in_minutes)
-                this.state.average_pace = average_pace.toFixed(2);
-                this.state.average_pace = Number(this.state.average_pace)
+            console.log(distanceDataArray)
 
+            let totalDistance = 0;
+
+            for (let i=0; i<distanceDataArray.length; i++){
+                totalDistance += distanceDataArray[i];
+                this.state.distance = totalDistance;
                 this.setState({
-                    latitude: this.state.latitude, 
-                    longitude: this.state.longitude, 
-                    time_in_seconds: this.state.time_in_seconds, 
-                    time_in_minutes: this.state.time_in_minutes,
                     distance: this.state.distance, 
-                    average_pace: this.state.average_pace})       
+                })
+            }
+
+            //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
+            let average_pace = (this.state.distance/this.state.time_in_minutes)
+            this.state.average_pace = average_pace.toFixed(2);
+            this.state.average_pace = Number(this.state.average_pace)
+
+            this.setState({
+                latitude: this.state.latitude, 
+                longitude: this.state.longitude, 
+                time_in_seconds: this.state.time_in_seconds, 
+                time_in_minutes: this.state.time_in_minutes,
+                
+                average_pace: this.state.average_pace}) 
+
+            long0 = longNew;
+            lat0 = latNew;      
         }, 1000);
         
+        
     }
-
-
 
     handleSubmit(event){
         
@@ -180,31 +186,7 @@ class GpsCoordinates extends (React.Component){
                                 runDistance={this.state.distance}
                                 runPace={this.state.average_pace}/>
                         );
-                    })}
-                    
-                    {/* <table className="runActiveTable1">
-                        <tbody>
-                            
-                        <tr>
-                            <td>Position</td>
-                            <td>Runner ID</td>
-                            <td>Distance Ran</td>
-                            <td>Time (sec)</td>
-                            <td>Average Pace(km/min)</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>{this.state.position}</td>
-                            <td>{this.state.runnerId}</td>
-                            <td>{this.state.distance}</td>
-                            <td>{this.state.time_in_seconds}</td>
-                            <td>{this.state.average_pace}</td>
-                            
-                        </tr>
-                        
-                        </tbody>
-                        
-                </table> */}
+                    })}     
                 
             </div>
         )
