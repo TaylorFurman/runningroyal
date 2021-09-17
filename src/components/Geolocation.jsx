@@ -75,15 +75,19 @@ class GpsCoordinates extends (React.Component){
                     timestamp: this.state.time_in_seconds, 
                     run_date: this.state.run_date
                 })
+        
 
         //Updates position every 3 seconds & does not effect the original call above
         setInterval(async() => {
             let timeZeroSeconds = this.state.time_in_seconds
+            
+
             let coordinates =  await Geolocation.getCurrentPosition()
+            
             this.state.longitude = coordinates.coords.longitude;
             this.state.latitude = coordinates.coords.latitude;  
             let longNew = this.state.longitude;
-            let latNew = this.state.latitude; 
+            let latNew = this.state.latitude +1; 
 
             //setting the time for pace calculations and total running time(sec)
             this.state.time_in_seconds = timeZeroSeconds+1 ;
@@ -97,43 +101,46 @@ class GpsCoordinates extends (React.Component){
 
             let startLocation = ({latitude: lat0, longitude: long0})
             let newLocation = ({latitude: latNew, longitude: longNew})
-            
-
             let distanceData = getDistance(startLocation, newLocation)
 
-
-            distanceDataArray.push({distance: distanceData});
-
-
-            startLocation=({latitude:latNew, longitude: longNew})
-
+            distanceDataArray.push(distanceData);
 
             console.log(distanceDataArray)
 
+            let totalDistance = 0;
 
-            //Trying to use leaflet to get distance below
-            //markerFrom = L.circleMarker([])
-            
-            //haversine formula calculation for distance (also set as utility later)
-            const R = 6371e3
-            const φ1 = lat0 * Math.PI/180; // φ, λ in radians
-            const φ2 = latNew * Math.PI/180;
-            const Δφ = (latNew-lat0) * Math.PI/180;
-            const Δλ = (longNew-long0) * Math.PI/180;
-            
-            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            for (let i=0; i<distanceDataArray.length; i++){
+                totalDistance += distanceDataArray[i];
+                this.state.distance = totalDistance;
+                this.setState({
+                    distance: this.state.distance, 
+                })
+            }
 
-            const distance = ((R * c)); //distance in kilometres
+
 
             
 
 
-            this.state.distance = distance.toFixed(2);
-            this.state.distance = Number(this.state.distance);
+            // //Trying to use leaflet to get distance below
+            // //markerFrom = L.circleMarker([])
+            
+            // //haversine formula calculation for distance (also set as utility later)
+            // const R = 6371e3
+            // const φ1 = lat0 * Math.PI/180; // φ, λ in radians
+            // const φ2 = latNew * Math.PI/180;
+            // const Δφ = (latNew-lat0) * Math.PI/180;
+            // const Δλ = (longNew-long0) * Math.PI/180;
+            
+            // const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            // const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            // const distance = (0.001*(R * c)); //distance in kilometres
 
             
-            
+            // this.state.distance = distance.toFixed(2);
+            // this.state.distance = Number(this.state.distance);
+
             
             //calculate average pace by dividing distance by time in minutes than fixing to 2 decimal places
             let average_pace = (this.state.distance/this.state.time_in_minutes)
@@ -145,9 +152,13 @@ class GpsCoordinates extends (React.Component){
                 longitude: this.state.longitude, 
                 time_in_seconds: this.state.time_in_seconds, 
                 time_in_minutes: this.state.time_in_minutes,
-                distance: this.state.distance, 
-                average_pace: this.state.average_pace})       
+                
+                average_pace: this.state.average_pace}) 
+
+            long0 = longNew;
+            lat0 = latNew;      
         }, 1000);
+        
         
     }
 
