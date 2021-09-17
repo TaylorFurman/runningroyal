@@ -87,7 +87,7 @@ class GpsCoordinates extends (React.Component){
             this.state.longitude = coordinates.coords.longitude;
             this.state.latitude = coordinates.coords.latitude;  
             let longNew = this.state.longitude;
-            let latNew = this.state.latitude +1; 
+            let latNew = this.state.latitude; 
 
             //setting the time for pace calculations and total running time(sec)
             this.state.time_in_seconds = timeZeroSeconds+1 ;
