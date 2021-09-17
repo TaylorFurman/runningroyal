@@ -1,5 +1,7 @@
 import React from 'react';
 
+import 'leaflet';
+
 //import axios from "axios"
 import moment from 'moment'
 
@@ -55,6 +57,9 @@ class GpsCoordinates extends (React.Component){
                     longitude: long0, 
                     latitude: lat0})
                 console.log(coordinateArray);
+
+                
+
                 //fetches current date based on epoch time
                 
                 let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
@@ -83,9 +88,13 @@ class GpsCoordinates extends (React.Component){
                 
                 coordinateArray.push({
                     time_in_seconds: this.state.time_in_seconds,
-                    longitude: long0, 
-                    latitude: lat0})
+                    longitude: longNew, 
+                    latitude: latNew})
                 console.log(coordinateArray);
+
+
+                //Trying to use leaflet to get distance below
+                markerFrom = L.circleMarker([])
                 
                 //haversine formula calculation for distance (also set as utility later)
                 const R = 6371e3
