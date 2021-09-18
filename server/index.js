@@ -27,9 +27,7 @@ var DATABASE_USER = process.env.DATABASE_USER;
  })
  const db = pgp(dbsettings);
 
-//socket io
-const { Server } = require("socket.io");
-const io = new Server(server);
+
 
 //DONT FORGET () after cors EVER AGAIN 
 app.use(cors());
@@ -59,20 +57,8 @@ app.get('./src/api/run_history.json',(req,res)=>{
     
 })
 
+//sends data from frontend to database after finishing run
 app.post('/run_data', async (req,res)=>{
-  console.log(req.body.runId);
-  console.log(req.body.runnerId);
-  console.log(req.body.run_date);
-  console.log(req.body.position);
-  console.log(req.body.distance);
-  console.log(req.body.time_in_seconds);
-  console.log(req.body.time_in_minutes);
-  console.log(req.body.average_pace);
-  console.log(req.body.latitude);
-  console.log(req.body.longitude);
-  console.log(req.body.polyline);
- // , 
-  
   res.send({stuff: true});
     await db.any(`INSERT INTO run_history VALUES(
       DEFAULT, 
@@ -90,27 +76,43 @@ app.post('/run_data', async (req,res)=>{
 
   }
 )
+
+
+
+
+
+
+//socket io
+const { Server } = require("socket.io");
+const io = new Server(server);
   
-    
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
-    });
+io.on("connection", (socket) => {
+  console.log(socket.handshake.query); // prints { x: "42", EIO: "4", transport: "polling" }
+});
+
+io.on('connection', (socket) => {console.log('a user connected');
+
+    socket.on('disconnect', () => console.log('user disconnected'));
+
+    socket.on('join', (room)=>{
+      console.log(`Socket ${socket.id} joining ${room}`)
+    })
+
+
   });
 
-  io.on('connection', (socket) => {
-    socket.on('chat message', (msg) => {
-      console.log('message: ' + msg);
-    });
-  });
+  // io.on('connection', (socket) => {
+  //   socket.on('chat message', (msg) => {
+  //     console.log('message: ' + msg);
+  //   });
+  // });
 
-  io.on('connection', (socket) => {
-    socket.on('chat message', (msg) => {
-      io.emit('chat message', msg);
-    });
-  });
+  // io.on('connection', (socket) => {
+  //   socket.on('chat message', (msg) => {
+  //     io.emit('chat message', msg);
+  //   });
+  // });
 
 server.listen(port, () => {
     console.log(`Server running at ${port}`);

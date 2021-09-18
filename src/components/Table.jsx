@@ -2,6 +2,8 @@ import React from 'react';
 import {Component} from 'react'
 
 
+
+
 class Table extends Component {
 
     render() {
@@ -11,8 +13,8 @@ class Table extends Component {
                     <tr>
                         <td>Runner ID</td>
                         <td>Time (min)</td>
-                        <td>Distance (km)</td>
-                        <td>Pace (km/min)</td>
+                        <td>Distance (m)</td>
+                        <td>Pace (m/min)</td>
                         {/* <td>
                             <form>
                                 <input type="checkbox"></input>

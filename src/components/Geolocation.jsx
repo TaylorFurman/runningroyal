@@ -14,6 +14,12 @@ import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Table from './Table.jsx';
 import { getDistance } from 'geolib';
+import Map from 'ol/Map'
+import View from 'ol/View'
+import OSM from 'ol/source/OSM'
+import TileLayer from 'ol/layer/Tile'
+
+
 
 class GpsCoordinates extends (React.Component){
     constructor(props){
@@ -39,7 +45,9 @@ class GpsCoordinates extends (React.Component){
     PrintCurrentPosition = async() =>{
         
         //this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
-            let coordinates =  await Geolocation.getCurrentPosition()
+        
+        
+        let coordinates =  await Geolocation.getCurrentPosition()
 
             let coordinateArray = [];
             let distanceDataArray = [];
@@ -75,6 +83,17 @@ class GpsCoordinates extends (React.Component){
                     timestamp: this.state.time_in_seconds, 
                     run_date: this.state.run_date
                 })
+
+                new Map({
+                    layers: [
+                      new TileLayer({source: new OSM()})
+                    ],
+                    view: new View({
+                      center: [long0, lat0],
+                      zoom: 5
+                    }),
+                    target: 'map'
+                  });
         
 
         //Updates position every 3 seconds & does not effect the original call above
@@ -177,6 +196,8 @@ class GpsCoordinates extends (React.Component){
                     <p>Longitude:{this.state.longitude} </p>
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
+
+                    <p id="map" style={{width:"200px", height:"200px"}}></p>
 
                     {this.props.runnersJoined.map(runner => {
                         return(
