@@ -3,30 +3,20 @@ import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
+import {io} from 'socket.io-client'
+
+
 class GroupRunReadyUp extends (React.Component) {
 
 
-    // componentDidMount(){
-    //     let runnerCountForTable = this.props.runnersJoinedCount;
-    //     for (let i = 0; i < runnerCountForTable; i++) {
-    //         document.querySelector(".runReadyTable").insertAdjacentHTML(
-    //             "beforeend",
-    //             `<tr> 
-    //                 <td>ID</td>
-    //                 <td>
-    //                     <form>
-    //                         <input type="checkbox"></input>
-    //                         <label for="Ready Up">Ready Up</label>
-    //                     </form>
-    //                 </td>
-    //             </tr>`
-    //         );
-    //     }
-    // }
+     componentDidMount(){
+        this.socket = io()
+        
+    }
     
 
     render() {
-        {console.log(this.props.runnersJoined);}
+        {console.log(this.props.runnersJoined );}
         return ( 
             <div >
                 <table className="runReadyTable">

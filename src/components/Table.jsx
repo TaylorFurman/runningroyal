@@ -1,8 +1,15 @@
 import React from 'react';
 import {Component} from 'react'
 
+import {io} from 'socket.io-client'
+
 
 class Table extends Component {
+
+    componentDidMount(){
+        this.socket = io()
+        
+    }
 
     render() {
         return ( 
@@ -11,8 +18,8 @@ class Table extends Component {
                     <tr>
                         <td>Runner ID</td>
                         <td>Time (min)</td>
-                        <td>Distance (km)</td>
-                        <td>Pace (km/min)</td>
+                        <td>Distance (m)</td>
+                        <td>Pace (m/min)</td>
                         {/* <td>
                             <form>
                                 <input type="checkbox"></input>
