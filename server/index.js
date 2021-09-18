@@ -37,20 +37,9 @@ app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  db.any('SELECT * FROM run_history')
-    .then(run_history_data =>{
-      const run_history = JSON.stringify(run_history_data)
-      let fs = require("fs");
-      fs.writeFile("./src/api/run_history.json", run_history, function(error){
-        if (error){
-          console.log("error");
-        }else{
-          console.log("success")
-        }
-      })
       res.sendFile(__dirname + '/index.html');
-    })
-});
+})
+
 
 app.get('./src/api/run_history.json',(req,res)=>{
    console.log(res.send)
@@ -77,6 +66,21 @@ app.post('/run_data', async (req,res)=>{
   }
 )
 
+app.get('/run_data', async (req,res)=>{
+  res.send({stuff: true});
+    await db.any(`SELECT * FROM run_history VALUES`)
+    .then(run_history_data =>{
+      const run_history = JSON.stringify(run_history_data)
+      let fs = require("fs");
+      fs.writeFile("./public/run_history.json", run_history, function(error){
+        if (error){
+          console.log("error");
+        }else{
+          console.log("saved running data to JSON file")
+        }
+      })
+  }
+)})
 
 
 
@@ -87,11 +91,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
   
 
-io.on("connection", (socket) => {
-  console.log(socket.handshake.query); // prints { x: "42", EIO: "4", transport: "polling" }
-});
-
-io.on('connection', (socket) => {console.log('a user connected');
+io.on('connection', (socket) => {console.log('Runner connected');
 
     socket.on('disconnect', () => console.log('user disconnected'));
 

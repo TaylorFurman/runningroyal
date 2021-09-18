@@ -6,24 +6,17 @@ import {Link} from 'react-router-dom';
 import {io} from 'socket.io-client'
 
 
-    
-    
-
-
 class GroupRunReadyUp extends (React.Component) {
 
 
      componentDidMount(){
-        this.socket = io({
-            query: {
-              x: 144
-            }
-          });
-     }
+        this.socket = io()
+        
+    }
     
 
     render() {
-        {console.log(this.props.runnersJoined);}
+        {console.log(this.props.runnersJoined );}
         return ( 
             <div >
                 <table className="runReadyTable">

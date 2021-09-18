@@ -12,6 +12,17 @@ import { Button } from '@material-ui/core';
 
 
 class Home extends (React.Component) {
+
+    componentDidMount(){
+        fetch('http://localhost:3700/run_data',{
+            method: 'GET',
+            headers:{
+                "Content-Type":"application/json"
+            },    
+        })
+        
+        
+    }
     
             
 
@@ -29,7 +40,9 @@ class Home extends (React.Component) {
 
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
-    return {}; 
+    return {
+
+    }; 
 }
 //writes data to store
 function mapDispatchToProps (dispatch) {

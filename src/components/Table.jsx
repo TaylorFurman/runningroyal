@@ -1,10 +1,15 @@
 import React from 'react';
 import {Component} from 'react'
 
-
+import {io} from 'socket.io-client'
 
 
 class Table extends Component {
+
+    componentDidMount(){
+        this.socket = io()
+        
+    }
 
     render() {
         return ( 
