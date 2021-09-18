@@ -6,16 +6,24 @@ class BarGraph extends (React.Component) {
         super(props);
         this.state ={
             totalRuns: '',
+            runDate: '',
             
         }
     }
 
     componentDidMount(){
+        
         axios.get("run_history.json")
         .then(res=>{
-            console.log(res.data.length);
+            
+            console.log(res.data);
+             for(let i=0; i<res.data.length; i++){
+                 console.log(res.data[i].run_date)
+             }
+            console.log(res.data[0].run_date);
             this.setState({
-                totalRuns: res.data.length
+                totalRuns: res.data.length,
+                runDate: res.data.run_date
             })
         })
     }
@@ -25,7 +33,7 @@ class BarGraph extends (React.Component) {
             <div>BarGraph
                 <table>
                     <tr>
-                        Total Number of Runs: {this.state.totalRuns} 
+                        Total Number of Runs in Database = {this.state.totalRuns}
                     </tr>
                 </table>
 

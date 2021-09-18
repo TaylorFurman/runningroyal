@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
-
+import BarGraph from './BarGraph'
 
 
 
@@ -20,7 +20,7 @@ class Home extends (React.Component) {
                 "Content-Type":"application/json"
             },    
         })
-        
+
         
     }
     
@@ -30,7 +30,10 @@ class Home extends (React.Component) {
         return ( 
             <div>
                 <h1>Welcome Back!</h1>
+
+                <BarGraph/>
                 
+                <h3 style={{color:"red"}}>Click below to find a lobby</h3>
                 <Button variant="contained" color="primary" component={Link} to="/run-lobby" >Run Royale!</Button>
             </div>
         );

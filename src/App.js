@@ -18,7 +18,7 @@ import ConnectedGroupRunActive from './components/group-run-active.jsx';
 import ConnectedHome from './components/home';
 import ConnectedDashboard from './components/dashboard';
 import About from './components/about';
-import BarGraph from './components/BarGraph'
+
 
 
 const theme = createTheme({
@@ -59,7 +59,7 @@ function App() {
   
               </div>
               <Switch>
-                <Route exact path="/"><NavBar/><ConnectedHome/><BarGraph/> </Route>
+                <Route exact path="/"><NavBar/><ConnectedHome/> </Route>
                 <Route exact path="/dashboard"><NavBar/><ConnectedDashboard/></Route>
                 <Route exact path="/run-ready"><NavBar/><ConnectedGroupRunReadyUp/></Route>
                 <Route exact path="/run-lobby"><NavBar/><ConnectedGroupRunLobby/></Route>
