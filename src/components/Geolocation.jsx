@@ -14,10 +14,14 @@ import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Table from './Table.jsx';
 import { getDistance } from 'geolib';
+
+
 import Map from 'ol/Map'
 import View from 'ol/View'
 import OSM from 'ol/source/OSM'
 import TileLayer from 'ol/layer/Tile'
+
+import {io} from 'socket.io-client'
 
 
 
@@ -43,6 +47,7 @@ class GpsCoordinates extends (React.Component){
     
     //**pass as utility later**
     PrintCurrentPosition = async() =>{
+        this.socket = io()
         
         //this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
         
@@ -63,10 +68,10 @@ class GpsCoordinates extends (React.Component){
                 this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
                 this.state.time_in_minutes = (this.state.time_in_seconds/60)
 
-                coordinateArray.push({
-                    time_in_seconds: this.state.time_in_seconds,
-                    longitude: long0, 
-                    latitude: lat0})
+                coordinateArray.push([
+                    this.state.time_in_seconds,
+                    long0, 
+                    lat0])
                 console.log(coordinateArray);
 
                 
@@ -84,16 +89,7 @@ class GpsCoordinates extends (React.Component){
                     run_date: this.state.run_date
                 })
 
-                new Map({
-                    layers: [
-                      new TileLayer({source: new OSM()})
-                    ],
-                    view: new View({
-                      center: [long0, lat0],
-                      zoom: 5
-                    }),
-                    target: 'map'
-                  });
+               
         
 
         //Updates position every 3 seconds & does not effect the original call above
@@ -157,7 +153,7 @@ class GpsCoordinates extends (React.Component){
     }
 
     handleSubmit(event){
-        
+        //send data to database after pressing "Stop Run button"
         fetch('http://localhost:3700/run_data', {
             method: 'POST',
             headers: {
@@ -185,8 +181,22 @@ class GpsCoordinates extends (React.Component){
         })  
     }
 
-    componentDidMount(){
+    componentDidMount = async ()=>{
         this.PrintCurrentPosition()
+        let coordinates =  await Geolocation.getCurrentPosition()
+            this.state.longitude = coordinates.coords.longitude;
+            this.state.latitude = coordinates.coords.latitude;  
+            
+            new Map({
+                layers: [
+                  new TileLayer({source: new OSM()})
+                ],
+                view: new View({
+                  center: [this.state.longitude, this.state.latitude],
+                  zoom: 4
+                }),
+                target: 'map'
+              });
     }
             
     render(){
@@ -203,7 +213,7 @@ class GpsCoordinates extends (React.Component){
                         return(
                             <Table 
                                 runnerID={runner.ID} 
-                                runTime={this.state.time_in_minutes}
+                                runTime={this.state.time_in_seconds}
                                 runDistance={this.state.distance}
                                 runPace={this.state.average_pace}/>
                         );

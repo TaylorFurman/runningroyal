@@ -10,8 +10,9 @@ class GroupRunReadyUp extends (React.Component) {
 
 
      componentDidMount(){
-        this.socket = io()
-        
+        this.socket = io('https://localhost:3700/run-ready')
+        this.socket.emit(this.props.runnersJoined)
+        console.log(this.socket.emit)
     }
     
 

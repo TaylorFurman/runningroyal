@@ -9,6 +9,7 @@ class Table extends Component {
     componentDidMount(){
         this.socket = io()
         
+        
     }
 
     render() {
@@ -17,7 +18,7 @@ class Table extends Component {
                 <table>
                     <tr>
                         <td>Runner ID</td>
-                        <td>Time (min)</td>
+                        <td>Time (sec)</td>
                         <td>Distance (m)</td>
                         <td>Pace (m/min)</td>
                         {/* <td>

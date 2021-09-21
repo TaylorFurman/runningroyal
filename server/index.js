@@ -98,9 +98,13 @@ io.on('connection', (socket) => {console.log('Runner connected');
     socket.on('join', (room)=>{
       console.log(`Socket ${socket.id} joining ${room}`)
     })
-
-
   });
+
+io.on('connection', (socket) =>{
+  socket.emit("hello", "world");
+
+
+})
 
   // io.on('connection', (socket) => {
   //   socket.on('chat message', (msg) => {
