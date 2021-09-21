@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import { addToRunnerJoinedCount } from '../actions.js';
 import { incrementUserID } from '../actions.js';
 import { addRunner } from '../actions.js';
+import {io} from 'socket.io-client';
 
 
 class GroupRunActive extends (React.Component) {
@@ -13,6 +14,7 @@ class GroupRunActive extends (React.Component) {
         this.props.addToRunnerJoinedCount({});
         this.createUserID(event);
         console.log(this.props.currentUserID);
+        this.openSocket();
     } 
 
     createUserID(event){
@@ -22,6 +24,14 @@ class GroupRunActive extends (React.Component) {
 
     createNewUser(){
         this.props.addRunner({ID: this.props.currentUserID});
+    }
+
+    openSocket(){
+        this.socket = io('https://localhost:3700/run-ready');
+        let runnersMsg = this.socket.on('message', function() {
+            this.props.runnersJoined;
+        });
+        console.log(runnersMsg);
     }
 
     render() {

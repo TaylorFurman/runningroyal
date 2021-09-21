@@ -91,16 +91,22 @@ const { Server } = require("socket.io");
 const io = new Server(server);
   
 
-io.on('connection', (socket) => {console.log('Runner connected');
-
-    socket.on('disconnect', () => console.log('user disconnected'));
-
-    socket.on('join', (room)=>{
+io.on('connection', (socket) => {
+  console.log('Runner connected');
+  socket.on('disconnect', () => console.log('user disconnected'));
+  socket.on('join', (room)=>{
       console.log(`Socket ${socket.id} joining ${room}`)
-    })
-
-
   });
+  socket.on('message', (socket) => {
+    socket.on('message', (msg) => {
+      console.log('message: ' + msg);
+    });
+  });
+});
+
+// io.on('connection', (socket) =>{
+//   socket.emit("hello", "world");
+// })
 
   // io.on('connection', (socket) => {
   //   socket.on('chat message', (msg) => {
