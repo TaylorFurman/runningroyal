@@ -1,4 +1,30 @@
+import { Satellite } from '@material-ui/icons';
 import deepcopy from 'deepcopy';
+import {io} from 'socket.io-client';
+import store from './store.js';
+
+function updateRooms(data){
+    return{
+        type: "UPDATE_ROOMS",
+        data: data
+    }
+}
+
+function openSocket(){
+    var socket = io('http://localhost:3700');
+
+    console.log('socket', socket);
+    socket.on('connect', () => {
+        console.log('connected');
+    });
+
+    socket.on('rooms_data', (msg) => {
+        console.log(msg);
+        store.dispatch(updateRooms(msg));
+    });
+
+    return socket;
+}
 
 var initialState = {
     runnerLocation:  
@@ -10,11 +36,15 @@ var initialState = {
     runnersJoinedCount: 0,
     currentUserID: 1,
     runnersJoined:[],
+    rooms: []
 };
 
 export function runRoyalReducer (state, action) {
     if (state === undefined) {
-        return initialState;
+        var socket = openSocket();
+        let new_state = deepcopy(initialState);
+        new_state.socket = socket;
+        return new_state;
     }
     let new_state = deepcopy(state);  
     if (action.type === "GET_LOCATION"){
@@ -30,6 +60,10 @@ export function runRoyalReducer (state, action) {
     }
     if (action.type === "ADD_RUNNER"){
         new_state.runnersJoined.push({ID: action.data.ID});
+    }
+
+    if (action.type === "UPDATE_ROOMS"){
+        new_state.rooms = action.data.rooms;
     }
 
     return new_state;

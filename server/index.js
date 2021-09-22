@@ -88,20 +88,36 @@ app.get('/run_data', async (req,res)=>{
 
 //socket io
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
   
+var DATA = {
+  rooms: [
+    {name: "Room 1", runnersJoined: []}
+  ]
+};
 
 io.on('connection', (socket) => {
-  console.log('Runner connected');
+  console.log('Runner connected', socket.id);
   socket.on('disconnect', () => console.log('user disconnected'));
   socket.on('join', (room)=>{
-      console.log(`Socket ${socket.id} joining ${room}`)
+      console.log(`Socket ${socket.id} joining ${room}`);
   });
-  socket.on('message', (socket) => {
-    socket.on('message', (msg) => {
-      console.log('message: ' + msg);
-    });
+  socket.on('get_rooms', () => {
+    socket.emit('rooms_data', DATA);
   });
+
+  socket.on('update_coords', (msg) => {
+    DATA.rooms[msg.room][msg.runner].coords = msg.coords;
+    io.emit('rooms_data', DATA);
+  })
+  // socket.on('message', (msg) => {
+  //    console.log('message: ' + msg);
+  //});
 });
 
 // io.on('connection', (socket) =>{
