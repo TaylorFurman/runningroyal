@@ -47,7 +47,6 @@ const theme = createTheme({
 // }
 
 function App() {
-
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
@@ -61,7 +60,7 @@ function App() {
               <Switch>
                 <Route exact path="/"><NavBar/><ConnectedHome/> </Route>
                 <Route exact path="/dashboard"><NavBar/><ConnectedDashboard/></Route>
-                <Route exact path="/run-ready"><NavBar/><ConnectedGroupRunReadyUp/></Route>
+                <Route path="/run-ready/:room" component={ConnectedGroupRunReadyUp}></Route>
                 <Route exact path="/run-lobby"><NavBar/><ConnectedGroupRunLobby/></Route>
                 <Route exact path="/run-active"><ConnectedGroupRunActive/></Route>
                 <Route exact path="/about"><NavBar/><About/></Route>

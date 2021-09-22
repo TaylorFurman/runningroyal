@@ -9,14 +9,18 @@ import {io} from 'socket.io-client'
 class GroupRunReadyUp extends (React.Component) {
 
 
-     componentDidMount(){
-        this.socket = io()
-        
+    componentDidMount() {
+        console.log('mounted');
+        this.props.socket.emit('get_rooms');
     }
+
+    // onlick => this.socket.emit(cmd, data)
+    
     
 
     render() {
-        {console.log(this.props.runnersJoined );}
+        var myroom = parseInt(this.props.match.params.room);
+        console.log('props', this.props, this.props.rooms[myroom]);
         return ( 
             <div >
                 <table className="runReadyTable">
@@ -50,7 +54,8 @@ function mapStateToProps(state) {
     return {
         runnersJoinedCount: state.runnersJoinedCount,
         runnersJoined: state.runnersJoined,
-        
+        rooms: state.rooms,
+        socket: state.socket
     }; 
 }
 //writes data to store

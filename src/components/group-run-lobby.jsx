@@ -13,6 +13,7 @@ class GroupRunActive extends (React.Component) {
         this.props.addToRunnerJoinedCount({});
         this.createUserID(event);
         console.log(this.props.currentUserID);
+   
     } 
 
     createUserID(event){
@@ -24,6 +25,11 @@ class GroupRunActive extends (React.Component) {
         this.props.addRunner({ID: this.props.currentUserID});
     }
 
+    componentDidMount() {
+        console.log('mounted');
+        this.props.socket.emit('get_rooms');
+    }    
+
     render() {
         return ( 
             <div >
@@ -33,17 +39,19 @@ class GroupRunActive extends (React.Component) {
                         <th>Total Runners:</th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>{this.props.runnersJoinedCount}/10</td>
-                        <td><Button
-                                variant="contained"
-                                component={Link} 
-                                to="/run-ready" 
-                                onClick={(e) => this.addRunnerToCount(e)}>
-                            Join</Button>
-                        </td>
-                    </tr> 
+                    {this.props.rooms.map((room, i) =>
+                        <tr>
+                            <td>{room.name}</td>
+                            <td>{room.runnersJoined.length}/10</td>
+                            <td><Button
+                                    variant="contained"
+                                    component={Link} 
+                                    to={`/run-ready/${i}`} 
+                                >
+                                Join</Button>
+                            </td>
+                        </tr>
+                    )}
                 </table>
                     <Button variant="contained" color="primary" component={Link} to="/" >Return Home</Button>
             </div>
@@ -57,6 +65,9 @@ function mapStateToProps(state) {
     return {
         runnersJoinedCount: state.runnersJoinedCount,
         currentUserID: state.currentUserID,
+        runnersJoined: state.runnersJoined,
+        socket: state.socket,
+        rooms: state.rooms
     }; 
 }
 //writes data to store
