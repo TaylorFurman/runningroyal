@@ -9,20 +9,26 @@ import { addRunner } from '../actions.js';
 
 class GroupRunActive extends (React.Component) {
 
-    addRunnerToCount(event){
-        this.props.addToRunnerJoinedCount({});
-        this.createUserID(event);
-        console.log(this.props.currentUserID);
+    // addRunnerToCount(event){
+    //     this.props.addToRunnerJoinedCount({});
+    //     this.createUserID(event);
+    //     console.log(this.props.currentUserID);
    
-    } 
+    // } 
 
-    createUserID(event){
-        this.props.incrementUserID({}); //why object here?//////////////////////
-        this.createNewUser();
-    }
+    // createUserID(event){
+    //     this.props.incrementUserID({});
+    //     this.createNewUser();
+    // }
 
-    createNewUser(){
-        this.props.addRunner({ID: this.props.currentUserID});
+    // createNewUser(){
+    //     this.props.addRunner({ID: this.props.currentUserID});
+    // }
+
+    addUserID(roomID, runnerID){
+        console.log('socket.emit', this.props.socket.emit);
+        this.props.socket.emit('addUserID', {roomID, runnerID});
+        this.props.history.push(`/run-ready/${roomID}`);
     }
 
     componentDidMount() {
@@ -45,8 +51,7 @@ class GroupRunActive extends (React.Component) {
                             <td>{room.runnersJoined.length}/10</td>
                             <td><Button
                                     variant="contained"
-                                    component={Link} 
-                                    to={`/run-ready/${i}`} 
+                                    onClick={(e) => this.addUserID(i, room.runnersJoined.length+1)}
                                 >
                                 Join</Button>
                             </td>
@@ -59,13 +64,12 @@ class GroupRunActive extends (React.Component) {
     }
 }
 
-
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
     return {
-        runnersJoinedCount: state.runnersJoinedCount,
-        currentUserID: state.currentUserID,
-        runnersJoined: state.runnersJoined,
+        // runnersJoinedCount: state.runnersJoinedCount,
+        // currentUserID: state.currentUserID,
+        // runnersJoined: state.runnersJoined,
         socket: state.socket,
         rooms: state.rooms
     }; 

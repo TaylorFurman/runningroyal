@@ -111,10 +111,17 @@ io.on('connection', (socket) => {
     socket.emit('rooms_data', DATA);
   });
 
-  socket.on('update_coords', (msg) => {
+  socket.on('getLocation', (msg) => {
     DATA.rooms[msg.room][msg.runner].coords = msg.coords;
     io.emit('rooms_data', DATA);
-  })
+  });
+
+  socket.on('addUserID', (msg) => {
+    DATA.rooms[msg.roomID].runnersJoined.push(msg.runnerID);
+    console.log('added userID on backend', JSON.stringify(DATA));
+    io.emit('rooms_data', DATA);
+  });
+
   // socket.on('message', (msg) => {
   //    console.log('message: ' + msg);
   //});

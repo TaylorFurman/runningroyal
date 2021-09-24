@@ -43,24 +43,26 @@ export function runRoyalReducer (state, action) {
     if (state === undefined) {
         var socket = openSocket();
         let new_state = deepcopy(initialState);
+        console.log('initializing socket');
         new_state.socket = socket;
         return new_state;
     }
-    let new_state = deepcopy(state);  
+    let old_socket = state.socket;
+    let new_state = deepcopy(state); 
+    new_state.socket = old_socket;
+
     if (action.type === "GET_LOCATION"){
         console.log(action);
         new_state.runnerLocation(action.data);
         console.log(new_state + "1");
     }
-    if (action.type === "ADD_TO_COUNT"){
-        new_state.runnersJoinedCount++;
-    }
-    if (action.type === "ADD_USER_ID"){
-        new_state.currentUserID++;
-    }
-    if (action.type === "ADD_RUNNER"){
-        new_state.runnersJoined.push({ID: action.data.ID});
-    }
+    
+    // if (action.type === "ADD_USER_ID"){
+    //     new_state.currentUserID++;
+    // }
+    // if (action.type === "ADD_RUNNER"){
+    //     new_state.runnersJoined.push({ID: action.data.ID});
+    // }
 
     if (action.type === "UPDATE_ROOMS"){
         new_state.rooms = action.data.rooms;

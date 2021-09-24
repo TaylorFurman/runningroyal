@@ -39,7 +39,6 @@ class GpsCoordinates extends (React.Component){
         polyline: 0,  
         }
     }
-
     
     //**pass as utility later**
     PrintCurrentPosition = async() =>{
@@ -187,6 +186,8 @@ class GpsCoordinates extends (React.Component){
 
     componentDidMount(){
         this.PrintCurrentPosition()
+        console.log('mounted');
+        this.props.socket.emit('get_rooms');
     }
             
     render(){
@@ -199,10 +200,10 @@ class GpsCoordinates extends (React.Component){
 
                     <p id="map" style={{width:"200px", height:"200px"}}></p>
 
-                    {this.props.runnersJoined.map(runner => {
+                    {this.props.rooms.map((room) => {
                         return(
                             <Table 
-                                runnerID={runner.ID} 
+                                runnerID={room.runnersJoined.ID}
                                 runTime={this.state.time_in_minutes}
                                 runDistance={this.state.distance}
                                 runPace={this.state.average_pace}/>
@@ -218,6 +219,8 @@ function mapStateToProps (state) {
 	return {
         runnersJoinedCount: state.runnersJoinedCount,
         runnersJoined: state.runnersJoined,
+        socket: state.socket,
+        rooms: state.rooms
     };
 }
 

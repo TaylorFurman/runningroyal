@@ -5,6 +5,12 @@ import ConnectedGpsCoordinates from './Geolocation.jsx'
 
 class GroupRunActive extends (React.Component) {
 
+    componentDidMount() {
+        console.log('mounted');
+        this.props.socket.emit('get_rooms');
+    }
+
+
     render() {
         return ( 
             <div> 
@@ -20,6 +26,8 @@ function mapStateToProps(state) {
     return {
         runnersJoinedCount: state.runnersJoinedCount,
         runnersJoined: state.runnersJoined,
+        socket: state.socket,
+        rooms: state.rooms
     }; 
 }
 //writes data to store
