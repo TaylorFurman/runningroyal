@@ -200,10 +200,10 @@ class GpsCoordinates extends (React.Component){
 
                     <p id="map" style={{width:"200px", height:"200px"}}></p>
 
-                    {this.props.rooms.map((room) => {
+                    {this.props.rooms[0].runnersJoined.map((runner, i) => {
                         return(
                             <Table 
-                                runnerID={room.runnersJoined.ID}
+                                runnerID={runner}
                                 runTime={this.state.time_in_minutes}
                                 runDistance={this.state.distance}
                                 runPace={this.state.average_pace}/>
