@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 //import axios from "axios"
 import moment from 'moment'
 
@@ -19,6 +17,8 @@ import View from 'ol/View'
 import OSM from 'ol/source/OSM'
 import TileLayer from 'ol/layer/Tile'
 
+var backEndUrl = [(process.env.API_URL || "http://localhost:3700")];
+
 
 
 class GpsCoordinates extends (React.Component){
@@ -26,7 +26,7 @@ class GpsCoordinates extends (React.Component){
         super (props);
         //below is in order of the database
         this.state = {
-            runId:0, 
+            runId: 0, 
         runnerId: 0,
         run_date: "", 
         distance: 0,
@@ -157,7 +157,7 @@ class GpsCoordinates extends (React.Component){
 
     handleSubmit(event){
         
-        fetch('http://localhost:3700/run_data', {
+        fetch(`${backEndUrl}/run_data`, {
             method: 'POST',
             headers: {
                 "Content-Type":"application/json"
@@ -178,6 +178,7 @@ class GpsCoordinates extends (React.Component){
         })
         .then((res)=>{
             this.removeRunners();
+            this.componentWillUnmount()
 
         }).catch((error)=>{
             console.log('handleSubmit of data to database error', error);
@@ -197,6 +198,11 @@ class GpsCoordinates extends (React.Component){
         this.PrintCurrentPosition()
         console.log('mounted');
         this.props.socket.emit('get_rooms');
+    }
+
+    componentWillUnmount(){
+        
+
     }
             
     render(){

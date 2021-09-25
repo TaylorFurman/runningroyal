@@ -8,20 +8,18 @@ import BarGraph from './BarGraph'
 
 import { Button } from '@material-ui/core';
 
+import axios from 'axios';
 
+var backEndUrl = [(process.env.API_URL || 'http://localhost:3700')];
 
 
 class Home extends (React.Component) {
 
     componentDidMount(){
-        fetch('http://localhost:3700/run_data',{
-            method: 'GET',
-            headers:{
-                "Content-Type":"application/json"
-            },    
+        axios.get(`${backEndUrl}/run_data`, async(req,res)=>{
+            console.log(res);
+           
         })
-
-        
     }
     
             
