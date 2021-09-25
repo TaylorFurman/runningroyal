@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { addToRunnerJoinedCount } from '../actions.js';
-import { incrementUserID } from '../actions.js';
-import { addRunner } from '../actions.js';
 
 
 class GroupRunActive extends (React.Component) {
@@ -51,24 +47,13 @@ class GroupRunActive extends (React.Component) {
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
     return {
-
         socket: state.socket,
         rooms: state.rooms
     }; 
 }
 //writes data to store
 function mapDispatchToProps (dispatch) { 
-    return {
-        // addToRunnerJoinedCount: function (data) {
-        //     dispatch(addToRunnerJoinedCount(data))
-        // },
-        // incrementUserID: function (data) {
-        //     dispatch(incrementUserID(data))
-        // },
-        // addRunner: function (data) {
-        //     dispatch(addRunner(data))
-        // },
-    }
+    return {}
 }
 
 var ConnectedGroupRunActive = connect(mapStateToProps, mapDispatchToProps)(GroupRunActive);

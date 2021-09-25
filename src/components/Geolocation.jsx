@@ -177,11 +177,23 @@ class GpsCoordinates extends (React.Component){
             })
         })
         .then((res)=>{
-         this.componentWillUnmount()
+
+            this.removeRunners();
+            this.componentWillUnmount()
+
 
         }).catch((error)=>{
-            console.log(error);
-        })  
+            console.log('handleSubmit of data to database error', error);
+        }) 
+    
+    }
+
+    removeRunners(){
+        console.log('logging props', this.props);
+        // let roomID = this.props.rooms[0].name;
+        let roomID = 0;
+        this.props.socket.emit('removeRunnersFromRun', {roomID});
+        console.log('removed runners from room: '+roomID);
     }
 
     componentDidMount(){
