@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import {Link} from 'react-router-dom';
+import { useState } from 'react';
 
 
 class GroupRunReadyUp extends (React.Component) {
@@ -18,8 +19,12 @@ class GroupRunReadyUp extends (React.Component) {
         this.props.socket.emit('get_rooms');
     }
 
-    handleCheck(){
-        this.state.checkCount++;
+    handleCheck(event){
+        console.log('handleCheckstate', this.state);
+        this.setState({checkCount: this.state.checkCount+1});
+        // let checkCountVar = this.state.checkCount;
+        // this.state.checkCount = checkCountVar++;
+        console.log('checkout at the end of the handleCheck method', this.state.checkCount);
     }
 
     render() {
@@ -36,7 +41,7 @@ class GroupRunReadyUp extends (React.Component) {
                                 <td>{runner}</td>
                                 <td>
                                     <form>
-                                        <input type="checkbox" onclick="handleCheck()"></input>
+                                        <input type="checkbox" onChange={(e)=> this.handleCheck(e)}></input>
                                         <label for="Ready Up" style={{marginLeft: "10px"}}>Ready Up</label>
                                     </form>
                                 </td>
