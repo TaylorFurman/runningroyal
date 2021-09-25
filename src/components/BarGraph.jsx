@@ -41,7 +41,7 @@ class BarGraph extends (React.Component) {
                         Total Number of Runs in Database = {this.state.totalRuns}
                         
                         <br/>
-                        {backEndUrl}
+                        
                     </tr>
                 </table>
 
