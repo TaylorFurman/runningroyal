@@ -20,17 +20,15 @@ class GroupRunReadyUp extends (React.Component) {
     }
 
     handleCheck(event){
-        console.log('handleCheckstate', this.state);
+        // console.log('handleCheckstate', this.state);
         this.setState({checkCount: this.state.checkCount+1});
-        // let checkCountVar = this.state.checkCount;
-        // this.state.checkCount = checkCountVar++;
-        console.log('checkout at the end of the handleCheck method', this.state.checkCount);
+        // console.log('checkout at the end of the handleCheck method', this.state.checkCount);
     }
 
     render() {
-        var myroom = parseInt(this.props.match.params.room);
-        console.log('props', this.props, this.props.rooms[myroom]);
-        console.log('runnersJoined',this.props.rooms.runnersJoined);
+        // var myroom = parseInt(this.props.match.params.room);
+        // console.log('props', this.props, this.props.rooms[myroom]);
+        // console.log('runnersJoined',this.props.rooms.runnersJoined);
         return ( 
             <div >
                 <table className="runReadyTable">

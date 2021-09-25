@@ -122,6 +122,12 @@ io.on('connection', (socket) => {
     io.emit('rooms_data', DATA);
   });
 
+  socket.on('removeRunnersFromRun', (msg) => {
+    DATA.rooms[msg.roomID].runnersJoined=[];
+    console.log('remove runners', JSON.stringify(DATA));
+    io.emit('rooms_data', DATA);
+  });
+
 });
 
 server.listen(port, () => {
