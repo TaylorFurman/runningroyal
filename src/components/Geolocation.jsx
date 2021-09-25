@@ -19,6 +19,8 @@ import View from 'ol/View'
 import OSM from 'ol/source/OSM'
 import TileLayer from 'ol/layer/Tile'
 
+var backEndUrl = [process.env.API_URL, "http://localhost:3700"];
+
 
 
 class GpsCoordinates extends (React.Component){
@@ -157,7 +159,7 @@ class GpsCoordinates extends (React.Component){
 
     handleSubmit(event){
         
-        fetch('http://localhost:3700/run_data', {
+        fetch(`${backEndUrl}/run_data`, {
             method: 'POST',
             headers: {
                 "Content-Type":"application/json"
