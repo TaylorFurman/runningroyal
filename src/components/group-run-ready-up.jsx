@@ -3,32 +3,26 @@ import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
-import {io} from 'socket.io-client'
-
 
 class GroupRunReadyUp extends (React.Component) {
-
 
     componentDidMount() {
         console.log('mounted');
         this.props.socket.emit('get_rooms');
     }
 
-    // onlick => this.socket.emit(cmd, data)
-    
-    
-
     render() {
         var myroom = parseInt(this.props.match.params.room);
         console.log('props', this.props, this.props.rooms[myroom]);
+        console.log('runnersJoined',this.props.rooms.runnersJoined);
         return ( 
             <div >
                 <table className="runReadyTable">
-                    {this.props.runnersJoined.map(runner => {
+                    {this.props.rooms[0].runnersJoined.map((runner, i) => {
                         return(
                             <tr>
                                 <td>Runner ID:</td>
-                                <td>{runner.ID}</td>
+                                <td>{runner}</td>
                                 <td>
                                     <form>
                                         <input type="checkbox"></input>
@@ -52,8 +46,6 @@ class GroupRunReadyUp extends (React.Component) {
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
     return {
-        runnersJoinedCount: state.runnersJoinedCount,
-        runnersJoined: state.runnersJoined,
         rooms: state.rooms,
         socket: state.socket
     }; 

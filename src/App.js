@@ -55,15 +55,15 @@ function App() {
             <BrowserRouter>
               
               <div>
-  
+                <NavBar/>
               </div>
               <Switch>
-                <Route exact path="/"><NavBar/><ConnectedHome/> </Route>
-                <Route exact path="/dashboard"><NavBar/><ConnectedDashboard/></Route>
+                <Route exact path="/" component={ConnectedHome}></Route>
+                <Route exact path="/dashboard" component={ConnectedDashboard}></Route>
                 <Route path="/run-ready/:room" component={ConnectedGroupRunReadyUp}></Route>
-                <Route exact path="/run-lobby"><NavBar/><ConnectedGroupRunLobby/></Route>
-                <Route exact path="/run-active"><ConnectedGroupRunActive/></Route>
-                <Route exact path="/about"><NavBar/><About/></Route>
+                <Route exact path="/run-lobby" component={ConnectedGroupRunLobby}></Route>
+                <Route exact path="/run-active" component={ConnectedGroupRunActive}></Route>
+                <Route exact path="/about" component={About}></Route>
               </Switch>
             </BrowserRouter>
           </div>

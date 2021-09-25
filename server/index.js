@@ -104,37 +104,25 @@ var DATA = {
 io.on('connection', (socket) => {
   console.log('Runner connected', socket.id);
   socket.on('disconnect', () => console.log('user disconnected'));
-  socket.on('join', (room)=>{
-      console.log(`Socket ${socket.id} joining ${room}`);
-  });
+  // socket.on('join', (room)=>{
+  //     console.log(`Socket ${socket.id} joining ${room}`);
+  // });
   socket.on('get_rooms', () => {
     socket.emit('rooms_data', DATA);
   });
 
-  socket.on('update_coords', (msg) => {
-    DATA.rooms[msg.room][msg.runner].coords = msg.coords;
+  // socket.on('getLocation', (msg) => {
+  //   DATA.rooms[msg.room][msg.runner].coords = msg.coords;
+  //   io.emit('rooms_data', DATA);
+  // });
+
+  socket.on('addUserID', (msg) => {
+    DATA.rooms[msg.roomID].runnersJoined.push(msg.runnerID);
+    console.log('added userID on backend', JSON.stringify(DATA));
     io.emit('rooms_data', DATA);
-  })
-  // socket.on('message', (msg) => {
-  //    console.log('message: ' + msg);
-  //});
+  });
+
 });
-
-// io.on('connection', (socket) =>{
-//   socket.emit("hello", "world");
-// })
-
-  // io.on('connection', (socket) => {
-  //   socket.on('chat message', (msg) => {
-  //     console.log('message: ' + msg);
-  //   });
-  // });
-
-  // io.on('connection', (socket) => {
-  //   socket.on('chat message', (msg) => {
-  //     io.emit('chat message', msg);
-  //   });
-  // });
 
 server.listen(port, () => {
     console.log(`Server running at ${port}`);
