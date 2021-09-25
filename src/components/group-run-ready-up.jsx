@@ -6,9 +6,20 @@ import {Link} from 'react-router-dom';
 
 class GroupRunReadyUp extends (React.Component) {
 
+    constructor(props){
+        super (props);
+        this.state = {
+            checkCount: 0
+        };
+    }
+
     componentDidMount() {
         console.log('mounted');
         this.props.socket.emit('get_rooms');
+    }
+
+    handleCheck(){
+        this.state.checkCount++;
     }
 
     render() {
@@ -18,14 +29,14 @@ class GroupRunReadyUp extends (React.Component) {
         return ( 
             <div >
                 <table className="runReadyTable">
-                    {this.props.rooms[0].runnersJoined.map((runner, i) => {
+                    {this.props.rooms[0].runnersJoined.map((runner) => {
                         return(
                             <tr>
                                 <td>Runner ID:</td>
                                 <td>{runner}</td>
                                 <td>
                                     <form>
-                                        <input type="checkbox"></input>
+                                        <input type="checkbox" onclick="handleCheck()"></input>
                                         <label for="Ready Up" style={{marginLeft: "10px"}}>Ready Up</label>
                                     </form>
                                 </td>
@@ -34,8 +45,18 @@ class GroupRunReadyUp extends (React.Component) {
                     })}
                 </table>
 
-                <Button variant="contained" color="primary" component={Link} to="/run-active" >Run Royale!</Button>
-                <Button variant="contained" component={Link} to="/" >Leave Lobby</Button>
+                <Button 
+                    disabled={this.state.checkCount<this.props.rooms[0].runnersJoined.length} 
+                    variant="contained" 
+                    color="primary" 
+                    component={Link} 
+                    to="/run-active">Run Royale!
+                </Button>
+                <Button 
+                    variant="contained" 
+                    component={Link} 
+                    to="/" >Leave Lobby
+                </Button>
 
             </div>
         );
