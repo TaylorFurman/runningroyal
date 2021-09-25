@@ -9,22 +9,6 @@ import { addRunner } from '../actions.js';
 
 class GroupRunActive extends (React.Component) {
 
-    // addRunnerToCount(event){
-    //     this.props.addToRunnerJoinedCount({});
-    //     this.createUserID(event);
-    //     console.log(this.props.currentUserID);
-   
-    // } 
-
-    // createUserID(event){
-    //     this.props.incrementUserID({});
-    //     this.createNewUser();
-    // }
-
-    // createNewUser(){
-    //     this.props.addRunner({ID: this.props.currentUserID});
-    // }
-
     addUserID(roomID, runnerID){
         console.log('socket.emit', this.props.socket.emit);
         this.props.socket.emit('addUserID', {roomID, runnerID});
@@ -58,7 +42,7 @@ class GroupRunActive extends (React.Component) {
                         </tr>
                     )}
                 </table>
-                    <Button variant="contained" color="primary" component={Link} to="/" >Return Home</Button>
+                    {/* <Button variant="contained" color="primary" component={Link} to="/" >Return Home</Button> */}
             </div>
         );
     }
@@ -67,9 +51,7 @@ class GroupRunActive extends (React.Component) {
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
     return {
-        // runnersJoinedCount: state.runnersJoinedCount,
-        // currentUserID: state.currentUserID,
-        // runnersJoined: state.runnersJoined,
+
         socket: state.socket,
         rooms: state.rooms
     }; 
@@ -77,15 +59,15 @@ function mapStateToProps(state) {
 //writes data to store
 function mapDispatchToProps (dispatch) { 
     return {
-        addToRunnerJoinedCount: function (data) {
-            dispatch(addToRunnerJoinedCount(data))
-        },
-        incrementUserID: function (data) {
-            dispatch(incrementUserID(data))
-        },
-        addRunner: function (data) {
-            dispatch(addRunner(data))
-        },
+        // addToRunnerJoinedCount: function (data) {
+        //     dispatch(addToRunnerJoinedCount(data))
+        // },
+        // incrementUserID: function (data) {
+        //     dispatch(incrementUserID(data))
+        // },
+        // addRunner: function (data) {
+        //     dispatch(addRunner(data))
+        // },
     }
 }
 

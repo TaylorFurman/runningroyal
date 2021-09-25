@@ -6,15 +6,10 @@ import {Link} from 'react-router-dom';
 
 class GroupRunReadyUp extends (React.Component) {
 
-
     componentDidMount() {
         console.log('mounted');
         this.props.socket.emit('get_rooms');
     }
-
-    // onlick => this.socket.emit(cmd, data)
-    
-    
 
     render() {
         var myroom = parseInt(this.props.match.params.room);
@@ -51,8 +46,6 @@ class GroupRunReadyUp extends (React.Component) {
 //reads data from state(component) and maps to this.props.shopping_list
 function mapStateToProps(state) {
     return {
-        runnersJoinedCount: state.runnersJoinedCount,
-        runnersJoined: state.runnersJoined,
         rooms: state.rooms,
         socket: state.socket
     }; 

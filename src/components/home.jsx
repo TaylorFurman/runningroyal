@@ -33,8 +33,8 @@ class Home extends (React.Component) {
 
                 <BarGraph/>
                 
-                <h3 style={{color:"red"}}>Click below to find a lobby</h3>
-                <Button variant="contained" color="primary" component={Link} to="/run-lobby" >Run Royale!</Button>
+                {/* <h3 style={{color:"red"}}>Click below to find a lobby</h3> */}
+                <Button variant="contained" color="primary" component={Link} to="/run-lobby" >Join A Run</Button>
             </div>
         );
     }

@@ -51,17 +51,10 @@ export function runRoyalReducer (state, action) {
     let new_state = deepcopy(state); 
     new_state.socket = old_socket;
 
-    if (action.type === "GET_LOCATION"){
-        console.log(action);
-        new_state.runnerLocation(action.data);
-        console.log(new_state + "1");
-    }
-    
-    // if (action.type === "ADD_USER_ID"){
-    //     new_state.currentUserID++;
-    // }
-    // if (action.type === "ADD_RUNNER"){
-    //     new_state.runnersJoined.push({ID: action.data.ID});
+    // if (action.type === "GET_LOCATION"){
+    //     console.log(action);
+    //     new_state.runnerLocation(action.data);
+    //     console.log(new_state + "1");
     // }
 
     if (action.type === "UPDATE_ROOMS"){
