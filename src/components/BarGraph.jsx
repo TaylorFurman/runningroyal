@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 
+var backEndUrl = [(process.env.API_URL || 'http://localhost:3700')];
+
 class BarGraph extends (React.Component) {
     constructor(props){
         super(props);
@@ -13,14 +15,14 @@ class BarGraph extends (React.Component) {
 
     componentDidMount(){
         
-        axios.get("run_history.json")
+        axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
             
-            console.log(res.data);
+            //console.log(res.data);
              for(let i=0; i<res.data.length; i++){
-                 console.log(res.data[i].run_date)
+                // console.log(res.data[i].run_date)
              }
-            console.log(res.data[0].run_date);
+           // console.log(res.data[0].run_date);
             this.setState({
                 totalRuns: res.data.length,
                 runDate: res.data.run_date
