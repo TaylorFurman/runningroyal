@@ -10,8 +10,8 @@ class GroupRunReadyUp extends (React.Component) {
 
 
     componentDidMount() {
-        console.log('mounted');
-        this.props.socket.emit('get_rooms');
+    //     console.log('mounted');
+    //     this.props.socket.emit('get_rooms');
     }
 
     // onlick => this.socket.emit(cmd, data)

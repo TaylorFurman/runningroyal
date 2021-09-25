@@ -8,13 +8,13 @@ import BarGraph from './BarGraph'
 
 import { Button } from '@material-ui/core';
 
-
+let apiUrl = (process.env.API_URL || 'http://localhost:3700');
 
 
 class Home extends (React.Component) {
 
     componentDidMount(){
-        fetch('http://localhost:3700/run_data',{
+        fetch(`${apiUrl}/run_data`,{
             method: 'GET',
             headers:{
                 "Content-Type":"application/json"
@@ -23,9 +23,6 @@ class Home extends (React.Component) {
 
         
     }
-    
-            
-
     render() {
         return ( 
             <div>

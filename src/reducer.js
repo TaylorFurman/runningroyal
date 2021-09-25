@@ -3,6 +3,8 @@ import deepcopy from 'deepcopy';
 import {io} from 'socket.io-client';
 import store from './store.js';
 
+let apiUrl = (process.env.API_URL || 'http://localhost:3700');
+
 function updateRooms(data){
     return{
         type: "UPDATE_ROOMS",
@@ -11,7 +13,7 @@ function updateRooms(data){
 }
 
 function openSocket(){
-    var socket = io('http://localhost:3700');
+    var socket = io(apiUrl);
 
     console.log('socket', socket);
     socket.on('connect', () => {

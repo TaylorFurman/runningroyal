@@ -19,7 +19,7 @@ import View from 'ol/View'
 import OSM from 'ol/source/OSM'
 import TileLayer from 'ol/layer/Tile'
 
-
+let apiUrl = (process.env.API_URL || 'http://localhost:3700');
 
 class GpsCoordinates extends (React.Component){
     constructor(props){
@@ -158,7 +158,7 @@ class GpsCoordinates extends (React.Component){
 
     handleSubmit(event){
         
-        fetch('http://localhost:3700/run_data', {
+        fetch(`${apiUrl}/run_data`, {
             method: 'POST',
             headers: {
                 "Content-Type":"application/json"
@@ -187,6 +187,10 @@ class GpsCoordinates extends (React.Component){
 
     componentDidMount(){
         this.PrintCurrentPosition()
+    }
+    
+    componentWillUnmount(){
+
     }
             
     render(){

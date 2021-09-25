@@ -25,10 +25,10 @@ class GroupRunActive extends (React.Component) {
         this.props.addRunner({ID: this.props.currentUserID});
     }
 
-    componentDidMount() {
-        console.log('mounted');
-        this.props.socket.emit('get_rooms');
-    }    
+    // componentDidMount() {
+    //     console.log('mounted');
+    //     this.props.socket.emit('get_rooms');
+    // }    
 
     render() {
         return ( 
