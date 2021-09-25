@@ -13,6 +13,7 @@ const axios = require('axios');
 const {dirname} = require('path');
 const cors = require('cors');
 
+var whitelist = ["https://keen-booth-986154.netlify.app", "http://localhost:3000"];
 
 var DATABASE_ID = process.env.DATABASE_ID;
 var DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
@@ -67,19 +68,19 @@ app.post('/run_data', async (req,res)=>{
 )
 
 app.get('/run_data', async (req,res)=>{
-  res.send({stuff: true});
-    await db.any(`SELECT * FROM run_history VALUES`)
-    .then(run_history_data =>{
-      const run_history = JSON.stringify(run_history_data)
-      let fs = require("fs");
-      fs.writeFile("./public/run_history.json", run_history, function(error){
-        if (error){
-          console.log("error");
-        }else{
-          console.log("saved running data to JSON file")
-        }
-      })
-  }
+  await db.any(`SELECT * FROM run_history VALUES`)
+  .then(run_history_data =>{
+    res.json(run_history_data)
+
+    // let fs = require("fs");
+    // fs.writeFile("./public/run_history.json", run_history, function(error){
+    //   if (error){
+    //     console.log("Error writing json to front end");
+    //   }else{
+    //     console.log("saved running data to JSON file")
+    //   }
+    // })
+}
 )})
 
 
@@ -90,7 +91,7 @@ app.get('/run_data', async (req,res)=>{
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: whitelist,
     methods: ["GET", "POST"]
   }
 });
