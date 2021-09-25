@@ -10,7 +10,7 @@ import { Button } from '@material-ui/core';
 
 import axios from 'axios';
 
-var backEndUrl = [(process.env.API_URL || 'http://localhost:3700')];
+var backEndUrl = process.env.API_URL || 'http://localhost:3700';
 
 
 class Home extends (React.Component) {
