@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 
 var backEndUrl = 'https://run-royale.herokuapp.com';
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
     backEndUrl ='http://localhost:3700';
 }
 
@@ -41,7 +41,7 @@ class BarGraph extends (React.Component) {
                         Total Number of Runs in Database = {this.state.totalRuns}
                         
                         <br/>
-                        URL: {backEndUrl}
+                        {backEndUrl}
                     </tr>
                 </table>
 
