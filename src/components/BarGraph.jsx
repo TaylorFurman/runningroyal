@@ -20,12 +20,10 @@ class BarGraph extends (React.Component) {
         
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
-            
             //console.log(res.data);
              for(let i=0; i<res.data.length; i++){
                 // console.log(res.data[i].run_date)
              }
-           // console.log(res.data[0].run_date);
             this.setState({
                 totalRuns: res.data.length,
                 runDate: res.data.run_date

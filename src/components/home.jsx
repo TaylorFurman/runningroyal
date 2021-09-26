@@ -22,12 +22,9 @@ class Home extends (React.Component) {
         }).catch((error)=>{
             console.log('Issue in componentDidMount, pulling run_data', error);
         }) 
-
         
     }
     
-            
-
     render() {
         return ( 
             <div>
