@@ -44,10 +44,7 @@ class GpsCoordinates extends (React.Component){
     }
     
     //**pass as utility later**
-    PrintCurrentPosition = async() =>{
-        
-        //this.props.getGeoLocation({latitude: this.state.latitude, longitude: this.state.longitude, timestamp: this.state.timestamp});
-        
+    PrintCurrentPosition = async() =>{    
         
         let coordinates =  await Geolocation.getCurrentPosition()
 
@@ -64,17 +61,12 @@ class GpsCoordinates extends (React.Component){
                 //records epoch time in seconds and converts to minutes
                 this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
                 this.state.time_in_minutes = (this.state.time_in_seconds/60)
-
                 coordinateArray.push({
                     time_in_seconds: this.state.time_in_seconds,
                     longitude: long0, 
                     latitude: lat0})
-                console.log(coordinateArray);
-
-                
 
                 //fetches current date based on epoch time
-                
                 let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
                 this.state.run_date = sqlDate
     
@@ -207,6 +199,7 @@ class GpsCoordinates extends (React.Component){
 
     componentWillUnmount(){
         
+        
 
     }
             
@@ -218,7 +211,7 @@ class GpsCoordinates extends (React.Component){
                     <p></p>
                     <p>Latitude: {this.state.latitude}</p>
 
-                    <p id="map" style={{width:"200px", height:"200px"}}></p>
+                    <p id="map" style={{width:"200px", height:"200px"}}></p> 
 
                     {this.props.rooms[0].runnersJoined.map((runner) => {
                         return(
@@ -238,7 +231,8 @@ class GpsCoordinates extends (React.Component){
 function mapStateToProps (state) {
 	return {
         socket: state.socket,
-        rooms: state.rooms
+        rooms: state.rooms,
+        runnerID: state.runnerId
     };
 }
 
