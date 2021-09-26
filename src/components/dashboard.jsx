@@ -40,7 +40,7 @@ class Dashboard extends (React.Component) {
         } else {
             text = "Hello, User ID " + currentUser + "!";
         }
-        document.getElementById("demo").innerHTML = text;
+        document.getElementById("userIDAlert").innerHTML = text;
         return currentUser;
       }
 
@@ -48,7 +48,7 @@ class Dashboard extends (React.Component) {
         return ( 
             <div >
                 <img src={runnerLogo} height="300px" alt="graphicOfManRunning"/>
-                <p id="demo"></p>
+                <p id="userIDAlert"></p>
 
             </div>
         );
