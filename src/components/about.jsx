@@ -1,5 +1,6 @@
 import React from 'react';
-import {Component} from 'react'
+import {Component} from 'react';
+import runnerLogo from '../runner-girl.jpg';
 
 
 class About extends Component {
@@ -7,7 +8,15 @@ class About extends Component {
     render() {
         return ( 
             <div>
-                <h3>Hey! We're great! Hop in a group run and check us out.</h3>
+                <img src={runnerLogo} height="200px" alt="pictureOfLadyRunning"/>
+                <p>Hey! We're passionate about running and hope you'll find our service useful. Join a run and meet other like minded folks. Compete for the fastest
+                    5 miler and then part ways. Keep your running stats in one place. Enjoy your run!</p>
+                <div>Take a look at our GitHub repos: 
+                    <ul>
+                        <li><a href="https://github.com/TaylorFurman/runningroyalbackend">Backend</a></li> 
+                        <li><a href="https://github.com/TaylorFurman/runningroyal">Frontend</a></li>
+                    </ul>
+                </div>
             </div>
         );
     }

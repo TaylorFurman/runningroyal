@@ -1,13 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-
 import BarGraph from './BarGraph'
-
-
-
 import { Button } from '@material-ui/core';
-
 import axios from 'axios';
 
 var backEndUrl = 'https://run-royale.herokuapp.com';
@@ -20,9 +15,15 @@ class Home extends (React.Component) {
 
     componentDidMount(){
         axios.get(`${backEndUrl}/run_data`, async(req,res)=>{
-            console.log(res);
-           
-        })
+
+        }).then((res)=>{
+            console.log('logging res from run_data', res);
+
+        }).catch((error)=>{
+            console.log('Issue in componentDidMount, pulling run_data', error);
+        }) 
+
+        
     }
     
             

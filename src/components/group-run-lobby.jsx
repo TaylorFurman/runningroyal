@@ -8,6 +8,7 @@ class GroupRunActive extends (React.Component) {
     addUserID(roomID, runnerID){
         console.log('socket.emit', this.props.socket.emit);
         this.props.socket.emit('addUserID', {roomID, runnerID});
+        this.props.socket.emit('addRunnerID', {roomID, runnerID});
         this.props.history.push(`/run-ready/${roomID}`);
     }
 
@@ -31,9 +32,8 @@ class GroupRunActive extends (React.Component) {
                             <td>{room.runnersJoined.length}/10</td>
                             <td><Button
                                     variant="contained"
-                                    onClick={(e) => this.addUserID(i, room.runnersJoined.length+1)}
-                                >
-                                Join</Button>
+                                    onClick={(e) => this.addUserID(i, room.allRunners.length+1)}
+                                >Join</Button>
                             </td>
                         </tr>
                     )}

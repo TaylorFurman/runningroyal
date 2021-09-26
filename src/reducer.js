@@ -1,4 +1,4 @@
-import { Satellite } from '@material-ui/icons';
+// import { Satellite } from '@material-ui/icons';
 import deepcopy from 'deepcopy';
 import {io} from 'socket.io-client';
 import store from './store.js';
@@ -41,6 +41,7 @@ var initialState = {
     runnersJoinedCount: 0,
     currentUserID: 1,
     runnersJoined:[],
+    allRunners:[],
     rooms: []
 };
 

@@ -96,9 +96,13 @@ const io = new Server(server, {
   }
 });
   
+//initial data, userID(allRunners) and userID(runnersJoined - for one run, clears out after user clicks stop run)
 var DATA = {
   rooms: [
-    {name: "Room 1", runnersJoined: []}
+    { name: "Room 1", 
+      runnersJoined: [], 
+      allRunners: []
+    }
   ]
 };
 
@@ -119,7 +123,13 @@ io.on('connection', (socket) => {
 
   socket.on('addUserID', (msg) => {
     DATA.rooms[msg.roomID].runnersJoined.push(msg.runnerID);
-    console.log('added userID on backend', JSON.stringify(DATA));
+    console.log('added userID on backend to runnersJoined', JSON.stringify(DATA));
+    io.emit('rooms_data', DATA);
+  });
+
+  socket.on('addRunnerID', (msg) => {
+    DATA.rooms[msg.roomID].allRunners.push(msg.runnerID);
+    console.log('added userID on backend to allRunners', JSON.stringify(DATA));
     io.emit('rooms_data', DATA);
   });
 
