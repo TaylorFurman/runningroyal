@@ -12,10 +12,7 @@ import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Table from './Table.jsx';
 import { getDistance } from 'geolib';
-import Map from 'ol/Map'
-import View from 'ol/View'
-import OSM from 'ol/source/OSM'
-import TileLayer from 'ol/layer/Tile'
+
 
 var backEndUrl = 'https://run-royale.herokuapp.com';
 if (process.env.NODE_ENV === 'development') {
@@ -27,9 +24,9 @@ if (process.env.NODE_ENV === 'development') {
 class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
+        console.log(this.props.runId);
         //below is in order of the database
         this.state = {
-            runId: 0, 
         runnerId: 0,
         run_date: "", 
         distance: 0,
@@ -48,7 +45,6 @@ class GpsCoordinates extends (React.Component){
         
         let coordinates =  await Geolocation.getCurrentPosition()
 
-            let coordinateArray = [];
             let distanceDataArray = [];
             
             //Displays position immediatly & stores the data as constants that are not updated later
@@ -61,10 +57,10 @@ class GpsCoordinates extends (React.Component){
                 //records epoch time in seconds and converts to minutes
                 this.state.time_in_seconds = coordinates.timestamp - coordinates.timestamp;
                 this.state.time_in_minutes = (this.state.time_in_seconds/60)
-                coordinateArray.push({
-                    time_in_seconds: this.state.time_in_seconds,
-                    longitude: long0, 
-                    latitude: lat0})
+                // coordinateArray.push({
+                //     time_in_seconds: this.state.time_in_seconds,
+                //     longitude: long0, 
+                //     latitude: lat0})
 
                 //fetches current date based on epoch time
                 let sqlDate = moment(coordinates.timestamp).format("YYYY-MM-DD")
@@ -77,17 +73,6 @@ class GpsCoordinates extends (React.Component){
                     timestamp: this.state.time_in_seconds, 
                     run_date: this.state.run_date
                 })
-
-                new Map({
-                    layers: [
-                      new TileLayer({source: new OSM()})
-                    ],
-                    view: new View({
-                      center: [long0, lat0],
-                      zoom: 5
-                    }),
-                    target: 'map'
-                  });
         
 
         //Updates position every 3 seconds & does not effect the original call above
@@ -106,11 +91,11 @@ class GpsCoordinates extends (React.Component){
             this.state.time_in_seconds = timeZeroSeconds+1 ;
             this.state.time_in_minutes = Number((this.state.time_in_seconds/60).toFixed(2));
             
-            coordinateArray.push({
-                time_in_seconds: this.state.time_in_seconds,
-                longitude: longNew, 
-                latitude: latNew})
-            //console.log(coordinateArray);
+            // coordinateArray.push({
+            //     time_in_seconds: this.state.time_in_seconds,
+            //     longitude: longNew, 
+            //     latitude: latNew})
+            // //console.log(coordinateArray);
 
             let startLocation = ({latitude: lat0, longitude: long0})
             let newLocation = ({latitude: latNew, longitude: longNew})
@@ -118,7 +103,7 @@ class GpsCoordinates extends (React.Component){
 
             distanceDataArray.push(distanceData);
 
-            console.log(distanceDataArray)
+            //console.log(distanceDataArray)
 
             let totalDistance = 0;
 
@@ -148,6 +133,7 @@ class GpsCoordinates extends (React.Component){
         }, 1000);
         
         
+        
     }
 
     handleSubmit(event){
@@ -158,7 +144,6 @@ class GpsCoordinates extends (React.Component){
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({
-                runId: this.state.runId,
                 runnerId: this.state.runnerId,
                 run_date: this.state.run_date,
                 distance: this.state.distance,
@@ -180,6 +165,7 @@ class GpsCoordinates extends (React.Component){
         }).catch((error)=>{
             console.log('handleSubmit of data to database error', error);
         }) 
+
     
     }
 
@@ -198,7 +184,7 @@ class GpsCoordinates extends (React.Component){
     }
 
     componentWillUnmount(){
-        
+
         
 
     }
@@ -207,13 +193,9 @@ class GpsCoordinates extends (React.Component){
         return(
             <div>    
                  <Button onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to ='/'>Stop Run</Button>
-                    <p>Longitude:{this.state.longitude} </p>
-                    <p></p>
-                    <p>Latitude: {this.state.latitude}</p>
-
-                    <p id="map" style={{width:"200px", height:"200px"}}></p> 
 
                     {this.props.rooms[0].runnersJoined.map((runner) => {
+                        
                         return(
                             <Table 
                                 runnerID={runner}

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 
+import {Bar} from 'react-chartjs-2'
+
 var backEndUrl = 'https://run-royale.herokuapp.com';
 if (process.env.NODE_ENV === 'development') {
     backEndUrl ='http://localhost:3700';
@@ -32,10 +34,11 @@ class BarGraph extends (React.Component) {
             })
         })
     }
+    
 
     render() {
         return ( 
-            <div>BarGraph
+            <div className="chart">BarGraph
                 <table>
                     <tr>
                         Total Number of Runs in Database = {this.state.totalRuns}
@@ -44,12 +47,13 @@ class BarGraph extends (React.Component) {
                         {backEndUrl}
                     </tr>
                 </table>
-
+            
 
 
             </div>
             
         )
+        
     }
 }
 

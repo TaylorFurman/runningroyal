@@ -9,7 +9,9 @@ class Table extends Component {
     componentDidMount(){
         this.socket = io()
         
+        
     }
+   
 
     render() {
         return ( 
@@ -20,6 +22,7 @@ class Table extends Component {
                         <td>Time (min)</td>
                         <td>Distance (m)</td>
                         <td>Pace (m/min)</td>
+                        
                         {/* <td>
                             <form>
                                 <input type="checkbox"></input>

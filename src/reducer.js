@@ -1,4 +1,4 @@
-import { Satellite } from '@material-ui/icons';
+
 import deepcopy from 'deepcopy';
 import {io} from 'socket.io-client';
 import store from './store.js';
