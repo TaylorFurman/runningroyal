@@ -17,7 +17,10 @@ import View from 'ol/View'
 import OSM from 'ol/source/OSM'
 import TileLayer from 'ol/layer/Tile'
 
-var backEndUrl = [(process.env.API_URL || "http://localhost:3700")];
+var backEndUrl = 'https://run-royale.herokuapp.com';
+if (process.env.NODE_ENV === 'development') {
+    backEndUrl ='http://localhost:3700';
+}
 
 
 
@@ -177,8 +180,10 @@ class GpsCoordinates extends (React.Component){
             })
         })
         .then((res)=>{
+
             this.removeRunners();
             this.componentWillUnmount()
+
 
         }).catch((error)=>{
             console.log('handleSubmit of data to database error', error);

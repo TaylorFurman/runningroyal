@@ -18,6 +18,7 @@ import ConnectedGroupRunActive from './components/group-run-active.jsx';
 import ConnectedHome from './components/home';
 import ConnectedDashboard from './components/dashboard';
 import About from './components/about';
+import ConnectedLogin from './components/ConnectedLogin'
 
 
 
@@ -59,6 +60,7 @@ function App() {
               </div>
               <Switch>
                 <Route exact path="/" component={ConnectedHome}></Route>
+                <Route exact path="/login" component={ConnectedLogin}></Route>
                 <Route exact path="/dashboard" component={ConnectedDashboard}></Route>
                 <Route path="/run-ready/:room" component={ConnectedGroupRunReadyUp}></Route>
                 <Route exact path="/run-lobby" component={ConnectedGroupRunLobby}></Route>
