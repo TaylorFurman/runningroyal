@@ -3,7 +3,10 @@ import deepcopy from 'deepcopy';
 import {io} from 'socket.io-client';
 import store from './store.js';
 
-var backEndUrl = [(process.env.API_URL || 'http://localhost:3700')];
+var backEndUrl = 'https://run-royale.herokuapp.com';
+if (process.env.NODE_ENV === 'development') {
+    backEndUrl ='http://localhost:3700';
+}
 
 function updateRooms(data){
     return{

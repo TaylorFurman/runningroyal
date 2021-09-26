@@ -10,7 +10,10 @@ import { Button } from '@material-ui/core';
 
 import axios from 'axios';
 
-var backEndUrl = [(process.env.API_URL || 'http://localhost:3700')];
+var backEndUrl = 'https://run-royale.herokuapp.com';
+if (process.env.NODE_ENV === 'development') {
+    backEndUrl ='http://localhost:3700';
+}
 
 
 class Home extends (React.Component) {
