@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import runnerLogo from '../runner.jpg';
 
+import LineGraph from './LineGraph'
+
 var backEndUrl = [(process.env.API_URL || 'http://localhost:3700')];
 
 class Dashboard extends (React.Component) {
@@ -11,13 +13,21 @@ class Dashboard extends (React.Component) {
        
         this.state = {
             currentUser: 0,
+            userId: null,
         };
+        
     }
 
     componentDidMount(){
 
         let currentUserVar = this.getUserIDAlert();
-        this.setState({currentUser: currentUserVar});
+        let userId = parseInt(currentUserVar)
+
+        
+        this.setState({
+            currentUser: currentUserVar, 
+            userId: userId
+        }, ()=>{});
 
         axios.get(`${backEndUrl}/run_data`, async(req,res)=>{
 
@@ -28,27 +38,32 @@ class Dashboard extends (React.Component) {
         }).catch((error)=>{
             console.log('Issue in componentDidMount, pulling run_data', error);
         }) 
-
         
     }
 
     getUserIDAlert() {
         let currentUser = prompt("Please enter your user ID:");
+        
         let text = "";
         if (currentUser === null || currentUser === "") {
             text = "User cancelled the prompt.";
         } else {
-            text = "Hello, User ID " + currentUser + "!";
+            text = "Hello, User ID " + currentUser + "!"; 
         }
         document.getElementById("userIDAlert").innerHTML = text;
-        return currentUser;
+        return currentUser
       }
+      
 
     render() {
+        
         return ( 
             <div >
                 <img src={runnerLogo} height="300px" alt="graphicOfManRunning"/>
                 <p id="userIDAlert"></p>
+                
+                {this.state.userId !==null ? <LineGraph userId= {this.state.userId}/> : null}
+    
 
             </div>
         );
