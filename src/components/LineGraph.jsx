@@ -35,7 +35,7 @@ class LineGraph extends (React.Component) {
 
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
-            //console.log(res.data);
+            console.log(res.data);
              for(let i=0; i<res.data.length; i++){
                  if(this.props.userId==res.data[i].runner_id){
                     this.setState({
