@@ -88,3 +88,39 @@
 .aboutHR{
   width: 5%;
 }
+
+.wholePageImage{
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+}
+
+.wholePageImage img{
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    margin: auto; 
+    min-width: 50%;
+    min-height: 50%;
+}
+
+.welcomeText{
+  color: white;
+  position: absolute;
+  left: 25%;
+  top: 10%;
+}
+
+.joinButtonHomePage{
+  position: absolute;
+  left: 10%;
+  margin-top: 10%;
+}
+
+.grayBackground{
+  background-color: #D3D3D3;
+}

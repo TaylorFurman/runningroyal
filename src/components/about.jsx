@@ -8,7 +8,7 @@ class About extends Component {
     render() {
         return ( 
             <div>
-                <img src={runnerLogo} height="200px" alt="pictureOfLadyRunning" className="pictureOfLadyRunning"/>
+                <img src={runnerLogo} height="400px" alt="pictureOfLadyRunning" className="pictureOfLadyRunning"/>
                 <h3>We're passionate about running and hope you'll find our service useful.</h3> 
                 <p>Join a run and meet other like minded folks.</p>
                 <p> Compete for the fastest 5 miler and then part ways.</p>

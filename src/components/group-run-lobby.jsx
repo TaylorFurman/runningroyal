@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
-
+import beachRunImage from '../beach_jog.jpg';
 
 class GroupRunActive extends (React.Component) {
 
@@ -19,7 +19,7 @@ class GroupRunActive extends (React.Component) {
 
     render() {
         return ( 
-            <div >
+            <div>
                 <table className="runLobbyTable">
                     <tr>
                         <th>Group ID:</th>
