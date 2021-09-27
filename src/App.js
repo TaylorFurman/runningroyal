@@ -3,7 +3,6 @@ import React from 'react';
 
 import { ThemeProvider } from '@material-ui/core';
 import { CssBaseline } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
 import { createTheme } from '@material-ui/core/styles';
 
 
@@ -31,7 +30,7 @@ const theme = createTheme({
       main: '#fff',
     },
     error: {
-      main: red.A400,
+      main: '#EA1010',
     },
     background: {
       default: '#fff',
