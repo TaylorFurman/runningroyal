@@ -166,7 +166,7 @@ class GpsCoordinates extends (React.Component){
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({
-                runId: this.state.runId,
+                // runId: this.state.runId,
                 runnerId: this.state.runnerId,
                 run_date: this.state.run_date,
                 distance: this.state.distance,

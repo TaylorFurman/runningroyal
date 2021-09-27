@@ -9,7 +9,8 @@ class About extends Component {
         return ( 
             <div>
                 <img src={runnerLogo} height="200px" alt="pictureOfLadyRunning"/>
-                <p>Hey! We're passionate about running and hope you'll find our service useful. Join a run and meet other like minded folks. Compete for the fastest
+                <p>We're passionate about running and hope you'll find our service useful.</p> 
+                <p>Join a run and meet other like minded folks. Compete for the fastest
                     5 miler and then part ways. Keep your running stats in one place. Enjoy your run!</p>
                 <div>Take a look at our GitHub repos: 
                     <ul>
