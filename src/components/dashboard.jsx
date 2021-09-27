@@ -36,6 +36,7 @@ class Dashboard extends (React.Component) {
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
             
+
             let currentUserState = {};
              for(let i=0; i<res.data.length; i++){
                 if(res.data[i].runner_id == this.state.currentUser){
