@@ -4,6 +4,7 @@ import axios from 'axios';
 import runnerLogo from '../runner.jpg';
 
 import LineGraph from './LineGraph'
+import { FormatIndentDecreaseTwoTone } from '@material-ui/icons';
 
 var backEndUrl = [(process.env.API_URL || 'http://localhost:3700')];
 
@@ -35,7 +36,7 @@ class Dashboard extends (React.Component) {
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
             
-            console.log(res.data);
+            // console.log(res.data);
             let currentUserState = {};
              for(let i=0; i<res.data.length; i++){
                 if(res.data[i].runner_id == this.state.currentUser){
@@ -45,12 +46,6 @@ class Dashboard extends (React.Component) {
              this.setState({
                  currentUserState: currentUserState,
              });
-        //    console.log(res.data[0].run_date);
-        //     this.setState({
-        //         totalRuns: res.data.length,
-        //         runDate: res.data.run_date
-        //     })
-
 
         }).catch((error)=>{
             console.log('Issue in componentDidMount, pulling run_data', error);
@@ -84,26 +79,20 @@ class Dashboard extends (React.Component) {
                 <p id="userIDAlert"></p>
                 <table>
                     <tr>
-                        <td>Run Date:</td>
-                        <td>Run Time (Minutes):</td>
-                        <td>Run Distance:</td>
-                        <td>Run Ranking:</td>
+                        <td>Date:</td>
+                        <td>Time (min):</td>
+                        <td>Distance (m):</td>
+                        <td>Ranking:</td>
                     </tr>
                     <tr>
-                        <td>{this.state.currentUserState.run_date}</td>
+        
+                        <td>{new Date(this.state.currentUserState.run_date).toDateString()}</td>
                         <td>{this.state.currentUserState.run_time_minutes}</td>
                         <td>{this.state.currentUserState.run_distance}</td>
                         <td>{this.state.currentUserState.run_ranking}</td>
                     </tr>
                 </table>
-                {/* {Object.keys(this.state.currentUserState).map((key, i) => {    
-                    return(
-                        <table>
-                            <tr><td>{this.state.currentUserState[key]}</td></tr>
-                            <tr><td>hey</td></tr>
-                        </table>
-                    );
-                })} */}
+         
                 
                 {this.state.userId !==null ? <LineGraph userId= {this.state.userId}/> : null}
     

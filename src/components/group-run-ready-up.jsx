@@ -30,8 +30,8 @@ class GroupRunReadyUp extends (React.Component) {
         // console.log('runnersJoined',this.props.rooms.runnersJoined);
         return ( 
             <div >
-                <p>Check the box next to your name when you are ready to run.</p>
-                <p>Once all runners have checked ready, the button will be available to begin the run.</p>
+                <p>Check the box next to your Runner ID when you are ready to run.</p>
+                <p>Once all runners have checked Ready Up, the button will be available to begin the run.</p>
                 <table className="runReadyTable">
                     {this.props.rooms[0].runnersJoined.map((runner) => {
                         return(

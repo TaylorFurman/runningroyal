@@ -61,7 +61,7 @@
   padding: 8px;
 }
 
-.runActiveTable1{
+/* .runActiveTable1{
   width: 40%;
   margin-left: 30%;
   margin-top: 5%;
@@ -83,4 +83,32 @@
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+} */
+
+.runActiveTable{
+  width: 40%;
+  margin-left: 30%;
+  margin-top: 5%;
+}
+
+.runActiveTable tr,td{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.aboutGithubLinks a{
+  text-decoration: none;
+}
+
+.aboutGithubLinks li{
+  list-style-type: none;
+}
+
+.pictureOfLadyRunning{
+  margin-top:2%;
+}
+
+.aboutHR{
+  width: 5%;
 }
