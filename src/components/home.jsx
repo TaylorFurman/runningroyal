@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import BarGraph from './BarGraph'
+
 import { Button } from '@material-ui/core';
 import axios from 'axios';
 
@@ -30,7 +30,7 @@ class Home extends (React.Component) {
             <div>
                 <h1>Welcome Back!</h1>
 
-                <BarGraph/>
+                
                 
                 {/* <h3 style={{color:"red"}}>Click below to find a lobby</h3> */}
                 <Button variant="contained" color="primary" component={Link} to="/run-lobby" >Join A Run</Button>

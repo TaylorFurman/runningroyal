@@ -12,10 +12,7 @@ import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Table from './Table.jsx';
 import { getDistance } from 'geolib';
-import Map from 'ol/Map'
-import View from 'ol/View'
-import OSM from 'ol/source/OSM'
-import TileLayer from 'ol/layer/Tile'
+
 
 var backEndUrl = 'https://run-royale.herokuapp.com';
 if (process.env.NODE_ENV === 'development') {
@@ -28,7 +25,6 @@ class GpsCoordinates extends (React.Component){
     constructor(props){
         super (props);
         //below is in order of the database
-        
         this.state = {
            // runId: 0, 
         runnerId: 0,
@@ -42,9 +38,7 @@ class GpsCoordinates extends (React.Component){
         longitude: 0,
         polyline: 0,  
         }
-        
-         
-        
+ 
     }
 
      
@@ -92,17 +86,6 @@ class GpsCoordinates extends (React.Component){
                     timestamp: this.state.time_in_seconds, 
                     run_date: this.state.run_date
                 })
-
-                new Map({
-                    layers: [
-                      new TileLayer({source: new OSM()})
-                    ],
-                    view: new View({
-                      center: [long0, lat0],
-                      zoom: 5
-                    }),
-                    target: 'map'
-                  });
         
 
         //Updates position every 3 seconds & does not effect the original call above
@@ -163,6 +146,7 @@ class GpsCoordinates extends (React.Component){
                 average_pace: this.state.average_pace}) 
 
             })}  
+            
             
 
             long0 = longNew;
@@ -226,13 +210,9 @@ class GpsCoordinates extends (React.Component){
             
     render(){
         return(
-            <div>    
-                 <Button onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to ='/'>Stop Run</Button>
-                    <p>Longitude:{this.state.longitude} </p>
-                    <p></p>
-                    <p>Latitude: {this.state.latitude}</p>
-
-                    <p id="map" style={{width:"200px", height:"200px"}}></p>
+            <div>   
+                <br/> 
+                 <Button className="stopRun" onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to ='/'>Stop Run</Button>
 
                     {this.props.rooms[0].runnersJoined.map((runner) => {
                         return(
