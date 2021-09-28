@@ -60,7 +60,7 @@ class Dashboard extends (React.Component) {
         if (currentUser === null || currentUser === "") {
             text = "User cancelled the prompt.";
         } else {
-            text = "Hello, User ID " + currentUser + "!"; 
+            text = "Hello, Runner ID " + currentUser + "!"; 
         }
         document.getElementById("userIDAlert").innerHTML = text;
         return currentUser

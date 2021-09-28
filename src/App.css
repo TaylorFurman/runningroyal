@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  min-height: 100%;
 }
 
 .App-logo {
@@ -118,7 +119,8 @@
 
 .joinButtonHomePage{
   position: absolute;
-  top: 150px;
+  top: 140px;
+  left: 1%;
 }
 
 .grayBackground{
@@ -134,7 +136,7 @@
 .stopRun{
   position: absolute;
   top: -20px;
-  left: -250px;
+  left: -270px;
 }
 .centerDiv{
   margin: 0;
@@ -156,5 +158,33 @@
   margin-right: 30%;
   margin-top: 0%;
   margin-bottom: 4%;
+}
+
+.footerLinks{
+  list-style-type: none;
+  display: flex;
+  color: #115293;
+  
+}
+
+.footerLinks a{
+  text-decoration: none;
+  margin-left: 1%;
+}
+
+.footerLinks li{
+  margin-left: 7%;
+  margin-top: 4%;
+}
+
+.footerStyle{
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  color: #115293;
+  padding-left: 5%;
+  background-color: lightgrey;
 }
 

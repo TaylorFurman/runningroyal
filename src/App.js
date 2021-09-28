@@ -18,6 +18,7 @@ import ConnectedHome from './components/home';
 import ConnectedDashboard from './components/dashboard';
 import About from './components/about';
 import ConnectedLogin from './components/ConnectedLogin'
+import Footer from './components/Footer';
 
 
 
@@ -66,6 +67,8 @@ function App() {
                 <Route exact path="/run-active" component={ConnectedGroupRunActive}></Route>
                 <Route exact path="/about" component={About}></Route>
               </Switch>
+              <Footer />
+
             </BrowserRouter>
           </div>
         </ThemeProvider>
