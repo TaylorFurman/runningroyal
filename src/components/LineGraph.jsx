@@ -9,6 +9,31 @@ if (process.env.NODE_ENV === 'development') {
     backEndUrl ='http://localhost:3700';
 }
 
+const data = {
+    labels: ['1', '2', '3', '4', '5', '6'],
+    datasets: [
+      {
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        fill: false,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgba(255, 99, 132, 0.2)',
+      },
+    ],
+  };
+  
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+
 class LineGraph extends (React.Component) {
     constructor(props){
         super(props);
@@ -30,12 +55,14 @@ class LineGraph extends (React.Component) {
         }
     }
 
-    componentDidMount(){
-        
+    componentDidMount=(event)=>{
+
+        console.log(data.labels);
+
 
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
-            console.log(res.data);
+            //console.log(res.data);
              for(let i=0; i<res.data.length; i++){
                  if(this.props.userId==res.data[i].runner_id){
                     this.setState({
@@ -43,12 +70,12 @@ class LineGraph extends (React.Component) {
                         runDate: res.data[i].run_date 
                     })
                  }else(
-                     console.log("error")
+                     console.log(" ")
                  )
                  
                 //console.log(this.state.runDate);
                  
-             console.log(res.data)
+             //console.log(res.data)
              }
             this.setState({
                 totalRuns: res.data.length,
@@ -65,11 +92,8 @@ class LineGraph extends (React.Component) {
                 <table>
                     <tr>
                         Total Number of Runs in Database = {this.state.totalRuns}
-                        <Line
-                        // data=''
-                        // options={{maintainAspectRatio:false}}
                         
-                        />
+                        <Line data={data} options={options}/>
                         <br/>
                         
                     </tr>
