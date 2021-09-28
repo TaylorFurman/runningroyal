@@ -9,19 +9,6 @@ if (process.env.NODE_ENV === 'development') {
     backEndUrl ='http://localhost:3700';
 }
 
-const data = {
-    labels: ['1', '2', '3', '4', '5', '6'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
-      },
-    ],
-  };
-  
   const options = {
     scales: {
       yAxes: [
@@ -43,57 +30,80 @@ class LineGraph extends (React.Component) {
             runner_id: '',
             run_date: '',
             run_distance: '',
-            run_ranking: '',
             run_time_seconds: '',
             run_time_minutes: '',
-            average_running_Pace: '',
-            latitude: '',
-            longitude: '',
             totalRuns: '',
             runDate: '',
-            chartData: '',
+            currentUserState: {},
+            chartData: {
+              labels: [], //Date of run
+              datasets: [
+                {
+                  label: 'Total Time Ran',
+                  data: [12, 19, 3, 5, 2, 3, 20], //Time (or Distance Later)
+                  fill: false,
+                  backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgba(255, 99, 132, 0.2)',
+                },
+              ],
+            },
+            
         }
     }
 
     componentDidMount=(event)=>{
 
-        console.log(data.labels);
-
-
+        //console.log(this.state.chartData.labels);
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
             //console.log(res.data);
+            let currentUserState = {};
              for(let i=0; i<res.data.length; i++){
-                 if(this.props.userId==res.data[i].runner_id){
-                    this.setState({
-                        runner_id: res.data[i].runner_id,
-                        runDate: res.data[i].run_date 
-                    })
+                 if(this.state.userId==res.data[i].runner_id){
+                    currentUserState = res.data[i]; 
+                    
                  }else(
-                     console.log(" ")
+                     console.log("error")
                  )
-                 
-                //console.log(this.state.runDate);
-                 
-             //console.log(res.data)
              }
+             console.log(currentUserState);
             this.setState({
                 totalRuns: res.data.length,
-                runDate: res.data.run_date
+                runDate: res.data.run_date,
+                currentUserState: currentUserState
             })
+          //  console.log(this.state.currentUserState.run_date + "Hello")
+
+            let date = new Date(this.state.currentUserState.run_date).toDateString()
+
+            console.log(currentUserState)
 
             
+
+            this.setState(prevState => ({
+              chartData: {                   // object that we want to update
+                  ...prevState.chartData,    // keep all other key-value pairs
+                  labels: [date],      // update the value of specific key
+                  datasets: [
+                    {
+                      label: 'Total Time Ran',
+                      data: [currentUserState.run_time_minutes], //Time (or Distance Later)
+                      fill: false,
+                      backgroundColor: 'rgb(255, 99, 132)',
+                      borderColor: 'rgba(255, 99, 132, 0.2)',
+                    },
+                ]
+            }}))
+
         })
     }
 
     render() {
         return ( 
-            <div>Line Graph
+            <div>
                 <table>
                     <tr>
-                        Total Number of Runs in Database = {this.state.totalRuns}
-                        
-                        <Line data={data} options={options}/>
+                        <Line data={this.state.chartData} options={options}/>
                         <br/>
                         
                     </tr>
