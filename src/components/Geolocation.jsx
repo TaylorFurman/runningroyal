@@ -211,9 +211,10 @@ class GpsCoordinates extends (React.Component){
     render(){
         return(
             <div>   
-                <br/> 
-                 <Button className="stopRun" onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to ='/'>Stop Run</Button>
-
+                <div className="centerDiv"> 
+                    <Button className="stopRun" onClick={(e)=>this.handleSubmit(e)} type="submit" variant='contained' color='primary' component={Link} to ='/'>Stop Run</Button>
+                </div>
+                <div className="centerDiv">
                     {this.props.rooms[0].runnersJoined.map((runner) => {
                         return(
                             <Table 
@@ -223,7 +224,7 @@ class GpsCoordinates extends (React.Component){
                                 runPace={this.state.average_pace}/>
                         );
                     })}     
-                
+                </div>
             </div>
         )
     }

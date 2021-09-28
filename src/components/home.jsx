@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 import { Button } from '@material-ui/core';
 import axios from 'axios';
+import trailRunImage from '../running_trail.jpg';
 
 var backEndUrl = 'https://run-royale.herokuapp.com';
 if (process.env.NODE_ENV === 'development') {
@@ -28,12 +29,21 @@ class Home extends (React.Component) {
     render() {
         return ( 
             <div>
-                <h1>Welcome Back!</h1>
+                <img src={trailRunImage} className="wholePageImage"/>
+                <h1 className="welcomeText">Welcome Back!</h1>
 
                 
                 
                 {/* <h3 style={{color:"red"}}>Click below to find a lobby</h3> */}
-                <Button variant="contained" color="primary" component={Link} to="/run-lobby" >Join A Run</Button>
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    className="joinButtonHomePage"
+                    component={Link} 
+                    to="/run-lobby" >Join A Run
+                    {/* style={{topMargin: '100px'}} */}
+                    
+                </Button>
             </div>
         );
     }

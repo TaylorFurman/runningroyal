@@ -74,28 +74,31 @@ class Dashboard extends (React.Component) {
     render() {
         
         return ( 
-            <div >
-                <img src={runnerLogo} height="300px" alt="graphicOfManRunning"/>
-                <p id="userIDAlert"></p>
-                <table>
-                    <tr>
-                        <td>Date:</td>
-                        <td>Time (min):</td>
-                        <td>Distance (m):</td>
-                        <td>Ranking:</td>
-                    </tr>
-                    <tr>
-        
-                        <td>{new Date(this.state.currentUserState.run_date).toDateString()}</td>
-                        <td>{this.state.currentUserState.run_time_minutes}</td>
-                        <td>{this.state.currentUserState.run_distance}</td>
-                        <td>{this.state.currentUserState.run_ranking}</td>
-                    </tr>
-                </table>
-         
-                
-                {this.state.userId !==null ? <LineGraph userId= {this.state.userId}/> : null}
-    
+            <div>
+                <div className="runnerLogoWelcome">
+                    <img src={runnerLogo} height="300px" alt="graphicOfManRunning"/>
+                    <p id="userIDAlert"></p>
+                </div>
+                <div className="dashboardTable">
+                    <table>
+                        <tr>
+                            <td>Date:</td>
+                            <td>Time (min):</td>
+                            <td>Distance (m):</td>
+                            <td>Ranking:</td>
+                        </tr>
+                        <tr>
+            
+                            <td>{new Date(this.state.currentUserState.run_date).toDateString()}</td>
+                            <td>{this.state.currentUserState.run_time_minutes}</td>
+                            <td>{this.state.currentUserState.run_distance}</td>
+                            <td>{this.state.currentUserState.run_ranking}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div className="lineGraphDashboard">
+                    {this.state.userId !==null ? <LineGraph userId= {this.state.userId}/> : null}
+                </div>
 
             </div>
         );

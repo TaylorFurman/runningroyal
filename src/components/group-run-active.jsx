@@ -11,7 +11,7 @@ class GroupRunActive extends (React.Component) {
 
     render() {
         return ( 
-            <div> 
+            <div className="runActiveTables"> 
                 <ConnectedGpsCoordinates/>
             </div>
         );

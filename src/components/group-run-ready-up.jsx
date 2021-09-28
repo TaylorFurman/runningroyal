@@ -29,7 +29,7 @@ class GroupRunReadyUp extends (React.Component) {
         // console.log('props', this.props, this.props.rooms[myroom]);
         // console.log('runnersJoined',this.props.rooms.runnersJoined);
         return ( 
-            <div >
+            <div>
                 <p>Check the box next to your Runner ID when you are ready to run.</p>
                 <p>Once all runners have checked Ready Up, the button will be available to begin the run.</p>
                 <table className="runReadyTable">
