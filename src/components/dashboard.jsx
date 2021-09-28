@@ -54,7 +54,7 @@ class Dashboard extends (React.Component) {
     }
 
     getUserIDAlert() {
-        let currentUser = prompt("Please enter your user ID:");
+        let currentUser = prompt("Please enter your Runner ID:");
         
         let text = "";
         if (currentUser === null || currentUser === "") {
