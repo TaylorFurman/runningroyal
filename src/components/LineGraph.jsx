@@ -9,19 +9,6 @@ if (process.env.NODE_ENV === 'development') {
     backEndUrl ='http://localhost:3700';
 }
 
-const data = {
-    labels: ['1', '2', '3', '4', '5', '6'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
-      },
-    ],
-  };
-  
   const options = {
     scales: {
       yAxes: [
@@ -83,31 +70,35 @@ class LineGraph extends (React.Component) {
                 runDate: res.data.run_date,
                 currentUserState: currentUserState
             })
-            console.log(this.state.currentUserState.run_date + "Hello")
+          //  console.log(this.state.currentUserState.run_date + "Hello")
 
             let date = new Date(this.state.currentUserState.run_date).toDateString()
+
+            console.log(currentUserState.run_time_minutes)
 
             this.setState(prevState => ({
               chartData: {                   // object that we want to update
                   ...prevState.chartData,    // keep all other key-value pairs
-                  labels: [date]      // update the value of specific key
-              }
-          }))
+                  labels: [date],      // update the value of specific key
+                  datasets: [
+                    {
+                      label: 'Total Time Ran',
+                      data: [currentUserState.run_time_minutes], //Time (or Distance Later)
+                      fill: false,
+                      backgroundColor: 'rgb(255, 99, 132)',
+                      borderColor: 'rgba(255, 99, 132, 0.2)',
+                    },
+                ]
+            }}))
 
-              
-
-
-            
         })
     }
 
     render() {
         return ( 
-            <div>Line Graph
+            <div>
                 <table>
                     <tr>
-                        Total Number of Runs in Database = {this.state.totalRuns}
-                        
                         <Line data={this.state.chartData} options={options}/>
                         <br/>
                         
