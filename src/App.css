@@ -111,14 +111,14 @@
 .welcomeText{
   color: white;
   position: absolute;
-  left: 25%;
-  top: 10%;
+  
+  left: 45%;
+  top: 15%;
 }
 
 .joinButtonHomePage{
   position: absolute;
-  left: 10%;
-  margin-top: 10%;
+  top: 180px;
 }
 
 .grayBackground{

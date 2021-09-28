@@ -41,6 +41,7 @@ class Home extends (React.Component) {
                     className="joinButtonHomePage"
                     component={Link} 
                     to="/run-lobby" >Join A Run
+                    {/* style={{topMargin: '100px'}} */}
                     
                 </Button>
             </div>
