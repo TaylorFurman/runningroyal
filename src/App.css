@@ -118,9 +118,43 @@
 
 .joinButtonHomePage{
   position: absolute;
-  top: 180px;
+  top: 150px;
 }
 
 .grayBackground{
   background-color: #D3D3D3;
 }
+
+.runActiveTables{
+  margin: 0;
+  padding-left: 40%;
+  padding-top: 50px;
+}
+
+.stopRun{
+  position: absolute;
+  top: -20px;
+  left: -250px;
+}
+.centerDiv{
+  margin: 0;
+}
+
+.runnerLogoWelcome{
+  float: left;
+  margin-left: 14%;
+  margin-top: -5%;
+}
+
+.lineGraphDashboard{
+  margin-left: 52%;
+  margin-top: 10%;
+}
+
+.dashboardTable{
+  float: right;
+  margin-right: 30%;
+  margin-top: 0%;
+  margin-bottom: 4%;
+}
+
