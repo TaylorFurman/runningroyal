@@ -61,10 +61,12 @@ class LineGraph extends (React.Component) {
              for(let i=0; i<res.data.length; i++){
                  if(this.state.userId==res.data[i].runner_id){
                     currentUserState = res.data[i]; 
+                    
                  }else(
-                     console.log(" ")
+                     console.log("error")
                  )
              }
+             console.log(currentUserState);
             this.setState({
                 totalRuns: res.data.length,
                 runDate: res.data.run_date,
@@ -74,7 +76,9 @@ class LineGraph extends (React.Component) {
 
             let date = new Date(this.state.currentUserState.run_date).toDateString()
 
-            console.log(currentUserState.run_time_minutes)
+            console.log(currentUserState)
+
+            
 
             this.setState(prevState => ({
               chartData: {                   // object that we want to update
