@@ -43,44 +43,59 @@ class LineGraph extends (React.Component) {
             runner_id: '',
             run_date: '',
             run_distance: '',
-            run_ranking: '',
             run_time_seconds: '',
             run_time_minutes: '',
-            average_running_Pace: '',
-            latitude: '',
-            longitude: '',
             totalRuns: '',
             runDate: '',
-            chartData: '',
+            currentUserState: {},
+            chartData: {
+              labels: [], //Date of run
+              datasets: [
+                {
+                  label: 'Total Time Ran',
+                  data: [12, 19, 3, 5, 2, 3, 20], //Time (or Distance Later)
+                  fill: false,
+                  backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgba(255, 99, 132, 0.2)',
+                },
+              ],
+            },
+            
         }
     }
 
     componentDidMount=(event)=>{
 
-        console.log(data.labels);
-
-
+        //console.log(this.state.chartData.labels);
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
             //console.log(res.data);
+            let currentUserState = {};
              for(let i=0; i<res.data.length; i++){
-                 if(this.props.userId==res.data[i].runner_id){
-                    this.setState({
-                        runner_id: res.data[i].runner_id,
-                        runDate: res.data[i].run_date 
-                    })
+                 if(this.state.userId==res.data[i].runner_id){
+                    currentUserState = res.data[i]; 
                  }else(
                      console.log(" ")
                  )
-                 
-                //console.log(this.state.runDate);
-                 
-             //console.log(res.data)
              }
             this.setState({
                 totalRuns: res.data.length,
-                runDate: res.data.run_date
+                runDate: res.data.run_date,
+                currentUserState: currentUserState
             })
+            console.log(this.state.currentUserState.run_date + "Hello")
+
+            let date = new Date(this.state.currentUserState.run_date).toDateString()
+
+            this.setState(prevState => ({
+              chartData: {                   // object that we want to update
+                  ...prevState.chartData,    // keep all other key-value pairs
+                  labels: [date]      // update the value of specific key
+              }
+          }))
+
+              
+
 
             
         })
@@ -93,7 +108,7 @@ class LineGraph extends (React.Component) {
                     <tr>
                         Total Number of Runs in Database = {this.state.totalRuns}
                         
-                        <Line data={data} options={options}/>
+                        <Line data={this.state.chartData} options={options}/>
                         <br/>
                         
                     </tr>
