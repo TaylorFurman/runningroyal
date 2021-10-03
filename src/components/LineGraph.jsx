@@ -60,17 +60,19 @@ class LineGraph extends (React.Component) {
             let currentUserState = {};
              for(let i=0; i<res.data.length; i++){
                  if(this.state.userId=res.data[i].run_date){
-                    currentUserState = res.data[i]; 
-                    console.log(currentUserState.run_date);
-                    
+                    currentUserState = res.data[i];
+                    let runDates = [res.data[i].run_date];
 
+                    console.log(runDates)
+ 
                     let date = new Date(this.state.currentUserState.run_date).toDateString()
-                    console.log(date);
+                    
                     
                  }else(
                      console.log("error")
                  )
              }
+             //console.log(runDates);
              
             this.setState({
                 totalRuns: res.data.length,
@@ -81,7 +83,7 @@ class LineGraph extends (React.Component) {
 
             let date = new Date(this.state.currentUserState.run_date).toDateString()
 
-            console.log(currentUserState)
+            
 
             
 
