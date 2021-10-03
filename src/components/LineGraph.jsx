@@ -56,54 +56,71 @@ class LineGraph extends (React.Component) {
         //console.log(this.state.chartData.labels);
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
+          let runDateArray = [];
             //console.log(res.data);
             let currentUserState = {};
              for(let i=0; i<res.data.length; i++){
                  if(this.state.userId=res.data[i].run_date){
                     currentUserState = res.data[i];
-                    let runDates = [res.data[i].run_date];
+                    
+                    let runDates = new Date([res.data[i].run_date]).toDateString();
+                    runDateArray.push({
+                      date: runDates
+                    })
+                    console.log(runDateArray);
 
-                    console.log(runDates)
- 
+                    this.setState(prevState =>({
+                      chartData:{
+                        ...prevState.ChartData,
+                        labels: runDateArray,
+                        dataset:[
+                          {
+                            label: 'Total Time Ran',
+                            data: [currentUserState.run_time_minutes], //Time (or Distance Later)
+                            fill: false,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgba(255, 99, 132, 0.2)',
+                          },
+                      ],
+                      //runDate: runDates,
+                    }}))
+
+                    //console.log(runDates)
                     let date = new Date(this.state.currentUserState.run_date).toDateString()
-                    
-                    
+ 
                  }else(
                      console.log("error")
                  )
+                 
              }
              //console.log(runDates);
              
             this.setState({
                 totalRuns: res.data.length,
-                runDate: res.data.run_date,
+                //runDate: res.data.run_date,
                 currentUserState: currentUserState
             })
           
-
             let date = new Date(this.state.currentUserState.run_date).toDateString()
 
-            
-
-            
-
-            this.setState(prevState => ({
-              chartData: {                   // object that we want to update
-                  ...prevState.chartData,    // keep all other key-value pairs
-                  labels: [date],      // update the value of specific key
-                  datasets: [
-                    {
-                      label: 'Total Time Ran',
-                      data: [currentUserState.run_time_minutes], //Time (or Distance Later)
-                      fill: false,
-                      backgroundColor: 'rgb(255, 99, 132)',
-                      borderColor: 'rgba(255, 99, 132, 0.2)',
-                    },
-                ]
-            }}))
-
+            // this.setState(prevState => ({
+            //   chartData: {                   // object that we want to update
+            //       ...prevState.chartData,    // keep all other key-value pairs
+            //       labels: [date],      // update the value of specific key
+            //       datasets: [
+            //         {
+            //           label: 'Total Time Ran',
+            //           data: [currentUserState.run_time_minutes], //Time (or Distance Later)
+            //           fill: false,
+            //           backgroundColor: 'rgb(255, 99, 132)',
+            //           borderColor: 'rgba(255, 99, 132, 0.2)',
+            //         },
+            //     ]
+            // }}))
         })
     }
+
+    
 
     render() {
         return ( 
