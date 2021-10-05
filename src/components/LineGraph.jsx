@@ -39,11 +39,11 @@ class LineGraph extends (React.Component) {
               labels: [], //Date of run
               datasets: [
                 {
-                  label: 'Total Time Ran',
-                  data: [12, 19, 3, 5, 2, 3, 20], //Time (or Distance Later)
+                  label: '',
+                  data: [], //Time (or Distance Later)
                   fill: false,
-                  backgroundColor: 'rgb(255, 99, 132)',
-                  borderColor: 'rgba(255, 99, 132, 0.2)',
+                  backgroundColor: '',
+                  borderColor: '',
                 },
               ],
             },
@@ -56,47 +56,57 @@ class LineGraph extends (React.Component) {
         //console.log(this.state.chartData.labels);
         axios.get(`${backEndUrl}/run_data`)
         .then(res=>{
-            //console.log(res.data);
-            let currentUserState = {};
-             for(let i=0; i<res.data.length; i++){
-                 if(this.state.userId==res.data[i].runner_id){
-                    currentUserState = res.data[i]; 
-                    
-                 }else(
-                     console.log("error")
-                 )
-             }
-             console.log(currentUserState);
+          let runDateArray = [];
+          let runTimeArrayMinutes = [];
+          let currentUserState = {};
+            for(let i=0; i<res.data.length; i++){
+                if(this.state.userId=res.data[i].run_date){
+                  currentUserState = res.data[i];
+
+                  let runDates = new Date(res.data[i].run_date).toDateString();
+                  runDateArray.push(
+                    runDates
+                  )
+
+                  let runTime = currentUserState.run_time_minutes;
+
+                  runTimeArrayMinutes.push(
+                    runTime
+                  )
+
+                  console.log(runTimeArrayMinutes)
+
+                  this.setState(prevState =>({
+                    chartData:{                // object that we want to update
+                      ...prevState.chartData, // keep all other key-value pairs
+                      labels: runDateArray, // update the value of specific key
+                      datasets:[
+                        {
+                          label: 'Total run time',
+                          data: runTimeArrayMinutes, //Time (or Distance Later)
+                          fill: false,
+                          backgroundColor: 'rgb(255, 99, 132)',
+                          borderColor: 'rgba(255, 99, 132, 0.2)',
+                        },
+                      ],
+                    }
+                  }))
+                  
+                }else(
+                    console.log("error")
+              )
+            }
+
             this.setState({
                 totalRuns: res.data.length,
-                runDate: res.data.run_date,
+                //runDate: res.data.run_date,
                 currentUserState: currentUserState
             })
-          //  console.log(this.state.currentUserState.run_date + "Hello")
-
-            let date = new Date(this.state.currentUserState.run_date).toDateString()
-
-            console.log(currentUserState)
-
-            
-
-            this.setState(prevState => ({
-              chartData: {                   // object that we want to update
-                  ...prevState.chartData,    // keep all other key-value pairs
-                  labels: [date],      // update the value of specific key
-                  datasets: [
-                    {
-                      label: 'Total Time Ran',
-                      data: [currentUserState.run_time_minutes], //Time (or Distance Later)
-                      fill: false,
-                      backgroundColor: 'rgb(255, 99, 132)',
-                      borderColor: 'rgba(255, 99, 132, 0.2)',
-                    },
-                ]
-            }}))
 
         })
     }
+
+    
 
     render() {
         return ( 
